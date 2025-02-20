@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* .text {
+    @apply text-lg font-bold text-gray-900;
+}   not work */
+
+@theme {
+    --color-mainColor: #E1EB58;
+    --color-secondColor:#F3F3F3;
+    
+}
+*{
+    text-transform: capitalize;
+    font-family: Abhaya Libre Medium;
+}
