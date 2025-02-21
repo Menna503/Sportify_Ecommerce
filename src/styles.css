@@ -8,9 +8,11 @@
 @theme {
     --color-mainColor: #E1EB58;
     --color-secondColor:#F3F3F3;
+    --font-display:"Playfair Display"; 
+    --font-abhaya:"Abhaya Libre Medium"
     
 }
 *{
     text-transform: capitalize;
-    font-family: Abhaya Libre Medium;
+    
 }
