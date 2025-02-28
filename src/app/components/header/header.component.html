@@ -1,31 +1,98 @@
-<div class="text-2xl capitalize flex mt-3 justify-evenly items-center">
-    <h4 class="text-mainColor text-3xl" >Sportify</h4>
-    <!-- <div class="bg-secondColor w-[60%] flex gap-3 items-center pl-3 rounded-md">
-        <i class="fa-solid fa-magnifying-glass text-lg py-3" ></i>
-        <input placeholder=" search for productes " class="p-1.5 w-[100%] focus:bg-white rounded-sm" >
-    </div> -->
-    <div class="bg-secondColor w-[60%] relative rounded-md">
-        <i class="fa-solid fa-magnifying-glass text-lg absolute left-3 top-4" ></i>
-        <input placeholder=" search for productes " class="p-1.5 w-[100%] focus:bg-white rounded-sm pl-10" >
+<div class="hidden md:block">
+    <div class="text-2xl capitalize flex mt-3 justify-evenly items-center bg-white  ">
+        <h4 class="text-mainColor text-3xl" >Sportify</h4>
+        <div class="bg-secondColor w-[60%] relative rounded-md">
+            <i class="fa-solid fa-magnifying-glass text-lg absolute left-3 top-4" ></i>
+            <input placeholder=" search for productes " class="p-1.5 w-[100%] focus:bg-white rounded-sm pl-10" >
+        </div>
+        <div class="flex gap-4">
+            <i class="fa-regular fa-heart"></i>
+            <i class="fa-regular fa-cart-shopping"></i>
+            <i class="fa-regular fa-user"></i>
+        </div>
     </div>
-    <div class="flex gap-4">
-        <i class="fa-regular fa-heart"></i>
-        <i class="fa-regular fa-cart-shopping"></i>
-        <i class="fa-regular fa-user"></i>
+    <div class="links font-display md:text-2xl text-[#212121] text-xl">
+        <ul class="bg-mainColor h-10 flex justify-center md:gap-4 gap-2 items-center py-7 mt-5">
+            <li><a href="#">home</a></li>
+            <li><a href="#">men</a></li>
+            <li><a href="#">womens</a></li>
+            <li><a href="#">Equipments</a></li>
+            <li><a href="#">Shoes</a></li>
+            <li><a href="#">Supplements</a></li>
+        </ul>
     </div>
+       
 </div>
-<div class="links">
-    <ul class="bg-mainColor h-10 flex justify-center gap-4 items-center py-7 mt-5">
-        <li><a href="#">home</a></li>
-        <li><a href="#">men</a></li>
-        <li><a href="#">womens</a></li>
-        <li><a href="#">Equipments</a></li>
-        <li><a href="#">Shoes</a></li>
-        <li><a href="#">Supplements</a></li>
-    </ul>
-</div>
-<div class=" bg-[#F3F3F3] ">
-    <img src="assets/images/home_img.svg">
-    <p>git</p>
 
+   
+<!-- <div class="bg-mainColor flex justify-evenly items-center py-1">
+    <i class="fa-solid fa-bars text-xl"></i>
+    <div class="flex justify-center items-center gap-1 ">
+        <p class="text-2xl font-semibold text-center font-ternaryText">Sportify</p>
+       <img src="assets/images/logo.svg" alt="" class=" mt-2">
+    </div>
+    <div [class]="show" (click)="hidden()"> <i class="fa-solid fa-magnifying-glass text-xl " ></i> </div>
+    <div class="relative w-[45%]  " [ngClass]="show === 'hidden' ? 'block' : 'hidden'" > <input type="text " class="bg-white  rounded-sm pl-7 pt-1 w-[100%]  focus:outline-none " placeholder="search for product" >
+        <i class="fa-solid fa-magnifying-glass text-md  absolute  left-1 top-2 font-ternaryText" ></i>
+    </div>
+
+</div> -->
+
+<div class="block md:hidden fixed z-50 w-[100%] ">
+    <div class="bg-mainColor flex justify-evenly items-center py-2 px-2">
+        <i class="fa-solid fa-bars text-xl" (click)="toggel()"></i>
+        <div class="relative w-[45%]  "> <input type="text " class="bg-white  rounded-sm pl-7 pt-1 w-[100%]  focus:outline-none " placeholder="search for product" >
+            <i class="fa-solid fa-magnifying-glass text-md  absolute  left-1 top-2 font-ternaryText" ></i>
+        </div>
+       
+        <div class="flex justify-center items-center gap-1 ">
+            <p class="text-2xl font-semibold text-center font-ternaryText">Sportify</p>
+           <img src="assets/images/logo.svg" alt="" class=" mt-2">
+        </div>
+    
+    </div>
+</div>
+
+<div class="bg-white fixed w-[50vw] h-[100vh] left-0- z-10 top-10 pt-3 md:hidden " [ngClass] ='show'>
+    <div class="flex justify-center items-center gap-1 ">
+        <p class="text-2xl font-semibold text-center font-ternaryText text-mainColor">Sportify</p>
+       <img src="assets/images/logo.svg" alt="" class=" mt-2">
+    </div>
+<ul class=" flex flex-col gap-4 p-5">
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+        <img src="assets/icons/home.svg">
+        <p>home</p>
+    </li>
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+    <img src="assets/icons/women.svg">
+    <p>women</p>
+    </li>
+  
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+        <img src="assets/icons/equ.svg">
+        <p>Equipments</p>
+    </li>
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black"> 
+        <img src="assets/icons/shoes.svg">
+        <p>Shoes</p>
+    </li>
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+        <img src="assets/icons/sup.svg">
+        <p>Supplements</p>
+    </li>
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+        <img src="assets/icons/love.svg">
+        <p>Favourite</p>
+    </li>
+ 
+    <li  class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+        <img src="assets/icons/cart.svg">
+         <p>Cart</p>
+    </li>
+ 
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+        <img src="assets/icons/profile.svg">
+        <p>Profile</p>
+    </li>
+</ul>
 </div>
