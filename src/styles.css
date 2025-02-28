@@ -8,9 +8,19 @@
 @theme {
     --color-mainColor: #E1EB58;
     --color-secondColor:#F3F3F3;
+    --font-display:"Playfair Display"; 
+    --font-abhaya:"Abhaya Libre Medium";
+   
+    --color-secandaryText:#AEADAD;
+    --color-ternaryText:#666666;
+    --color-loginText:#9F9B1B;
+   
     
 }
 *{
     text-transform: capitalize;
-    font-family: Abhaya Libre Medium;
+    
+}
+body{
+    /* background-color: #F3F3F3; */
 }
