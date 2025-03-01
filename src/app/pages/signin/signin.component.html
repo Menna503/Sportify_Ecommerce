@@ -40,7 +40,7 @@
                 <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('rememberMe')?.errors?.['required']">rememberMe is required</small>
                 <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('rememberMe')?.errors?.['minlength']">you should write rememberMe structure</small>
               </div>
-              <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-4 cursor-pointer  duration-300 hover:-translate-y-2 " [disabled]="signInPage.invalid"> Sign Up</button>
+              <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-4 cursor-pointer  duration-300 hover:-translate-y-2 " [disabled]="signInPage.invalid"> log In</button>
         </form>
         <div class="flex items-center justify-center mb-4"> 
             <div class="line m-auto" class="w-20 h-0.5 bg-secandaryText mr-1.5"></div>

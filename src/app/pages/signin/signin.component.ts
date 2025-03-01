@@ -19,6 +19,7 @@ export class SigninComponent {
   submitted = false;  
 
   onSubmit() {
+
     if(this.signInPage.valid){
       console.log("done");
     }else{
