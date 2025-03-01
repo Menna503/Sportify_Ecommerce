@@ -7,7 +7,9 @@ import { PartnersComponent } from './components/partners/partners.component';
 
 @Component({
   selector: 'app-root',
+
   imports: [RouterOutlet, HeaderComponent, HomeComponent,FooterComponent,PartnersComponent],
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

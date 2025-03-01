@@ -8,13 +8,22 @@
 @theme {
     --color-mainColor: #E1EB58;
     --color-secondColor:#F3F3F3;
+
     --color-gray:#838181;
     --font-display:"Playfair Display"; 
     --font-abhaya:"Abhaya Libre Medium";
     --font-inria: "Inria Serif"
+
+    
+   
+   
+    --color-secandaryText:#AEADAD;
+    --color-ternaryText:#666666;
+    --color-loginText:#9F9B1B;
+   
+
     
 }
 *{
     text-transform: capitalize;
-    
 }
