@@ -21,6 +21,7 @@ export class SignupPageComponent {
   submitted = false;  
 
   onSubmit() {
+    this.submitted=true
     if(this.signUpPage.valid){
       console.log("done");
     }else{
