@@ -13,8 +13,14 @@
     --color-loginText:#9F9B1B;
     --font-display:"Playfair Display"; 
     --font-abhaya:"Abhaya Libre Medium"  
+    --color-gray:#838181;
+    --font-inria: "Inria Serif"
+  
 }
 *{
     text-transform: capitalize;
     
 }
+    
+
+
