@@ -21,16 +21,18 @@
 
        
     </div>
-    <div class="flex gap-4 flex-wrap">
-        
-        <app-product-card class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
-        <app-product-card class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
-        <app-product-card class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
-        <app-product-card class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
-        <app-product-card class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
-        <app-product-card class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
-        
+<div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
+    <div class="flex gap-4 md:flex-wrap">
+        <!-- *ngFor="let item of list" -->      
+        <app-product-card 
+        *ngFor="let item of paginatedData"  
+        class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
+        <app-pagination [totalItems]="data.length"
+         [itemsPerPage]="itemsPerPage"
+          [currentPage]="currentPage"
+         (onClick)="changePage($event)"
+          class="position: fixed bottom-2 left-[45%]"></app-pagination>    
       </div>
-      
+    </div>     
       
 </div>
