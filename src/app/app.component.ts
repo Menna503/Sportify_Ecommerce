@@ -9,12 +9,14 @@ import { WomenComponent } from './pages/women/women.component';
 import { SuplementsComponent } from './pages/suplements/suplements.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PartnersComponent } from './components/partners/partners.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { FavComponent } from './pages/fav/fav.component';
 
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent],
+  imports: [RouterOutlet, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,PaginationComponent,FavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
