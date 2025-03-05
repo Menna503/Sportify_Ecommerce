@@ -9,8 +9,13 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   show:string='hidden'
+  ishidden:boolean=false
   toggel() {
     this.show = this.show === 'hidden' ? 'block' : 'hidden';
   }
   
+  getProfile(){
+  //  this.ishidden=this.ishidden==='hidden'?'block':'hidden';
+  this.ishidden=!this.ishidden
+  }
 }

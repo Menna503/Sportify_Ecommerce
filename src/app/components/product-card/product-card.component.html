@@ -15,9 +15,15 @@
         </div>
        
         <div class="flex gap-1">
-            <div class="rounded-[50%] border-2 border-mainColor w-10 h-10 flex justify-center items-center">
-                <i class="fa-regular fa-heart" ></i>
+            <div class="relative rounded-full border-2 border-mainColor w-10 h-10 flex justify-center items-center cursor-pointer" (click)="toggleFav()">
+                <i class="fa-regular fa-heart text-xl transition-all duration-700 " 
+                   [ngClass]="{'opacity-0 scale-0': isFav, 'opacity-100 scale-100': !isFav}">
+                </i>
+                <i class="fa-solid fa-heart text-red-700 text-xl absolute transition-all duration-700 " 
+                   [ngClass]="{'opacity-100 scale-100': isFav, 'opacity-0 scale-0': !isFav}">
+                </i>
             </div>
+            
             
              <button class="bg-mainColor rounded-xl p-2 px-4">add to cart</button>
         </div>
