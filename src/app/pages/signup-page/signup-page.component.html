@@ -1,0 +1,116 @@
+<div class="flex flex-col md:grid md:grid-cols-2 md:m-auto w-[100%] md:w-[80%]  min-h-screen md:h-auto justify-center items-center">
+  <div class=" p-8 bg-mainColor h-[90vh] md:flex md:flex-col items-center justify-center md:h-auto sm:h-auto hidden ">
+      <div class="flex flex-col ">
+      <div class="flex justify-center items-center gap-1">
+         <p class="text-[30px] sm:text-[40px] md:text-[50px] font-semibold text-center font-abhaya">Sportify</p>
+        <img src="assets/images/logo.svg" alt="" class="w-10 h-10 mt-8 ">
+      </div>
+      <img src="assets\images\manBall.svg" class="lg:w-100 lg:h-100 lg:m-auto md:mt-20 " alt="">
+      <div class="lg:w-75 lg:m-auto md:mt-20 "> <p class=" text-center  text-ternaryText font-abhaya">Join now to explore top sports gear and exclusive deals!</p></div>
+       </div>
+  </div>
+  <div class=" p-6 flex flex-col justify-center items-center w-full md:w-[80%] mx-auto"> 
+      <p class="lg:text-[35px] md:text-[25px] text-center font-abhaya">Create An Account</p>
+      <p class="lg:text-[12px] md:text-[9px] md:w-40 lg:w-65 text-center m-auto mb-7  text-secandaryText font-abhaya">Start exploring and utilizing all the best sports gear and deals. Sign up now</p>
+      <form  [formGroup]="signUpPage" (ngSubmit)="onSubmit()" class="w-full max-w-md">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 md:w-full mb-3">
+          <div class="flex flex-col w-full ">
+            <input 
+              type="text" 
+              placeholder="First Name" 
+              formControlName="firstName" 
+              class="w-full rounded-md p-2 border border-secandaryText mb-2 transition-all duration-300 focus:outline-none"
+              [ngClass]="{
+                'border-red-500 ring-2 ring-red-300': signUpPage.get('firstName')?.invalid && (signUpPage.get('firstName')?.dirty || signUpPage.get('firstName')?.touched)
+              }"
+            />
+            <div *ngIf="signUpPage.get('firstName')?.invalid && (signUpPage.get('firstName')?.dirty || signUpPage.get('firstName')?.touched || submitted)">
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('firstName')?.errors?.['required']">First Name is required</small>
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('firstName')?.errors?.['minlength']">You should write 3 letters or more</small>
+            </div>
+          </div>
+          
+          <div class="flex flex-col w-full">
+            <input 
+              type="text" 
+              placeholder="Last Name" 
+              formControlName="lastName" 
+              class="w-full rounded-md p-2 border border-secandaryText transition-all duration-300 mb-2 focus:outline-none"
+              [ngClass]="{
+                'border-red-500 ring-2 ring-red-300': signUpPage.get('lastName')?.invalid && (signUpPage.get('lastName')?.dirty || signUpPage.get('lastName')?.touched)
+              }"
+            />
+            <div *ngIf="signUpPage.get('lastName')?.invalid && (signUpPage.get('lastName')?.dirty || signUpPage.get('lastName')?.touched || submitted)">
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('lastName')?.errors?.['required']">Last Name is required</small>
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('lastName')?.errors?.['minlength']">You should write 3 letters or more</small>
+            </div>
+          </div>
+        </div>
+          <input type="email" name="" id="" formControlName="email" placeholder="email" class="block rounded-[0.4vw] mb-4 p-2 border-1 border-secandaryText w-full focus:outline-none"
+          [ngClass]="{
+              'border-red-500 ring-2 ring-red-300': signUpPage.get('email')?.invalid && (signUpPage.get('email')?.dirty || signUpPage.get('email')?.touched)
+                  }"
+          >
+          <div class="mb-3" *ngIf="signUpPage.get('email')?.invalid && (signUpPage.get('email')?.dirty || signUpPage.get('email')?.touched || submitted)">
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('email')?.errors?.['required']">email is required</small>
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('email')?.errors?.['email']">you should write email structure</small>
+            </div>
+          <input type="password" name="" id="" formControlName="password" placeholder="Password" class="block rounded-[0.4vw] mb-4 p-2 border-1 border-secandaryText w-full focus:outline-none"
+          [ngClass]="{
+              'border-red-500 ring-2 ring-red-300': signUpPage.get('password')?.invalid && (signUpPage.get('password')?.dirty || signUpPage.get('password')?.touched)
+                  }">
+          <div class="mb-3" *ngIf="signUpPage.get('password')?.invalid && (signUpPage.get('password')?.dirty || signUpPage.get('password')?.touched || submitted)">
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('password')?.errors?.['required']">password is required</small>
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('password')?.errors?.['minlength']">you should write password structure</small>
+            </div>
+          <div class="flex items-center gap-2 mb-6">
+             <input type="checkbox" id="rememberMe" formControlName="rememberMe" [ngClass]="{
+              'border-red-500 ring-2 ring-red-300': signUpPage.get('remeberMe')?.invalid && (signUpPage.get('remeberMe')?.dirty || signUpPage.get('remeberMe')?.touched)
+                  }" >
+             <label for="rememberMe">Remember Me</label>
+          </div>        
+          <div *ngIf="signUpPage.get('rememberMe')?.invalid && (signUpPage.get('rememberMe')?.dirty || signUpPage.get('rememberMe')?.touched)">
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('rememberMe')?.errors?.['required']">rememberMe is required</small>
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('rememberMe')?.errors?.['minlength']">you should write rememberMe structure</small>
+            </div>
+            <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-4 cursor-pointer  duration-300 hover:-translate-y-2 " > Sign Up</button>
+
+      </form>
+    
+  
+      
+      
+      <div class="flex items-center justify-center mb-4"> 
+          <div class="line m-auto" class="w-20 h-0.5 bg-secandaryText mr-1.5"></div>
+          <p class="sm:text-[12px] text-center text-secandaryText">or sign up with</p> 
+          <div class="line m-auto" class="w-20 h-0.5 bg-secandaryText ml-1.5"></div>
+      </div>
+      <div class="flex align-middle items-center gap-1 mb-5">
+          <div class="flex gap-1 border-1 border-secandaryText rounded-[0.4vw] p-2 w-40 lg:w-48 justify-center md:w-25 duration-300 hover:-translate-y-1">
+              <img src="assets\images\devicon_google.svg" alt="" class="w-6 h-6" >
+              <button class="rounded">Google</button>
+          </div>
+          <div class="flex gap-1 border-1 border-secandaryText rounded-[0.4vw] p-2 w-40 lg:w-48 justify-center md:w-25 duration-300 hover:-translate-y-1">
+              <img src="assets\images\apple.svg" alt="" srcset="" class="w-6 h-6">
+              <button>Apple</button>
+          </div>
+      </div>
+      <p class="text-center font-abhaya text-ternaryText md:text-[15px]">Already Have an account? <span class="text-loginText hover:underline">Log In</span></p>
+  </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
