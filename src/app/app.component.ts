@@ -10,11 +10,12 @@ import { PartnersComponent } from './components/partners/partners.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { ReviewcardComponent } from './components/reviewcard/reviewcard.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
+import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, HomeComponent, MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,
-    ProductDetailsComponent,PaymentPageComponent ],
+    ProductDetailsComponent,PaymentPageComponent,ConfirmPaymentComponent ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

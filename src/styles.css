@@ -10,6 +10,7 @@
     --color-secondColor:#F3F3F3;
    --color-textcolor: #404040;
     --color-gray:#838181;
+    --color-border:#B6B6B6;
     --color-gold:#AAA51E;
     --font-display:"Playfair Display"; 
     --font-abhaya:"Abhaya Libre Medium";
@@ -27,4 +28,7 @@
 }
 *{
     text-transform: capitalize;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.5; 
 }
