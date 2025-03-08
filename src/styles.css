@@ -15,18 +15,7 @@
     --color-gold:#AAA51E;
     --font-display:"Playfair Display"; 
     --font-abhaya:"Abhaya Libre Medium";
-<<<<<<< HEAD
-    --font-inria: "Inria Serif"
 
-
-   
-    --color-secandaryText:#AEADAD;
-    --color-ternaryText:#666666;
-    --color-loginText:#9F9B1B;
-    --color-white:#FFFFFF;
-    
-    
-=======
     --font-inria: "Inria Serif";
     --color-secandaryText:#AEADAD;
     --color-ternaryText:#666666;
@@ -39,24 +28,20 @@
 /* admin page */
 --color-productTitle:#AAA51E;
 
-   
->>>>>>> mai
+
 
 }
 *{
     text-transform: capitalize;
     
 }
-<<<<<<< HEAD
+
 
 input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0.5; 
 }
 
-    
 
-
-=======
 /* ! cart page */
 .no-arrows::-webkit-inner-spin-button,
 .no-arrows::-webkit-outer-spin-button {
@@ -92,4 +77,4 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #333; /* تغيير اللون عند التركيز */
   }
   
->>>>>>> mai
+
