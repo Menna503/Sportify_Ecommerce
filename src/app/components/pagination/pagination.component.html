@@ -1,0 +1,15 @@
+
+
+<button class="rounded-[25%] p-2 text-xl mr-1 bg-green-300 cursor-pointer"
+[ngClass]="{disabled: currentPage==1}"
+(click)="pageClicked(currentPage-1)" >Prev</button>
+<button
+(click)="pageClicked(page)"
+ *ngFor="let page of pages" 
+class="rounded-[25%] p-2 py-0.5 text-xl mr-1 bg-green-300" 
+[ngClass]="{active: page==currentPage}">
+{{page}}</button>
+
+<button class="rounded-[25%] p-2 text-xl mr-1 bg-green-300 cursor-pointer"
+[ngClass]="{disabled: currentPage==totalPages}"
+(click)="pageClicked(currentPage+1)" >Next</button>
