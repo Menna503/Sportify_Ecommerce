@@ -10,5 +10,5 @@ import { ProductCardComponent } from '../../components/product-card/product-card
   styleUrl: './women.component.css'
 })
 export class WomenComponent {
-    src="assets/images/women_collection.svg"
+    src="assets/images/image_71.svg"
 }

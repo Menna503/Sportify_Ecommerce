@@ -5,6 +5,8 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
 
+
+
 @Component({
   selector: 'app-men',
   imports: [MenCollectionComponent,HeaderComponent,ProductCardComponent,CommonModule ,PaginationComponent],
@@ -12,7 +14,11 @@ import { PaginationComponent } from '../../components/pagination/pagination.comp
   styleUrl: './men.component.css'
 })
 export class MenComponent {
-src="assets/images/men_collection.svg"
+src="assets/images/men_collection.svg";
+isHidden:boolean=true;
+toggelFilter(){
+  this.isHidden=!this.isHidden;
+}
 itemsPerPage=8
 currentPage=1
 data=[

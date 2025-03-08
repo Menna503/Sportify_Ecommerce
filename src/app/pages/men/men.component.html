@@ -5,6 +5,20 @@
         <p class="text-2xl  font-bold  uppercase text-[#3B3B3B] ">men collection</p>
         <button class="rounded-md bg-secondColor px-10 py-1 text-xl text-ternaryText  ">t-shirt</button>
         <button class="rounded-md bg-secondColor px-10 py-1 text-xl text-ternaryText">trousers</button>
+        <div class="relative">
+            <button class="rounded-md bg-secondColor px-10 py-1 text-xl text-ternaryText flex gap-2 " (click)="toggelFilter()"><img src="assets/icons/filter.svg" > <p>filter</p></button>
+            <div class=" #id bg-white shadow-2xl shadow-gray-500 rounded-xl w-[180%] absolute left-0 p-2 " [ngClass]="{'hidden': isHidden}">
+                 <p class="text-md text-[#3B3B3B] ml-2">filter</p> 
+                 <div class="flex  gap-2 text-[#3B3B3B]"><button class="py-1 rounded-md bg-secondColor basis-[50%]">price</button><button class="py-1 rounded-md bg-secondColor basis-[50%]">brand</button></div>
+              <button class="rounded-xl  text-[#3B3B3B]  hover:bg-[#F0F4BC] w-[100%] text-start p-2 flex justify-between items-center"><p>hight to low</p> <i class="fa-solid fa-check"></i></button> 
+                 <button class="rounded-xl  text-[#3B3B3B]  hover:bg-[#F0F4BC] w-[100%] text-start p-2">low to hight</button>
+                
+                
+            </div>
+        </div>
+       
+        
+
        
     </div>
 <div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
