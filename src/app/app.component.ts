@@ -9,38 +9,32 @@ import { WomenComponent } from './pages/women/women.component';
 import { SuplementsComponent } from './pages/suplements/suplements.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PartnersComponent } from './components/partners/partners.component';
-<<<<<<< HEAD
+import { CartComponent } from "./components/cart/cart.component";
+import { AdminComponent } from './components/admin/admin.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { ReviewcardComponent } from './components/reviewcard/reviewcard.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FavComponent } from './pages/fav/fav.component';
+
+import { HttpClientModule } from '@angular/common/http';
+
 import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
 
 
 
 
-@Component({
-  selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,PaginationComponent,FavComponent,ProductDetailsComponent,PaymentPageComponent,ConfirmPaymentComponent ],
-=======
-import { CartComponent } from "./components/cart/cart.component";
-import { AdminComponent } from './components/admin/admin.component';
+
+
 
 @Component({
   selector: 'app-root',
+
   imports: [RouterOutlet,
-     HomeComponent,
-     MenComponent,
-      WomenComponent,
-       SuplementsComponent,
-      FooterComponent,
-       PartnersComponent, 
-       CartComponent,
-      HeaderComponent,FooterComponent
-    ,
-  AdminComponent],
->>>>>>> mai
+  HttpClientModule, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent
+  ,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,PaginationComponent,FavComponent ,
+  AdminComponent, CartComponent,ProductDetailsComponent,PaymentPageComponent,ConfirmPaymentComponent],
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
