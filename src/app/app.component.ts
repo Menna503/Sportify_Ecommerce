@@ -7,10 +7,22 @@ import { WomenComponent } from './pages/women/women.component';
 import { SuplementsComponent } from './pages/suplements/suplements.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PartnersComponent } from './components/partners/partners.component';
+import { CartComponent } from "./components/cart/cart.component";
+import { AdminComponent } from './components/admin/admin.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HomeComponent, MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent],
+  imports: [RouterOutlet,
+     HomeComponent,
+     MenComponent,
+      WomenComponent,
+       SuplementsComponent,
+      FooterComponent,
+       PartnersComponent, 
+       CartComponent,
+      HeaderComponent,FooterComponent
+    ,
+  AdminComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
