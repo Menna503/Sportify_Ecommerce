@@ -8,7 +8,7 @@ import { SuplementsComponent } from './pages/suplements/suplements.component';
 import { WomenComponent } from './pages/women/women.component';
 
 export const routes: Routes = [
-    {path:'',redirectTo:'home',pathMatch:'full'},
+    {path:'',redirectTo:'signup',pathMatch:'full'},
     {path:'home' , component:HomeComponent},
     {path:'signin' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
