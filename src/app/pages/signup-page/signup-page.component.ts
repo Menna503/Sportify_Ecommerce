@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router ,RouterModule } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -18,7 +18,7 @@ export class SignupPageComponent {
     password: new FormControl('', [Validators.minLength(6), Validators.required]),
     rememberMe: new FormControl(false) // ✅ تصحيح `rememberMe`
   });
-
+  constructor(private router:Router){}
   submitted = false; // ✅ حتى نتمكن من التحكم في ظهور الأخطاء
 
   onSubmit() {
@@ -30,10 +30,11 @@ export class SignupPageComponent {
       return;
     }
       
-
+  
     this.submitted=true
     if(this.signUpPage.valid){
       console.log("done");
+      this.router.navigate(["/login"])
     }else{
       console.log("empty");
     }

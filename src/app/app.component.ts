@@ -11,12 +11,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PartnersComponent } from './components/partners/partners.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FavComponent } from './pages/fav/fav.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,PaginationComponent,FavComponent],
+  imports: [RouterOutlet,HttpClientModule, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,PaginationComponent,FavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

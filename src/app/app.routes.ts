@@ -10,7 +10,7 @@ import { WomenComponent } from './pages/women/women.component';
 export const routes: Routes = [
     {path:'',redirectTo:'signup',pathMatch:'full'},
     {path:'home' , component:HomeComponent},
-    {path:'signin' ,component:SigninComponent},
+    {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
     {path:'fav' ,component:FavComponent},
     {path:'men' ,component:MenComponent},

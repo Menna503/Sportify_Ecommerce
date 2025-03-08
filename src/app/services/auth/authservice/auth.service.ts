@@ -15,7 +15,7 @@ export class AuthService {
   }
 
   signin(crednatials:any):Observable<any>{
-    return this.http.post(`${this.baseUrl}/signin` , crednatials)
+    return this.http.post(`${this.baseUrl}/login` , crednatials)
   }
 
   signout():void{
