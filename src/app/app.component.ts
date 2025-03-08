@@ -19,7 +19,7 @@ import { FavComponent } from './pages/fav/fav.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,PaginationComponent,FavComponent,ProductDetailsComponent,PaymentPageComponent],
+  imports: [RouterOutlet, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,PaginationComponent,FavComponent,ProductDetailsComponent,PaymentPageComponent,ReviewcardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
