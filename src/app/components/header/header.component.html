@@ -10,13 +10,17 @@
         </div>
 
         <div class="flex gap-2 items-center ">
-            <!-- <a [routerLink]="['/fav']"> <i class="fa-regular fa-heart text-ternaryText"></i> </a>
-            <a [routerLink]="['/fav']"> <img src="assets/icons/cart.svg" class="w-[23px]"></a>
-            <i class="fa-regular fa-user relative text-ternaryText" (click)="getProfile()"></i> -->
-            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem] md:font-abhaya cursor-pointer  text-gray-900 ">Sign up</button>
-            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem] md:font-abhaya cursor-pointer  text-gray-900 ">log in</button>
+           
+            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem] md:font-abhaya cursor-pointer  text-gray-900 "> <a [routerLink]="['/signup']">Sign up</a></button>
+            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem] md:font-abhaya cursor-pointer  text-gray-900 "> <a [routerLink]="['/login']">log in</a></button>
 
         </div>
+        <!-- <div class="flex gap-4 items-center">
+            <a [routerLink]="['/fav']"> <i class="fa-regular fa-heart text-ternaryText"></i> </a>
+            <a [routerLink]="['/cart']"> <img src="assets/icons/cart.svg" class="w-[23px]"></a>
+            <i class="fa-regular fa-user relative text-ternaryText" (click)="getProfile()"></i>
+        </div> -->
+       
  </div>
 
     <div class="profile absolute top-15 right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95" 
@@ -40,7 +44,7 @@
             <li><a [routerLink]="['/home']" routerLinkActive="router-link-active"  >home</a></li>
             <li><a [routerLink]="['/men']">men</a></li>
             <li><a [routerLink]="['/women']" >womens</a></li>
-            <li><a  >Equipments</a></li>
+            <li><a  >Equipment</a></li>
             <li><a  >Shoes</a></li>
             <li><a [routerLink]="['/suplements']" >Supplements</a></li>
         </ul>

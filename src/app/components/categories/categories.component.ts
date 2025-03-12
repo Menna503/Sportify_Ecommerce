@@ -1,23 +1,24 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-categories',
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.css',
 })
 export class CategoriesComponent {
-  allCategories: { name: string; img: string }[] = [
-    { name: 'MAN', img: 'assets/images/man_categories.svg' },
-    { name: 'WOMEN', img: 'assets/images/women_categories.svg' },
-    { name: 'SHOES', img: 'assets/images/shoes_categories.svg' },
-    { name: 'SUPPLEMENTS', img: 'assets/images/supplements_categorie.svg' },
-    { name: 'EQUIPMENTS', img: 'assets/images/equipments.svg' },
+  allCategories: { name: string; img: string; src: string }[] = [
+    { name: 'MAN', img: 'assets/images/man_categories.svg',src:'/men' },
+    { name: 'WOMEN', img: 'assets/images/women_categories.svg',src:'/women'},
+    { name: 'SHOES', img: 'assets/images/shoes_categories.svg',src:'/women'},
+    { name: 'SUPPLEMENTS', img: 'assets/images/supplements_categorie.svg',src:'/suplements'},
+    { name: 'EQUIPMENTS', img: 'assets/images/equipments.svg',src:'/women' }
   ];
 
-  displayedCategories: { name: string; img: string }[] = [];
+  displayedCategories: { name: string; img: string,src:string }[] = [];
 
   firstElement: number = 0;
   itemsPerPage: number = window.innerWidth < 750 ? 1 : 3; // 🛠 تحديد عدد العناصر بناءً على الشاشة
