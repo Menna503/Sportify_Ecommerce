@@ -82,3 +82,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: #333; /* تغيير اللون عند التركيز */
   }
 
+  /* .hidden{
+    display: none;
+  } */

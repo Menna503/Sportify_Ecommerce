@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { ReviewcardComponent } from './components/reviewcard/reviewcard.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {

@@ -6,9 +6,10 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SuplementsComponent } from './pages/suplements/suplements.component';
 import { WomenComponent } from './pages/women/women.component';
+import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
-    {path:'',redirectTo:'signup',pathMatch:'full'},
+    {path:'',redirectTo:'home',pathMatch:'full'},
     {path:'home' , component:HomeComponent},
     {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
@@ -16,4 +17,5 @@ export const routes: Routes = [
     {path:'men' ,component:MenComponent},
     {path:'women' ,component:WomenComponent},
     {path:'suplements' ,component:SuplementsComponent},
+    {path:'cart',component:CartComponent}
 ];
