@@ -1,7 +1,8 @@
 .active{
-    background-color: blue;
+    background-color:#E1EB58;
 }
 .disabled{
-    background-color: #fee;
-    color: gray;
+    background-color: rgb(244, 243, 243);
+    color: rgb(178, 173, 173);
+    border: none;
 }

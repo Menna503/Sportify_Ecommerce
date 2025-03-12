@@ -8,13 +8,19 @@
             <i class="fa-solid fa-magnifying-glass text-lg absolute left-3 top-4" ></i>
             <input placeholder=" search for productes " class="p-1.5 w-[100%] focus:bg-white rounded-sm pl-10" >
         </div>
-        <div class="flex gap-2 ">
-            <!-- <i class="fa-regular fa-heart text-ternaryText"></i>
-             <img src="assets/icons/cart.svg" class="w-[23px]">
-            <i class="fa-regular fa-user relative text-ternaryText" (click)="getProfile()"></i> -->
-            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem] md:font-abhaya cursor-pointer  text-gray-900 ">Sign up</button>
-            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem] md:font-abhaya cursor-pointer  text-gray-900 ">log in</button>
+
+        <div class="flex gap-2 items-center ">
+           
+            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem] md:font-abhaya cursor-pointer  text-gray-900 "> <a [routerLink]="['/signup']">Sign up</a></button>
+            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem] md:font-abhaya cursor-pointer  text-gray-900 "> <a [routerLink]="['/login']">log in</a></button>
+
         </div>
+        <!-- <div class="flex gap-4 items-center">
+            <a [routerLink]="['/fav']"> <i class="fa-regular fa-heart text-ternaryText"></i> </a>
+            <a [routerLink]="['/cart']"> <img src="assets/icons/cart.svg" class="w-[23px]"></a>
+            <i class="fa-regular fa-user relative text-ternaryText" (click)="getProfile()"></i>
+        </div> -->
+       
  </div>
 
     <div class="profile absolute top-15 right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95" 
@@ -35,12 +41,12 @@
 
     <div class="links font-display md:text-2xl text-[#212121] text-xl">
         <ul class="bg-mainColor h-10 flex justify-center md:gap-4 gap-2 items-center py-7 mt-5">
-            <li><a href="#">home</a></li>
-            <li><a href="#">men</a></li>
-            <li><a href="#">womens</a></li>
-            <li><a href="#">Equipments</a></li>
-            <li><a href="#">Shoes</a></li>
-            <li><a href="#">Supplements</a></li>
+            <li><a [routerLink]="['/home']" routerLinkActive="router-link-active"  >home</a></li>
+            <li><a [routerLink]="['/men']">men</a></li>
+            <li><a [routerLink]="['/women']" >womens</a></li>
+            <li><a  >Equipment</a></li>
+            <li><a  >Shoes</a></li>
+            <li><a [routerLink]="['/suplements']" >Supplements</a></li>
         </ul>
     </div>
        
