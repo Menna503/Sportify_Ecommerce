@@ -22,7 +22,7 @@
        
     </div>
 <div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
-    <div class="flex gap-4 md:flex-wrap">
+    <div class="flex gap-4 md:flex-wrap relative">
         <!-- *ngFor="let item of list" -->      
         <app-product-card 
         *ngFor="let item of paginatedData"  
@@ -31,7 +31,7 @@
          [itemsPerPage]="itemsPerPage"
           [currentPage]="currentPage"
          (onClick)="changePage($event)"
-          class="position: fixed bottom-2 left-[45%]"></app-pagination>    
+          class="position: absolute bottom-2 left-[45%]"></app-pagination>    
       </div>
     </div>     
       
