@@ -1,26 +1,40 @@
-<div class="bg-white pt-5 pb-12 text-3xl mb-4 md:w-full  w-[70%] m-auto  md:mt-12">
+<div class="bg-white pt-5 md:pb-12 lg:pb-6 text-3xl mb-4  w-[100%] sm:w-[80%] md:w-full  m-auto md:mt-12">
   <div class="text-center mb-6">
-    <h2 class="md:mb-2 font-display font-medium md:text-4xl text-2xl">Categories</h2>
-    <p class="text-gray-500 md:text-2xl text-sm font-normal">
+    <h2 class="md:mb-6 mb-2 sm:mb-3 font-display font-medium md:text-5xl text-3xl">Categories</h2>
+    <p class="text-gray fontInter md:text-xl lg:text-2xl text-sm font-light">
       Explore by category and find the perfect gear for your sport
     </p>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
-    <!-- زر السهم الأيسر -->
-    <i class="fa-solid fa-angle-left col-span-1 text-end cursor-pointer text-5xl md:static absolute left-6" (click)="moveLeft()"></i>
-    <div *ngFor="let category of displayedCategories" class="col-span-9 sm:col-span-3 relative">
-      <img [src]='category.img' class="opacity-80 w-full"/>
-      <div class="absolute bottom-4 flex flex-col items-center w-full">
-        <p class="text-amber-50 font-display   text-[2rem] sm:text-[3rem]">{{category.name}}</p>
-        <!-- <button class="bg-mainColor rounded-md px-6 py-2 md:text-2xl text-lg mt-2 cursor-pointer">
-          See Details
-        </button> -->
-        <button class="bg-mainColor rounded-md md:px-9 md:py-2 px-6 py-[1px] md:text-2xl text-lg  md:mt-6 mt-3 cursor-pointer  text-gray-900 " ><a [routerLink]='category.src'>collection</a>  &RightArrow;</button>
+  <!-- Categories Grid with Arrows -->
+  <div class="grid grid-cols-12 md:grid-cols-12 lg:grid-cols-12 gap-4 items-center ">
+    <!-- Left Arrow -->
+    <div class="col-span-1 flex justify-center">
+      <i class="fa-solid fa-angle-left cursor-pointer text-4xl sm:text-5xl md:text-5xl md:static text-black    rounded-full p-2 "
+        (click)="moveLeft()"></i>
+    </div>
+
+    <!-- Categories -->
+    <div class=" col-span-10 md:col-span-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2  ">
+      <div *ngFor="let category of displayedCategories" class="relative ">
+        <div class="sm:w-fit flex justify-center"> <img [src]="category.img" class="w-fit" alt="Category Image" /></div>
+       
+        <div class="absolute bottom-10 flex flex-col items-center w-full">
+          <p class="text-amber-50 font-display text-4xl sm:text-5xl md:text-4xl lg:text-4xl xl:text-5xl ">
+            {{ category.name }}
+          </p>
+          <button
+            class="bg-white rounded-md md:px-7 md:py-2  px-5 py-2 md:text-2xl text-lg md:mt-6 mt-3 cursor-pointer text-gray-900">
+            <a [routerLink]="category.src">collection</a> &RightArrow;
+          </button>
+        </div>
       </div>
     </div>
 
-   
-       <i class="fa-solid fa-angle-right col-span-1 cursor-pointer text-5xl  md:static absolute right-6" (click)="moveRight()" @slideAnimation></i>
-       
+    <!-- Right Arrow -->
+    <div class="col-span-1 flex justify-center">
+      <i class="fa-solid fa-angle-right cursor-pointer text-4xl md:text-5xl   sm:text-5xl  md:static  text-black  rounded-full p-2"
+        (click)="moveRight()"></i>
+    </div>
+  </div>
 </div>
