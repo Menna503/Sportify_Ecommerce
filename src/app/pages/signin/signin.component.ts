@@ -12,6 +12,10 @@ import { Router,RouterModule } from '@angular/router';
   styleUrl: './signin.component.css'
 })
 export class SigninComponent {
+  isvisble =false;
+  toggleEye(){
+    this.isvisble=!this.isvisble
+  }
   signInPage=new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.minLength(6), Validators.required]),
@@ -28,22 +32,21 @@ export class SigninComponent {
     if(this.signInPage.valid){
       // console.log("✅ Sent credentials:", this.signInPage.value);
       console.log("done");
-      this.router.navigate(['/home'])
-      // this.authService.signin(this.signInPage.value).subscribe({ 
-      //   next:(response:any)=>{
-      //     if(response.token){
-      //       localStorage.setItem('token' , response.token)
-      //       console.log("user authenticated successfully");
-      //       this.router.navigate(['/home'])
-      //     }else{
-      //       console.log("invalid||missung token");
-      //     }
-      //   },
-      //   error:(error:any)=>{
-      //     console.error("faild" , error);
+      this.authService.signin(this.signInPage.value).subscribe({ 
+        next:(response:any)=>{
+          if(this.authService.isAuthenticated()){
+            // localStorage.setItem('token' , response.token)
+            console.log("user authenticated successfully");
+            this.router.navigate(['/home'])
+          }else{
+            console.log("invalid||missung token");
+          }
+        },
+        error:(error:any)=>{
+          console.error("faild" , error);
           
-      //   }
-      // });
+        }
+      });
       
     }else{
       console.log("empty");

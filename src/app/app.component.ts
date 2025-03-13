@@ -16,7 +16,6 @@ import { ReviewcardComponent } from './components/reviewcard/reviewcard.componen
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FavComponent } from './pages/fav/fav.component';
-
 import { HttpClientModule } from '@angular/common/http';
 import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
 import { CheckOutComponent } from "./pages/check-out/check-out.component";
@@ -25,12 +24,31 @@ import { CheckOutComponent } from "./pages/check-out/check-out.component";
 
 
 
+
+
+
+
+
+
+
 @Component({
   selector: 'app-root',
+
   imports: [RouterOutlet,
-    HttpClientModule, HeaderComponent, HomeComponent, SignupPageComponent, SigninComponent,
-    MenComponent, WomenComponent, SuplementsComponent, FooterComponent, PartnersComponent, PaginationComponent, FavComponent,
-    AdminComponent, CartComponent, ProductDetailsComponent, PaymentPageComponent, ConfirmPaymentComponent, CheckOutComponent],
+   
+      FavComponent,
+     PaymentPageComponent, CheckOutComponent
+     ,HomeComponent,
+     MenComponent,
+      WomenComponent,
+       SuplementsComponent,
+      FooterComponent,
+       PartnersComponent, 
+      HeaderComponent,
+  AdminComponent,ConfirmPaymentComponent,ProductDetailsComponent
+  ,FavComponent,PaginationComponent,
+  HttpClientModule ,SignupPageComponent ,SigninComponent,
+  CartComponent,PaymentPageComponent],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
