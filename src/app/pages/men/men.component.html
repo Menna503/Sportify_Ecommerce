@@ -1,12 +1,15 @@
 <app-header></app-header>
 <app-men-collection [src]="src"></app-men-collection>
-<div class="w-[80%]  m-auto pt-8 font-[InriaSerif] ">
+<div class="w-[80%] md:w-[90%] m-auto pt-8 font-[InriaSerif] ">
     <div class=" flex justify-center items-center  md:gap-4 gap-2 mb-6">
-        <p class="  text-md md:text-2xl  font-bold  uppercase text-[#3B3B3B]  ">men collection</p>
-        <button class="rounded-md bg-secondColor px-4 py-1  text-md text-ternaryText basis-[50%] md:px-10 md:py-1 md:text-xl md:basis-auto ">t-shirt</button>
-        <button class="rounded-md bg-secondColor px-4 py-1  text-md text-ternaryText md:px-10 md:py-1 md:text-xl">trousers</button>
+        <!-- <p class="  text-md md:text-2xl  font-bold  uppercase text-[#3B3B3B]  ">men collection</p> -->
+        <button
+            class="rounded-md bg-secondColor px-7 py-1  text-md text-ternaryText  md:px-10 md:py-1 md:text-xl md:basis-auto ">t-shirt</button>
+        <button
+            class="rounded-md bg-secondColor px-4 py-1  text-md text-ternaryText md:px-10 md:py-1 md:text-xl">trousers</button>
         <div class="relative">
-            <button class="rounded-md bg-secondColor px-7 py-1  text-md md:px-10 md:py-1 md:text-xl text-ternaryText flex justify-center gap-2 "
+            <button
+                class="rounded-md bg-secondColor px-7 py-1  text-md md:px-10 md:py-1 md:text-xl text-ternaryText flex justify-center gap-2 "
                 (click)="toggelFilter()"><img src="assets/icons/filter.svg">
                 <p>filter</p>
             </button>
@@ -86,13 +89,13 @@
     <div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
         <div class="flex gap-4 md:flex-wrap">
             <!-- *ngFor="let item of list" -->
-            <app-product-card *ngFor="let item of paginatedData"
-                class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
+            <app-product-card *ngFor="let item of menClothes"
+                class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)]  xl:w-[calc(33.33%-1rem)] " [data]="item" ></app-product-card>
 
         </div>
     </div>
 
 </div>
-<app-pagination [totalItems]="data.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
+<app-pagination [totalItems]="menClothes.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
     (onClick)="changePage($event)" class=" flex justify-center mt-10"></app-pagination>
 <app-footer></app-footer>

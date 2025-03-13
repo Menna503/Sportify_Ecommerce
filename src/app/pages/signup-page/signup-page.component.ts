@@ -46,7 +46,7 @@ export class SignupPageComponent {
   
   constructor(private router:Router ,private authService:AuthService){}
   submitted = false; 
-
+  errorMsg :string =''
   onSubmit() {
     this.submitted=true
     this.signUpPage.updateValueAndValidity(); 
@@ -63,13 +63,15 @@ export class SignupPageComponent {
         if(res.token){
           localStorage.setItem('token' ,res.token)
           console.log(res.token);
+          console.log(this.signUpPage.value);
+
           this.router.navigate(["/login"], { replaceUrl: true })
         }else{
           console.log("no token");
         }
       },
       error:(err)=>{
-        console.error('Signup failed', err);
+        this.errorMsg= err.error.message || "unexpected error";
       }
     });
     
