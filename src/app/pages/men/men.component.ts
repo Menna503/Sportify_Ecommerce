@@ -5,6 +5,7 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 import { CommonModule } from '@angular/common';
 import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { FooterComponent } from "../../components/footer/footer.component";
+import { ProductService } from '../../services/products/product.service';
 
 
 
@@ -26,6 +27,19 @@ misery:boolean=true;
 hideBrand:boolean=true;
 hideBrice:boolean=false;
 selectedButton: string = 'price';
+
+products:any=[]
+
+constructor(private productService:ProductService){}
+
+ngOnInit(){
+  this.productService.getProduct({ gender: "men", category: "clothes" }).subscribe({
+    next: (data) => this.products=data,
+    error: (err) => console.log(err),
+  });
+}
+
+
 
 toggelFilter(){
   this.isHidden=!this.isHidden;
@@ -125,5 +139,6 @@ get paginatedData(){
 changePage(page :number){
   this.currentPage=page
 }
+
 
 }
