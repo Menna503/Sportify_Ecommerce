@@ -6,7 +6,7 @@ import { CartComponent } from "../../components/cart/cart.component";
 
 @Component({
   selector: 'app-product-details' , 
-  imports: [HeaderComponent, FooterComponent, ReviewcardComponent, CartComponent],
+  imports: [HeaderComponent, FooterComponent, ReviewcardComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
 })
