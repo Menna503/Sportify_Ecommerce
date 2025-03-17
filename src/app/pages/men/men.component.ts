@@ -7,6 +7,7 @@ import { PaginationComponent } from '../../components/pagination/pagination.comp
 import { FooterComponent } from "../../components/footer/footer.component";
 import { ProductService } from '../../services/products/product.service';
 import { HttpClient } from '@angular/common/http';
+import { flush } from '@angular/core/testing';
 
 
 
@@ -29,19 +30,46 @@ hideBrand:boolean=true;
 hideBrice:boolean=false;
 selectedButton: string = 'price';
  menClothes:any
+ subCategory:string='';
+ brand:string='';
 constructor(private http:HttpClient,private productService:ProductService){
   
 }
-ngOnInit(){
+// ngDoCheck(){
 
 
-  this.productService.getProduct({ gender: 'men', category: 'clothes' })
-  .subscribe(products => {
+//   // this.productService.getProduct({ gender: 'men', category: 'clothes' })
+//   // .subscribe(products => {
+//   //   this.menClothes=products;
+//   //   console.log(products);
+//   // });
+
+//   if(this.brand?.trim())
+//     {
+//       if(this.subCategory){
+//         this.productService.getProduct({gender:'men',category:'clothes',subCategory:this.subCategory,brand:this.brand?.trim()}) .subscribe(products => {
+//           this.menClothes=products;
+//           console.log(products);
+         
+//         });
+//       }
+//      else{ this.productService.getProduct({gender:'men',category:'clothes',brand:this.brand?.trim(),}) .subscribe(products => {
+//         this.menClothes=products;
+//         console.log(products);
+       
+//       });
+//     }
+
+//   }
+
+// }
+
+ngOnInit (){
+  this.productService.getProduct({gender:'men',category:'clothes'}) .subscribe(products => {
     this.menClothes=products;
     console.log(products);
   });
-
-  }
+}
 
 
 
@@ -58,40 +86,131 @@ showCheck(text:string){
     case'hight':
     this.hightChecked=false;
     this.lowChecked=true;
+    if(this.subCategory){
+      if(this.brand.trim()){
+        this.productService.getProduct({gender:'men',category:'clothes',subCategory:this.subCategory,sort:'-price',brand:this.brand}) .subscribe(products => {
+          this.menClothes=products;
+          console.log(products);
+        });
+      }
+      else{
+        this.productService.getProduct({gender:'men',category:'clothes',subCategory:this.subCategory,sort:'-price'}) .subscribe(products => {
+          this.menClothes=products;
+          console.log(products);
+        });
+      }
+     
+    }
+    else if (this.brand.trim()){
+      this.productService.getProduct({gender:'men',category:'clothes',subCategory:this.subCategory,sort:'-price',brand:this.brand}) .subscribe(products => {
+        this.menClothes=products;
+        console.log(products);
+      });
+    }
+    else{
+      this.productService.getProduct({gender:'men',category:'clothes',sort:'-price'}) .subscribe(products => {
+        this.menClothes=products;
+        console.log(products);
+      });
+    }
+   
     break;
     case'low':
     this.lowChecked=false;
     this.hightChecked=true;
+    if(this.subCategory){
+      if(this.brand.trim()){
+        this.productService.getProduct({gender:'men',category:'clothes',subCategory:this.subCategory,sort:'price',brand:this.brand}) .subscribe(products => {
+          this.menClothes=products;
+          console.log(products);
+        });
+      }
+      else{
+        this.productService.getProduct({gender:'men',category:'clothes',subCategory:this.subCategory,sort:'price'}) .subscribe(products => {
+          this.menClothes=products;
+          console.log(products);
+        });
+      }
+     
+    }
+    else if (this.brand.trim()){
+      this.productService.getProduct({gender:'men',category:'clothes',subCategory:this.subCategory,sort:'price',brand:this.brand}) .subscribe(products => {
+        this.menClothes=products;
+        console.log(products);
+      });
+    }
+    else{
+      this.productService.getProduct({gender:'men',category:'clothes',sort:'price'}) .subscribe(products => {
+        this.menClothes=products;
+        console.log(products);
+      });
+    }
     break;
     case'adidas':
     this.adidas=false;
     this.nike=true;
     this.nilton=true;
     this.misery=true;
+    this.brand='Adidas'; 
+    
     break;
     case 'nike':
       this.nike=false;
       this.adidas=true;
       this.nilton=true;
-    this.misery=true;
+     this.misery=true;
+      this.brand='Nike'
     break;
     case 'nilton':
       this.nilton=false;
       this.nike=true;
       this.adidas=true;
       this.misery=true;
+      this.brand='Nileton';
     break;
     case 'misery':
       this.misery=false;
       this.nilton=true;
       this.nike=true;
       this.adidas=true;
+      this.brand='Mesery';
     break;
 
 
   }
  
+}
 
+ 
+display(text:string){
+
+      if(this.hightChecked===false){
+        this.productService.getProduct({gender:'men',category:'clothes',subCategory:text,sort:'-price'}) .subscribe(products => {
+          this.menClothes=products;
+          console.log(products);
+        });
+      }
+      else if(this.lowChecked===false){
+        this.productService.getProduct({gender:'men',category:'clothes',subCategory:text,sort:'price'}) .subscribe(products => {
+          this.menClothes=products;
+          console.log(products);
+        });
+      }
+      else if(this.brand.trim()){
+        this.productService.getProduct({gender:'men',category:'clothes',subCategory:text,brand:this.brand?.trim()}) .subscribe(products => {
+          this.menClothes=products;
+          console.log(products);
+         
+        });
+      }
+      else{
+        this.productService.getProduct({gender:'men',category:'clothes',subCategory:text}) .subscribe(products => {
+          this.menClothes=products;
+          console.log(products);
+        });
+      }
+this.subCategory=text;
+ 
 }
 show(text:string){
   this.selectedButton=text;
@@ -108,6 +227,7 @@ show(text:string){
   }
  
 }
+
 
 itemsPerPage=8
 currentPage=1
@@ -144,4 +264,6 @@ changePage(page :number){
   this.currentPage=page
 }
 
+
 }
+ 
