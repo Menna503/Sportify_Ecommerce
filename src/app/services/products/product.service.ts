@@ -36,6 +36,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth/authservice/auth.service';
 
 export interface Product {
   _id: string;
@@ -55,8 +56,9 @@ export interface Product {
 })
 export class ProductService {
   private apiUrl = "http://127.0.0.1:8000/products";
+  // private Urlproducts="http://127.0.0.1:8000/products/productID/reviews";
   
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   getProduct(filter: { [key: string]: any } = {}): Observable<Product[]> {
     let params = new HttpParams();
@@ -73,5 +75,21 @@ export class ProductService {
       .pipe(
         map(response => response.data.products) // Extract only the products array
       );
+  }
+  
+
+  getProductById(_id: string) {
+    return this.http.get<Product>(`${this.apiUrl}/${_id}`);
+  }
+  getReviewsById(_id: string) {
+    return this.http.get(`${this.apiUrl}/${_id}/reviews`);
+  }
+
+  addNewReview(_id: string, review: any) {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.post(`${this.apiUrl}/${_id}/reviews`, review, { headers });
+  }
+  addNewCheckout(Checkout: any) {
+    return this.http.post(this.apiUrl,Checkout); 
   }
 }

@@ -1,169 +1,206 @@
 <app-header></app-header>
-<div class="ms-6 m-auto md:ms-12 lg:ms-24 font-display">
+<div class="mx-6 pt-15 md:pt-5 lg:pt-5  m-auto md:ms-12 lg:ms-24 font-display">
 
     <div class="text-gray">
-        Shoes Category
+      {{products?.data?.category?.name}}
         <i class="fa-solid fa-angle-right m-3"></i>
-        Shoes Collection
+        {{products?.data?.subCategory}}
+
         <i class="fa-solid fa-angle-right m-3"></i>
-        UrbanEdge Tee
+        {{products?.data?.name}}
     </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 mt-4 justify-center  gap-25">
-            <div class=" col-span-1 rounded-lg bg-secondColor  justify-center align-middle">
-                <img src="assets/images/product_details_img.svg" class="p-15">
+        <div class="grid grid-cols-1 mt-4 lg:mt-4 md:grid-cols-2 justify-center gap-15 md:gap-8 lg:gap-0">
+            <div class=" col-span-1 rounded-lg w-full flex justify-center text-center align-middle">
+                <img src="{{products?.data?.imageUrl}}" class="w-[65%] rounded-lg md:w-[90%] lg:w-[65%]">
             </div>
 
-            <div class="text-textcolor flex flex-col col-span-1 gap-4" >
+            <div class=" text-textcolor flex flex-col col-span-1 mx-6 lg:mx-0 gap-4" >
                 <div class="flex gap-2"><img src="assets/images/adidas_icon.svg" alt="">
-                    <span class="pt-1 text-lg">adidas</span>
+                    <span class="pt-1 text-lg">{{products?.data?.brand}}</span>
                 </div>
-                <p class="text:xl lg:text-3xl font-semibold text-textcolor">Shoes Reebook Zig Kingetica 3</p>
+                <p class="text-2xl md:text-xl lg:text-3xl font-semibold text-textcolor">{{products?.data?.name}}</p>
 
-                <div class="grid gap-3  text-[22px] lg:text-[28px] text-gold">
+                <div class="grid gap-3  text-2xl  lg:text-[28px] text-gold">
                     <div class="flex gap-5">
-                      <span class=" lg:w-32">Price</span>
+                      <span class="lg:w-32">Price</span>
                       <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">$190.00</span>
+                      <span class="font-abhaya text-textcolor">$ {{products?.data?.price}}</span>
                     </div>
 
                     <div class="flex gap-5">
                       <span class="lg:w-32">Color</span>
                       <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">Black</span>
+                      <span class="font-abhaya text-textcolor">{{products?.data?.color}}</span>
                     </div>
                     <div class="flex gap-5">
                       <span class="lg:w-32">Size</span>
                       <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor flex gap-1 lg:gap-2">
-                        <button class="border border-[#999999] rounded-full pr-3 pl-3 text-[15px] lg:text-[22px] ">41</button>
-                        <button class="border border-[#999999] rounded-full pr-3 pl-3 text-[15px] lg:text-[22px] ">42</button>
-                        <button class="border border-[#999999] rounded-full pr-3 pl-3 text-[15px] lg:text-[22px] ">43</button>
-                        <button class="border border-[#999999] rounded-full pr-3 pl-3 text-[15px] lg:text-[22px] ">44</button>
-                        <button class="border border-[#999999] rounded-full pr-3 pl-3 text-[15px] lg:text-[22px] ">45</button>
-                        <button class="border border-[#999999] rounded-full pr-3 pl-3 text-[15px] lg:text-[22px] ">46</button>
+                      <span class="font-abhaya text-textcolor flex gap-1 sm:gap-1 md:gap-1 lg:gap-1">
+                        
+                        <span  *ngFor="let item of products?.data?.size_range" class="border flex justify-center items-center border-[#999999] rounded-full px-3 md:px-3  text-[15px] lg:text-[18px] ">{{item}}</span>
+                        
                         
                       </span>
                     </div>
                     <div class="flex gap-5">
                       <span class="lg:w-32">Material</span>
                       <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">Synthetics</span>
+                      <span class="font-abhaya text-textcolor">{{products?.data?.material}}</span>
                     </div>
                     <div class="flex gap-5">
-                      <span class="lg:w-32">Quantity</span>
+                      <span class="lg:w-32">Stock</span>
                       <span class="lg:w-12">:</span>
                       <span class="font-abhaya text-textcolor">
-                        <div class="border border-[#999999] rounded-md pr-5 pl-5 text-xl flex gap-6 items-center">
-                            <i class="fa-solid fa-plus"></i>
-                            <span class="text-3xl">1</span>
-                            <i class="fa-solid fa-minus"></i>
-                        </div>
+                        {{products?.data?.stock}}
                       </span>
+                    </div>
+
+                    <div class="flex gap-5">
+                      <span class="lg:w-32">Rate</span>
+                      <span class="lg:w-12">:</span>
+                      <span class="font-abhaya text-textcolor">{{products?.data?.rating}}</span>
                     </div>
                   </div>
                   
-                <div class="flex gap-3 mt-4">
-                    <button class="bg-mainColor rounded-lg p-2 px-4 w-1/2 text-lg">add to cart</button>
+                <div class="flex gap-3  mt-4">
+                    <button class="bg-mainColor rounded-lg p-2 px-4 w-3/4 lg:w-1/2 text-lg">add to cart</button>
                     <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center">
                         <i class="fa-regular fa-heart text-lg" ></i>
                     </div>
+                   
+                    <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center">
+                      <i class="fa-regular fa-pen-to-square text-xl text-gold"></i>
+                  </div>
+                  <div class="rounded-lg border-2 border-[#EC4967] w-10 h-10 flex justify-center items-center">
+                    <i class="fa-regular fa-trash-can text-xl text-[#EC4967]"></i>
+                </div>
+              
                 </div>
           
             </div>
         </div>
 </div>
 
-<div class="mt-18 flex flex-col gap-7">
-    <h1 class="ms-24 text-3xl text-gold font-display font-semibold">Description :</h1>
+<div class="mt-18 flex flex-col  gap-5 lg:gap-7">
+    <h1 class="text-center md:text-start md:ms-15 lg:ms-24 text-2xl lg:text-3xl text-gold font-display font-semibold">Description</h1>
     <div class="bg-secondColor w-full h-auto lg:p-10">
-     <p class="text-[#707070] font-abhaya lg:pl-14 lg:text-xl lg:leading-8 pr-8 ">Designed for the modern athlete, the ADIDAS IF1402 Deportivo football boots offer superior comfort and control.
-        Featuring a soft synthetic upper for enhanced ball touch and a perforated tongue for breathability, these boots ensure you stay light on your feet throughout the game.
-        An anatomically shaped heel provides a secure fit, helping you move swiftly and confidently on any surface
-        Designed for the modern athlete, the ADIDAS IF1402 Deportivo football boots offer superior comfort and control.
-        Featuring a soft synthetic upper for enhanced ball touch and a perforated tongue for breathability, these boots ensure you stay light on your feet throughout the game.
-        An anatomically shaped heel provides a secure fit, helping you move swiftly and confidently on any surface
-        Designed for the modern athlete, the ADIDAS IF1402 Deportivo football boots offer superior comfort and control.
-        Featuring a soft synthetic upper for enhanced ball touch and a perforated tongue for breathability, these boots ensure you stay light on your feet throughout the game.
-        An anatomically shaped heel provides a secure fit, helping you move swiftly and confidently on any surface.
+     <p class="text-[#707070] font-abhaya lg:pl-14  lg:px-0 lg:text-xl lg:leading-8 pr-8 ">
+      {{products?.data?.description}}
      </p>
     </div> 
 </div>
 
-<div class="mt-12 flex flex-col gap-12">
-  <h1 class="self-start ms-24 text-3xl text-gold font-display font-semibold">Reviews :</h1>
- <div class="grid grid-cols-3 gap-6 w-full max-w-6xl mx-auto">
-  <app-reviewcard></app-reviewcard>
-  <app-reviewcard></app-reviewcard>
-  <app-reviewcard></app-reviewcard>
-  <app-reviewcard></app-reviewcard>
-  <app-reviewcard></app-reviewcard>
-  <app-reviewcard></app-reviewcard>
-  <app-reviewcard></app-reviewcard>
-  <app-reviewcard></app-reviewcard>
-  <app-reviewcard></app-reviewcard>
+<div class="mt-12 flex flex-col gap-5 lg:gap-12">
+  <h1 class="lg:self-start text-center md:text-start md:ms-15 lg:ms-24 text-2xl lg:text-3xl text-gold font-display font-semibold">Reviews</h1>
+ <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-[90%] px-5 lg:px-0 max-w-6xl mx-auto">
+  <div *ngFor="let review of reviews" class="border drop-shadow-xl font-display rounded-3xl border-[#BBBBBB] h-auto w-full flex flex-col gap-2 p-6">
+    <p class="text-xl text-[#2F2F2F] font-medium">{{  review?.user?.firstName }} {{  review?.user?.lastName }}</p>
+    <img  class="w-32" [src]="'assets/images/stars-' +  (+review?.rating)  + '.svg'" > 
+    <span class="border border-solid border-[#e3e3e3] w-full"></span>
+    <p class="pt-2 p-1 text-textcolor "> {{ review?.review }}</p>
+  </div>
  </div>
 
 </div>
 
 <div class="mt-18 flex flex-col gap-7 w-full h-auto pt-10 bg-secondColor justify-center">
-  <h1 class="ms-24 text-3xl text-gold font-display font-semibold">Add Your Review :</h1>
+  <h1 class="text-center text-2xl md:text-start md:ms-15 lg:ms-24  lg:text-3xl text-gold font-display font-semibold">Add Your Review</h1>
      
-        <form class=" w-3/4  h-auto grid grid-cols-2 m-5 justify-items-center place-items-center bg-white rounded-lg mx-auto  ps-15 pt-10 pb-10 border border-solid border-[#ADADAD] " >
+        <form [formGroup]="Form" (ngSubmit)="submit()" class="w-[92%] lg:w-3/4  h-auto grid grid-cols-1 md:grid-cols-2 m-5 justify-items-center place-items-center bg-white rounded-lg mx-auto px-10 md:px-8 lg:ps-15 pt-10 pb-10 border border-solid border-[#ADADAD] " >
           <div class="font-display flex flex-col mx-auto w-full gap-4 justify-center ">
               <div class=" form-group">
                 <label class="text-xl text-[#7F7F7F] ms-1">Name</label>
-                <input type="text" class="text-lg font-abhaya rounded-lg border focus:border-gold  focus:outline-none border-solid border-[#D6D6D6] p-4 text-textcolor w-full h-12 mt-2 ">
+                <input type="text" formControlName="user" class="text-lg font-abhaya rounded-lg border focus:border-gold  focus:outline-none border-solid border-[#D6D6D6] p-4 text-textcolor w-full h-12 mt-2 ">
+                <div class="h-5 mt-1">
+                  @if(Form.get('user')?.value && !NameValid ){
+                    <span class="text-sm text-left  text-red-600">
+                      Name should be more than 3 characters
+                    </span>
+                  }
+                  @if(!Form.get('user')?.value && submitted  ){
+                   <span class="text-sm text-left text-red-600">
+                    Name is required!
+                    </span>
+                  }
+                </div>
               </div>
 
               <div class=" form-group">
                 <label class="text-xl text-[#7F7F7F] ms-1">Email</label>
-                <input type="text" class="text-lg font-abhaya rounded-lg border border-solid focus:border-gold  focus:outline-none border-[#D6D6D6] p-4 text-textcolor w-full h-12 mt-2 ">
+                <input type="text" formControlName="reviewerEmail" class="text-lg font-abhaya rounded-lg border border-solid focus:border-gold  focus:outline-none border-[#D6D6D6] p-4 text-textcolor w-full h-12 mt-2 ">
+              <div class="h-5 mt-1">
+                @if(Form.get('reviewerEmail')?.value && !EmailValid ){
+                  <span class="text-sm text-left  text-red-600">
+                    Email Is Invalid
+                  </span>
+                }
+                @if(!Form.get('reviewerEmail')?.value && submitted  ){
+                 <span class="text-sm text-left text-red-600">
+                  Email is required!
+                  </span>
+                }
+              </div>
               </div> 
 
               <div class=" form-group">
                 <label class="text-xl text-[#7F7F7F] ms-1">Description</label>
-                <textarea class="text-lg font-abhaya rounded-lg border border-solid border-[#D6D6D6] focus:border-gold  focus:outline-none p-4 text-textcolor w-full h-auto mt-2" rows="3" style="resize: none;"></textarea>
+                <textarea formControlName="review" class="text-lg font-abhaya rounded-lg border border-solid border-[#D6D6D6] focus:border-gold  focus:outline-none p-4 text-textcolor w-full h-auto mt-2" rows="3" style="resize: none;"></textarea>
+                <div class="h-5 mt-1">
+                  @if(!Form.get('review')?.value && submitted  ){
+                   <span class="text-sm text-left text-red-600">
+                    Description is required!
+                    </span>
+                  }
+                </div>
               </div>
 
               
-                <button class="  p-3 ps-5 pr-5 bg-[#2A2A2A] w-1/3 ms-40 text-white text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] transition">
-                  Submit
-                </button>
+               
               
              
           </div>
 
-          <div class="  lg:w-80 h-80 mb-9 bg-secondColor rounded-lg flex flex-col items-center justify-center font-display gap-1" >
+          <div class="w-full px-10 md:px-0 md:w-[80%] lg:px-0 h-80 mt-9 bg-secondColor rounded-lg flex flex-col items-center justify-center font-display gap-1" >
            <p class="text-[#7F7F7F] text-xl mb-3">Your Rate</p>
 
-              <div class="flex items-center ">
-                  <input type="checkbox" id="agree" class="w-6 h-6 accent-gold">
-                  <label for="agree" class="text-lg text-[#5f5e5e] ms-2"><img src="assets/images/stars.svg" alt=""></label>
-              </div>
+           <div class="flex items-center">
+            <input type="radio" id="rate5" class="w-6 h-6 accent-gold" formControlName="rating" name="rating" [value]="5">
+            <label for="rate5"><img src="assets/images/stars-5.svg" alt=""></label>
+          </div>
+          
+          <div class="flex items-center">
+            <input type="radio" id="rate4" class="w-6 h-6 accent-gold" formControlName="rating" name="rating" [value]="1">
+            <label for="rate4"><img src="assets/images/stars-1.svg" alt=""></label>
+          </div>
+          
+          <div class="flex items-center">
+            <input type="radio" id="rate3" class="w-6 h-6 accent-gold" formControlName="rating" name="rating" [value]="2">
+            <label for="rate3"><img src="assets/images/stars-2.svg" alt=""></label>
+          </div>
+          
+          <div class="flex items-center">
+            <input type="radio" id="rate2" class="w-6 h-6 accent-gold" formControlName="rating" name="rating" [value]="3">
+            <label for="rate2"><img src="assets/images/stars-3.svg" alt=""></label>
+          </div>
+          
+          <div class="flex items-center">
+            <input type="radio" id="rate1" class="w-6 h-6 accent-gold" formControlName="rating" name="rating" [value]="4">
+            <label for="rate1"><img src="assets/images/stars-4.svg" alt=""></label>
+          </div>
 
-                <div class="flex items-center ">
-                  <input type="checkbox" id="agree" class="w-6 h-6 accent-gold">
-                  <label for="agree" class="text-lg text-[#5f5e5e] ms-2"><img src="assets/images/stars-1.svg" alt=""></label>
-              </div>
-
-                <div class="flex items-center ">
-                  <input type="checkbox" id="agree" class="w-6 h-6 accent-gold">
-                  <label for="agree" class="text-lg text-[#5f5e5e] ms-2"><img src="assets/images/stars-2.svg" alt=""></label>
-              </div>
-
-                <div class="flex items-center ">
-                  <input type="checkbox" id="agree" class="w-6 h-6 accent-gold">
-                  <label for="agree" class="text-lg text-[#5f5e5e] ms-2"><img src="assets/images/stars-3.svg" alt=""></label>
-              </div>
-
-              <div class="flex items-center ">
-                <input type="checkbox" id="agree" class="w-6 h-6 accent-gold">
-                <label for="agree" class="text-lg text-[#5f5e5e] ms-2"><img src="assets/images/stars-4.svg" alt=""></label>
+            <div class="h-5 mt-1">
+              @if(!Form.get('rating')?.value && submitted){
+               <span class="text-sm text-left text-red-600">
+                Rate is required!
+                </span>
+              }
             </div>
            
           </div>
-          
+          <button type="submit"  class="p-3  bg-[#2A2A2A] w-[80%] lg:w-1/2 mt-6 text-white text-xl font-semibold rounded-xl hover:bg-[#525252] transition">
+            Submit
+          </button>
       </form>
     </div>
     
