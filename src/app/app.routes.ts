@@ -9,6 +9,8 @@ import { WomenComponent } from './pages/women/women.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
+import { Component } from '@angular/core';
+import { CheckOutComponent } from './pages/check-out/check-out.component';
 
 export const routes: Routes = [
     {path:'',redirectTo:'home',pathMatch:'full'},
@@ -21,6 +23,7 @@ export const routes: Routes = [
     {path:'suplements' ,component:SuplementsComponent},
     {path:'cart',component:CartComponent},
     {path:'product/:id',component:ProductDetailsComponent},
-    {path:'payment',component:PaymentPageComponent}
+    {path:'payment',component:PaymentPageComponent},
+    {path:'checkout',component:CheckOutComponent}
 
 ];
