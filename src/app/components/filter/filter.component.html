@@ -2,18 +2,18 @@
     <button
         class="rounded-md bg-secondColor px-7 py-1  text-md md:px-10 md:py-1 md:text-xl text-ternaryText flex justify-center gap-2 "
         (click)="toggelFilter()"><img src="assets/icons/filter.svg">
-        <p>filter</p>
+        <p class="cursor-pointer">filter</p>
     </button>
     <div class="  bg-white shadow-2xl shadow-gray-500 rounded-xl md:w-[180%] w-[200%] absolute right-0 md:left-0  p-2 "
         [ngClass]="{'hidden': isHidden}">
         <p class="text-md text-[#3B3B3B] ml-2">filter</p>
         <div class="flex  gap-2 text-[#3B3B3B]">
-            <button class="py-1 rounded-md basis-[50%] transition-all duration-300" (click)="show('price')"
+            <button class="py-1 rounded-md basis-[50%] transition-all duration-300 cursor-pointer" (click)="show('price')"
                 [ngClass]="selectedButton === 'price' ? 'bg-mainColor ' : 'bg-secondColor'">
                 Price
             </button>
 
-            <button class="py-1 rounded-md basis-[50%] transition-all duration-300" (click)="show('brand')"
+            <button class="py-1 rounded-md basis-[50%] transition-all duration-300 cursor-pointer" (click)="show('brand')"
                 [ngClass]="selectedButton === 'brand' ? 'bg-mainColor ' : 'bg-secondColor'">
                 Brand
             </button>

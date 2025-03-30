@@ -4,9 +4,9 @@
     <div class=" flex justify-center items-center  md:gap-4 gap-2 mb-6">
         <!-- <p class="  text-md md:text-2xl  font-bold  uppercase text-[#3B3B3B]  ">men collection</p> -->
         <button
-            class="rounded-md bg-secondColor px-7 py-1  text-md text-ternaryText  md:px-10 md:py-1 md:text-xl md:basis-auto " (click)="display('shirts')">t-shirt</button>
+            class="rounded-md  px-7 py-1  text-md text-ternaryText  md:px-10 md:py-1 md:text-xl md:basis-auto  cursor-pointer" (click)="display('shirts')"   [ngClass]="subCategory === 'shirts' ? 'bg-mainColor ' : 'bg-secondColor'">t-shirt</button>
         <button
-            class="rounded-md bg-secondColor px-4 py-1  text-md text-ternaryText md:px-10 md:py-1 md:text-xl" (click)="display('pants')">trousers</button>
+            class="rounded-md  px-4 py-1  text-md text-ternaryText md:px-10 md:py-1 md:text-xl  cursor-pointer" (click)="display('pants')" [ngClass]="subCategory==='pants'?'bg-mainColor':'bg-secondColor'">trousers</button>
        
          <!-- <app-filter [infoBrand]="infoBrand"></app-filter> -->
          <app-filter [infoBrand]="infoBrand" (filterChanged)="updateFilters($event)"></app-filter>
@@ -25,4 +25,9 @@
 </div>
 <!-- <app-pagination [totalItems]="menClothes.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
     (onClick)="changePage($event)" class=" flex justify-center mt-10"></app-pagination> -->
+    <app-pagination 
+[totalItems]="totalItems" 
+[itemsPerPage]="itemsPerPage" 
+[currentPage]="currentPage"
+(onClick)="changePage($event)" class=" flex justify-center mt-10"></app-pagination>
 <app-footer></app-footer>
