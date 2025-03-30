@@ -28,21 +28,76 @@ misery:boolean=true;
 hideBrand:boolean=true;
 hideBrice:boolean=false;
 selectedButton: string = 'price';
- menClothes:any
-constructor(private http:HttpClient,private productService:ProductService){
-  
+menClothes:any
+totalItems = 0;
+itemsPerPage = 8;
+currentPage = 1;
+constructor(private http:HttpClient,private productService:ProductService){}
+// ngOnInit(){
+//   //  this.fetchdata()
+//   // fetchdata(){
+//     this.productService.getProduct({ gender: 'men', category: 'clothes' },this.currentPage, this.itemsPerPage)
+//     .subscribe(products => {
+//       this.menClothes=products;
+//       console.log(products);
+//       this.totalItems=this.menClothes.length;
+//     });
+//   // }
+//   }
+
+ngOnInit() {
+  this.loadProducts();
+  // this.loadTotalCount(); // ✅ جلب العدد الكلي للمنتجات
 }
-ngOnInit(){
+
+loadProducts() {
+  this.productService.getProduct({ gender: 'men', category: 'clothes' },this.currentPage,  this.itemsPerPage)
+    .subscribe(response => {
+      this.menClothes = response.products;
+      this.totalItems = response.total; 
+      console.log(response);
+      
+    });
+}
 
 
-  this.productService.getProduct({ gender: 'men', category: 'clothes' })
-  .subscribe(products => {
-    this.menClothes=products;
-    console.log(products);
-  });
-
+changePage(page: number) {
+  if (page >= 1 && page <= this.totalPages) {
+    this.currentPage = page;
+    this.loadProducts();
   }
+}
 
+
+
+get totalPages(): number {
+  return Math.ceil(this.totalItems / this.itemsPerPage);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+  
+  onlyShirts(){
+    this.productService.getProduct({gender: 'men', category: 'clothes', subCategory: "shirts"}).subscribe({
+      next:(shirts)=>{
+        this.menClothes=shirts
+      },
+      error:(err)=>{
+        console.log();
+        
+      }
+    })
+  }
+  onlyPantss(){
+    this.productService.getProduct({gender: 'men', category: 'clothes', subCategory: "pants"}).subscribe({
+      next:(pants)=>{
+        this.menClothes=pants
+      },
+      error:(err)=>{
+        console.log();
+        
+      }
+    })
+  }
 
 
 toggelFilter(){
@@ -109,29 +164,6 @@ show(text:string){
  
 }
 
-itemsPerPage=8
-currentPage=1
-// data=[
-//   {id:1,},
-//   {id:2,},
-//   {id:3,},
-//   {id:4,},
-//   {id:5,},
-//   {id:6,},
-//   {id:7,},
-//   {id:8,},
-//   {id:9,},
-//   {id:10,},
-//   {id:11,},
-//   {id:12,},
-//   {id:14,},
-//   {id:15,},
-//   {id:16,},
-//   {id:17,},
-//   {id:18,},
-//   {id:19,},
-//   {id:20,},
-// ]
 
 get paginatedData(){
   const start =(this.currentPage-1)*this.itemsPerPage;
@@ -140,8 +172,6 @@ get paginatedData(){
   return this.menClothes.slice(start , end)
 }
 
-changePage(page :number){
-  this.currentPage=page
-}
+
 
 }

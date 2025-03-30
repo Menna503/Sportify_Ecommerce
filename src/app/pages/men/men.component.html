@@ -4,9 +4,9 @@
     <div class=" flex justify-center items-center  md:gap-4 gap-2 mb-6">
         <!-- <p class="  text-md md:text-2xl  font-bold  uppercase text-[#3B3B3B]  ">men collection</p> -->
         <button
-            class="rounded-md bg-secondColor px-7 py-1  text-md text-ternaryText  md:px-10 md:py-1 md:text-xl md:basis-auto ">t-shirt</button>
+            class="rounded-md bg-secondColor px-7 py-1  text-md text-ternaryText  md:px-10 md:py-1 md:text-xl md:basis-auto cursor-pointer hover:bg-mainColor hover:text-black " (click)="onlyShirts()">t-shirt</button>
         <button
-            class="rounded-md bg-secondColor px-4 py-1  text-md text-ternaryText md:px-10 md:py-1 md:text-xl">trousers</button>
+            class="rounded-md bg-secondColor px-4 py-1  text-md text-ternaryText md:px-10 md:py-1 md:text-xl cursor-pointer hover:bg-mainColor hover:text-black"  (click)="onlyPantss()">trousers</button>
         <div class="relative">
             <button
                 class="rounded-md bg-secondColor px-7 py-1  text-md md:px-10 md:py-1 md:text-xl text-ternaryText flex justify-center gap-2 "
@@ -96,6 +96,12 @@
     </div>
 
 </div>
-<app-pagination [totalItems]="menClothes.length" [itemsPerPage]="itemsPerPage" [currentPage]="currentPage"
-    (onClick)="changePage($event)" class=" flex justify-center mt-10"></app-pagination>
+<app-pagination 
+[totalItems]="totalItems" 
+[itemsPerPage]="itemsPerPage" 
+[currentPage]="currentPage"
+(onClick)="changePage($event)" class=" flex justify-center mt-10"></app-pagination>
+<p>totalItems: {{ totalItems }}</p>
+<p>itemsPerPage: {{ itemsPerPage }}</p>
+<p>totalPages: {{ totalItems / itemsPerPage }}</p>
 <app-footer></app-footer>
