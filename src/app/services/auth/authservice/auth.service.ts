@@ -22,9 +22,9 @@ export class AuthService {
     localStorage.removeItem('token')
   }
 
-  isAuthenticated():boolean{
-    return !!localStorage.getItem('token')
-  }
+  // isAuthenticated():boolean{
+  //   return !!localStorage.getItem('token')
+  // }
 
   getToken():String| null{
     return localStorage.getItem('token')
