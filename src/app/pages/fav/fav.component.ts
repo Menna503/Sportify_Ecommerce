@@ -2,14 +2,49 @@ import { Component , ElementRef, ViewChild} from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ProductCardComponent } from '../../components/product-card/product-card.component';
 import { FooterComponent } from '../../components/footer/footer.component';
+import { FavoritesService } from '../../services/favorites/favorites.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-fav',
-  imports: [HeaderComponent,ProductCardComponent,FooterComponent],
+  imports: [HeaderComponent,ProductCardComponent,FooterComponent,CommonModule],
   templateUrl: './fav.component.html',
   styleUrl: './fav.component.css'
 })
 export class FavComponent {
+    favorites:any[]=[];
+    constructor(private favoritesService:FavoritesService){}
+    ngOnInit(){
+      this.favoritesService.getfavourite().subscribe({
+         next:(data)=>{
+          // this.favorites=Object.values(data);
+          // console.log(this.favorites);
+          console.log("Fetched Favorites:", data); // تحقق من البيانات في الكونسول
+      this.favorites = data ;
+      console.log(this.favorites);
+         },
+         error:(err)=>{
+          console.log(err);
+          
+         }
+      });
+    }
+
+    removeFromFavorites(itemId: string) {
+      // استدعاء API لحذف المنتج من قاعدة البيانات
+      this.favoritesService.removeFavorite(itemId).subscribe({
+        next: () => {
+          // حذف المنتج من المصفوفة بدون عمل Refresh
+          this.favorites = this.favorites.filter(item => item.id !== itemId);
+        },
+        error: (err) => {
+          console.error('Error removing item:', err);
+        }
+      });
+    }
+    
+// lo
+  //////////////////////////////////////////for scrolling horzonitly for responsive///////////////////////////
   // @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 
   // ngAfterViewInit() {
