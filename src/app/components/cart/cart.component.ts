@@ -10,7 +10,8 @@ import { FooterComponent } from "../footer/footer.component";
     CommonModule,
     FormsModule,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    RouterModule
 ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
@@ -40,6 +41,7 @@ export class CartComponent {
    
 
 }
+import { RouterModule } from '@angular/router';
 
 // ! 🎯 Goal: Make sure each (+) and (-) button only controls its own input field without affecting other products.
 /*
