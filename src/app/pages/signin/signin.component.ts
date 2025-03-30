@@ -34,6 +34,7 @@ export class SigninComponent {
       this.authService.signin(this.signInPage.value).subscribe({ 
         next:(response:any)=>{
           if(this.authService.isAuthenticated()){
+            // console.log(response);
             // localStorage.setItem('token' , response.token)
             console.log("user authenticated successfully");
             this.router.navigate(['/home'])

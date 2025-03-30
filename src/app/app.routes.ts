@@ -9,7 +9,7 @@ import { WomenComponent } from './pages/women/women.component';
 import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
-    {path:'',redirectTo:'home',pathMatch:'full'},
+    {path:'',redirectTo:'login',pathMatch:'full'},
     {path:'home' , component:HomeComponent},
     {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
