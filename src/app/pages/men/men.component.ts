@@ -23,6 +23,9 @@ export class MenComponent {
   brand: string = '';
   selectedIndex: number | null = null;
   priceindex: number | null = null;
+  totalItems = 0;
+itemsPerPage = 8;
+currentPage = 1;
   
 
   infoBrand: any = [
@@ -35,11 +38,48 @@ export class MenComponent {
   constructor(private http: HttpClient, private productService: ProductService) {}
 
   ngOnInit() {
-    this.fetchData();
+    // this.fetchData();
+   this. loadProducts();
   
   }
 
-  fetchData() {
+  // fetchData() {
+  //   const params = {
+  //     gender: 'men',
+  //     category: 'clothes',
+  //     subCategory: this.subCategory,
+  //     sort: this.sort,
+  //     brand: this.brand
+  //   };
+
+  //   const filteredParams = Object.fromEntries(
+  //     Object.entries(params).filter(([_, value]) => value !== undefined && value !== "")
+  //   );
+
+  //   if (Object.keys(filteredParams).length >= 2) {
+  //     this.productService.getProduct(filteredParams).subscribe(products => {
+  //       this.menClothes = products;
+  //       console.log(this.menClothes);
+
+  //     });
+  //   }
+  // }
+
+  
+  updateFilters(filterData: { sort: string; brand: string }) {
+    this.sort = filterData.sort;
+    this.brand = filterData.brand;
+    // this.fetchData(); 
+    this.loadProducts();
+  }
+  
+
+  display(text: string) {
+    this.subCategory = text;
+    this.currentPage = 1; 
+    this.loadProducts();
+  }
+  loadProducts() {
     const params = {
       gender: 'men',
       category: 'clothes',
@@ -52,27 +92,39 @@ export class MenComponent {
       Object.entries(params).filter(([_, value]) => value !== undefined && value !== "")
     );
 
-    if (Object.keys(filteredParams).length >= 2) {
-      this.productService.getProduct(filteredParams).subscribe(products => {
-        this.menClothes = products;
-        console.log(this.menClothes);
+    this.productService.getProduct(filteredParams, this.currentPage, this.itemsPerPage)
+  .subscribe({
+    next: (response) => {
+      this.menClothes = response.products;
+      this.totalItems = response.total;
+      console.log("✅ API Response:", response);
+    },
+    error: (err) => {
+      console.error("❌ Server Error:", err);
+      alert(`Error: ${err.message || "Something went wrong!"}`);
+    }
+  });
 
-      });
+  }
+  changePage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.loadProducts();
     }
   }
-
+  get totalPages(): number {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
+  }
+  get paginatedData(){
+    const start =(this.currentPage-1)*this.itemsPerPage;
+    const end = start +this.itemsPerPage
   
-  updateFilters(filterData: { sort: string; brand: string }) {
-    this.sort = filterData.sort;
-    this.brand = filterData.brand;
-    this.fetchData(); // Call fetchData() when filters change
+    return this.menClothes.slice(start , end)
   }
   
-
-  display(text: string) {
-    this.subCategory = text;
-    this.fetchData();
-  }
+  
+  
+  
 
   // itemsPerPage = 8;
   // currentPage = 1;
