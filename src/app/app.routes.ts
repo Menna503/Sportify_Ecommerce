@@ -7,6 +7,8 @@ import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SuplementsComponent } from './pages/suplements/suplements.component';
 import { WomenComponent } from './pages/women/women.component';
 import { CartComponent } from './components/cart/cart.component';
+import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 
 export const routes: Routes = [
     {path:'',redirectTo:'home',pathMatch:'full'},
@@ -17,5 +19,8 @@ export const routes: Routes = [
     {path:'men' ,component:MenComponent},
     {path:'women' ,component:WomenComponent},
     {path:'suplements' ,component:SuplementsComponent},
-    {path:'cart',component:CartComponent}
+    {path:'cart',component:CartComponent},
+    {path:'product/:id',component:ProductDetailsComponent},
+    {path:'payment',component:PaymentPageComponent}
+
 ];

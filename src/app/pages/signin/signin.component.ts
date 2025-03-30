@@ -30,6 +30,7 @@ export class SigninComponent {
 
     this.submitted=true
     if(this.signInPage.valid){
+      // console.log("✅ Sent credentials:", this.signInPage.value);
       console.log("done");
       this.authService.signin(this.signInPage.value).subscribe({ 
         next:(response:any)=>{

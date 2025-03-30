@@ -30,7 +30,7 @@ export class AuthService {
     return localStorage.getItem('token')
   }
 
-  private getAuthHeaders():HttpHeaders{
+  public getAuthHeaders():HttpHeaders{
     const Token =this.getToken();
     return new HttpHeaders({'Authorization':`Bearer ${Token}`})
   }
