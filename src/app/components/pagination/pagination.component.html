@@ -1,5 +1,3 @@
-
-
 <button class=" p-1 px-2 text-xl mr-1 bg-transparent border-mainColor border-2 cursor-pointer"
 [ngClass]="{disabled: currentPage==1}"
 (click)="pageClicked(currentPage-1)" ><i class="fa-solid fa-angle-left cursor-pointer text-xl text-m" ></i></button>
@@ -16,4 +14,4 @@ class=" p-1 px-2 text-xl mr-1 bg-  bg-transparent  border-mainColor border-2 cur
 
 <button class=" p-1 px-2 text-xl mr-1 bg-transparent border-mainColor border-2 cursor-pointer"
 [ngClass]="{disabled: currentPage==totalPages}"
-(click)="pageClicked(currentPage+1)" ><i class="fa-solid fa-angle-right cursor-pointer text-xl text-m" ></i></button>
+(click)="pageClicked(currentPage+1)" ><i class="fa-solid fa-angle-right cursor-pointer text-xl text-m" ></i></button>
