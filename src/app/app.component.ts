@@ -8,35 +8,27 @@ import { MenComponent } from "./pages/men/men.component";
 import { WomenComponent } from './pages/women/women.component';
 import { SuplementsComponent } from './pages/suplements/suplements.component';
 import { FooterComponent } from './components/footer/footer.component';
-// import { PartnersComponent } from './components/partners/partners.component';
 import { PartnersComponent } from './components/partners/partners.component';
-import { CartComponent } from './components/cart/cart.component';
+import { CartComponent } from "./components/cart/cart.component";
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { ReviewcardComponent } from './components/reviewcard/reviewcard.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
+import { FavComponent } from './pages/fav/fav.component';
+
+import { HttpClientModule } from '@angular/common/http';
+
 import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
-import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { AdminComponent } from './pages/admin/admin.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    HomeComponent,
-    MenComponent,
-    WomenComponent,
-    SuplementsComponent,
-    FooterComponent,
-    PartnersComponent, 
-   HeaderComponent,
-   FooterComponent,
-  ProductDetailsComponent,
-  PaymentPageComponent,
-  ConfirmPaymentComponent,
-  CartPageComponent,
-  AdminComponent
-  
-],
+
+  imports: [RouterOutlet,
+  HttpClientModule, HeaderComponent, HomeComponent ,SignupPageComponent ,SigninComponent
+  ,MenComponent,WomenComponent,SuplementsComponent,FooterComponent,PartnersComponent,PaginationComponent,FavComponent ,
+  AdminComponent, CartComponent,ProductDetailsComponent,PaymentPageComponent,ConfirmPaymentComponent],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

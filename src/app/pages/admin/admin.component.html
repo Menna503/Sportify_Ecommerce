@@ -1,19 +1,22 @@
 <div class="min-h-screen bg-gray-100 p-1 pb-10 mb-10">
   <div class="flex gap-2 flex-wrap justify-center mt-10 sm:mt-5">
-    <button class="w-full sm:w-1/3 md:w-1/6 mt-4 bg-mainColor font-inria text-textColor py-2 rounded-md font-extrabold border-inputColor border-1">
+    <button class="w-full sm:w-1/3 md:w-1/6 mt-4 bg-mainColor font-inria text-textColor py-2 rounded-md font-extrabold border-inputColor border-1"
+    (click)="addProduct()">
       Add Product
     </button>
-    <button class="w-full sm:w-1/3 md:w-1/6 mt-4 bg-white font-inria text-textColor py-2 rounded-md font-extrabold border-inputColor border-1">
+    <button class="w-full sm:w-1/3 md:w-1/6 mt-4 bg-white font-inria text-textColor py-2 rounded-md font-extrabold border-inputColor border-1"
+    (click)="editProduct(products[0]?._id)">
       Edit Product
     </button>
-    <button class="w-full sm:w-1/3 md:w-1/6 mt-4 bg-white font-inria text-textColor py-2 rounded-md font-extrabold border-inputColor border-1">
+    <button class="w-full sm:w-1/3 md:w-1/6 mt-4 bg-white font-inria text-textColor py-2 rounded-md font-extrabold border-inputColor border-1"
+    (click)="deleteProduct(products[0]?._id)">
       Delete Product
     </button>
   </div>
     
     <div class="max-w-4xl min-h-[90vh]  mx-auto bg-white p-8 rounded-lg shadow-md font-inria font-light mt-10">
     
-        <h1 class=" font-display text-productTitle mb-5 text-3xl font-semibold ">Add Product:</h1>
+        <h1 class=" font-display text-productTitle mb-5 text-3xl font-semibold "  >Add Product:</h1>
     
       <form class="space-y-2">
         <!-- Product Name -->

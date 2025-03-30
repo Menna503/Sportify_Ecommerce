@@ -19,7 +19,8 @@
     --color-white:#FFFFFF;
 
  
-    --font-inria: "Inria Serif";
+    --font-inria:"Inria Serif";
+    --font-inter:"Inter sans-serif";
     --color-secandaryText:#AEADAD;
     --color-ternaryText:#666666;
     --color-loginText:#9F9B1B;
@@ -40,10 +41,18 @@
     
 }
 
+.fontInter{
+  font-family: 'Inter', sans-serif;
+  
+  
+}
 
 input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0.5; 
 }
+
+
+    
 
 
 /* ! cart page */
@@ -80,5 +89,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   .custom-select:focus + i {
     color: #333; /* تغيير اللون عند التركيز */
   }
-  
 
+  /* .hidden{
+    display: none;
+  } */
