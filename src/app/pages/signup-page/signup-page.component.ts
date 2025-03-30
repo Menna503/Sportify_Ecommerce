@@ -25,7 +25,7 @@ export class SignupPageComponent {
     lastName: new FormControl('', [Validators.minLength(3), Validators.required]),
     email: new FormControl('', [Validators.email, Validators.required]),
     password: new FormControl('', [Validators.minLength(6), Validators.required]),
-    confirmPassword: new FormControl('', Validators.required),
+   passwordConfirm: new FormControl('', Validators.required),
     rememberMe: new FormControl(false) 
   }, {validators:this.passwordMatch});
 
