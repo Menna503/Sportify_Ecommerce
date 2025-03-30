@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
 
 export const routes: Routes = [
-    {path:'',redirectTo:'home',pathMatch:'full'},
+    {path:'',redirectTo:'login',pathMatch:'full'},
     {path:'home' , component:HomeComponent},
     {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},

@@ -114,7 +114,9 @@
               <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('rememberMe')?.errors?.['minlength']">you should write rememberMe structure</small>
             </div>
             <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-4 cursor-pointer  duration-300 hover:-translate-y-2 " > Sign Up</button>
-
+            <div *ngIf="errorMsg">
+              <small class="text-red-600 text-[10px]">{{errorMsg}}</small>
+            </div>
       </form>
     
   

@@ -101,7 +101,7 @@ currentPage = 1;
     },
     error: (err) => {
       console.error("❌ Server Error:", err);
-      alert(`Error: ${err.message || "Something went wrong!"}`);
+      alert(Error: ${err.message || "Something went wrong!"});
     }
   });
 

@@ -1,5 +1,3 @@
-
-
 // import { Injectable } from '@angular/core';
 // import { HttpClient, HttpParams } from '@angular/common/http';
 // import { Observable } from 'rxjs';
@@ -87,7 +85,7 @@ export class ProductService {
       .pipe(
         map(response => ({
           products: response.data.products,
-          total: response.numProducts // ✅ استخدم `numProducts` بدلاً من `total`
+          total: response.numProducts // ✅ استخدم numProducts بدلاً من total
         }))
       );
   }
@@ -95,20 +93,17 @@ export class ProductService {
   
 
   getProductById(_id: string) {
-    return this.http.get<Product>(`${this.apiUrl}/${_id}`);
+    return this.http.get<Product>(${this.apiUrl}/${_id});
   }
   getReviewsById(_id: string) {
-    return this.http.get(`${this.apiUrl}/${_id}/reviews`);
+    return this.http.get(${this.apiUrl}/${_id}/reviews);
   }
 
   addNewReview(_id: string, review: any) {
     const headers = this.authService.getAuthHeaders();
-    return this.http.post(`${this.apiUrl}/${_id}/reviews`, review, { headers });
+    return this.http.post(${this.apiUrl}/${_id}/reviews, review, { headers });
   }
   addNewCheckout(Checkout: any) {
     return this.http.post(this.apiUrl,Checkout); 
   }
 }
-
-
-
