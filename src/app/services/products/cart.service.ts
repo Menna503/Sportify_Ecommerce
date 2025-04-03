@@ -38,6 +38,7 @@ export class CartService {
     );
   }
 
+
   
   updateQuantity(productId: string, quantity: number, size: string): Observable<any> {
     const body = { products: [{ productId, quantity, size }] };
