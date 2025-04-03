@@ -11,10 +11,13 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { Component } from '@angular/core';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { CanActivate } from '@angular/router';
+import { GuardService } from './services/auth/authGaurd/guard.service';
 
 export const routes: Routes = [
     {path:'',redirectTo:'login',pathMatch:'full'},
-    {path:'home' , component:HomeComponent},
+    {path:'home' , component:HomeComponent , canActivate:[GuardService]},
     {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
     {path:'fav' ,component:FavComponent},
@@ -24,6 +27,7 @@ export const routes: Routes = [
     {path:'cart',component:CartComponent},
     {path:'product/:id',component:ProductDetailsComponent},
     {path:'payment',component:PaymentPageComponent},
-    {path:'checkout',component:CheckOutComponent}
+    {path:'checkout',component:CheckOutComponent},
+    {path:'admin',component:AdminComponent , canActivate:[GuardService]}
 
 ];
