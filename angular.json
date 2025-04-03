@@ -83,6 +83,7 @@
               {
                 "glob": "**/*",
                 "input": "public"
+                
               }
             ],
             "styles": [
@@ -95,6 +96,10 @@
     }
   },
   "cli": {
-    "analytics": "9a057c0b-259f-4803-9b7a-ca3bcbe31038"
+
+ 
+
+    "analytics": "4b9662c1-9ee2-4269-9aff-f379785602ff"
+
   }
 }
