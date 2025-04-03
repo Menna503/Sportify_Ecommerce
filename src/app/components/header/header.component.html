@@ -24,9 +24,7 @@
 
         </div>
               }
-       
-     
-       
+        
  </div>
 
     <div class="profile absolute top-15 right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95" 
@@ -40,7 +38,7 @@
         <div class="h-0.5 w-65 bg-[rgba(0,0,0,0.1)] m-auto mt-3"></div>
         <div class="flex items-center ml-7 mt-7">
             <i class="fa-solid fa-right-from-bracket mr-2 text-xl text-mainColor"></i>
-            <p class="text-l">Logout</p>
+            <p class="text-l cursor-pointer" (click)="logout()">Logout</p>
         </div>
     </div>
 
@@ -57,9 +55,6 @@
     </div>
        
 </div>
-
-   
-
 
 <div class="block md:hidden fixed z-50 w-[100%] ">
     <div class="bg-mainColor flex justify-evenly items-center py-2 px-2">
@@ -114,9 +109,16 @@
     </li>
  
     <li  class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
-        <img src="assets/icons/cart.svg">
-         <p>Cart</p>
-    </li>
+       
+         <a [routerLink]="['/cart']" class="relative">
+            <img src="assets/icons/cart.svg" class="w-[23px]">
+            <span [hidden]="cartItemCount === 0"
+                class="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full border border-black  z-[9999]">
+              {{cartItemCount}}
+            </span>
+          </a>
+          <p>Cart</p>
+     </li>
  
     <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
         <img src="assets/icons/profile.svg">
@@ -124,3 +126,7 @@
     </li>
 </ul>
 </div>
+
+
+
+

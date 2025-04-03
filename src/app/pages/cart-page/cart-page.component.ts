@@ -20,22 +20,31 @@ export class CartPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cartProducts = this.cartService.getCartProducts(); 
+    // this.cartProducts = this.cartService.getCartProducts(); 
     this.calculateTotal(); 
+    this.loadCartProducts();
   }
 
   
+  loadCartProducts() {
+    // this.cartProducts = this.cartService.getCartProducts();
+    this.calculateTotal();
+  }
+
   calculateTotal() {
+    console.log('Calculating total', this.cartProducts); // للتأكد من البيانات
     this.totalPrice = this.cartProducts.reduce(
-      (sum, product) => sum + product.price * product.quantity,
+      (sum, product) => sum + (product.price * (product.quantity || 1)),
       0
     );
   }
 
  
   deleteProduct(productId: string) {
-    this.cartProducts = this.cartProducts.filter(product => product.id !== productId);
-    this.calculateTotal(); // إعادة حساب السعر الإجمالي بعد الحذف
+    this.cartService.removeFromCart(productId);
+    this.calculateTotal(); 
+    this.loadCartProducts();
+    
   }
 
  

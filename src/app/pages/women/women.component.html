@@ -25,14 +25,14 @@
     <div class="flex gap-4 md:flex-wrap">
         <!-- *ngFor="let item of list" -->      
         <app-product-card 
-        *ngFor="let item of womenClothes"  
-        class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] " [data]="item"></app-product-card>
+        *ngFor="let item of paginatedData"  
+        class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
         
       </div>
     </div>     
       
 </div>
-<app-pagination [totalItems]="womenClothes.length"
+<app-pagination [totalItems]="data.length"
 [itemsPerPage]="itemsPerPage"
  [currentPage]="currentPage"
 (onClick)="changePage($event)"

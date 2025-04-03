@@ -1,48 +1,111 @@
+
+
+// import { Injectable } from '@angular/core';
+// import { HttpClient, HttpParams } from '@angular/common/http';
+// import { Observable } from 'rxjs';
+// import { map } from 'rxjs/operators';
+
+// export interface Product {
+//   _id: string;
+//   name: string;
+//   description: string;
+//   price: number;
+//   brand: string;
+//   imageUrl: string;
+//   category?: any;
+//   subCategory?: any;
+//   gender?: string;
+//   stock?: number;
+// }
+
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class ProductService {
+//   private apiUrl = "http://127.0.0.1:8000/products";
+  
+//   constructor(private http: HttpClient) {}
+
+//   getProduct(filter: { [key: string]: any } = {}): Observable<Product[]> {
+//     let params = new HttpParams();
+    
+  
+//     for (let key in filter) {
+//       if (filter[key] !== undefined && filter[key] !== null) {
+//         params = params.set(key, filter[key]);
+//       }
+//     }
+
+   
+//     return this.http.get<{ data: { products: Product[] } }>(this.apiUrl, { params })
+//       .pipe(
+//         map(response => response.data.products) 
+//       );
+//   }
+// }
+
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { HttpClient ,HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { AuthService } from '../auth/authservice/auth.service';
 
-
+export interface Product {
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  brand: string;
+  imageUrl: string;
+  category?: any;
+  subCategory?: any;
+  gender?: string;
+  stock?: number;
+} 
 
 @Injectable({
   providedIn: 'root'
 })
-export class FavoritesService {
-  private favUrl="http://127.0.0.1:8000/favorites"
-  constructor(private http:HttpClient) { }
-  private getHeader():HttpHeaders{
-    const token =localStorage.getItem('token')
-    console.log(token);
-    return new HttpHeaders({
-      'Authorization':`Bearer ${token}`,
-      'content-type':'application/json'
-    });
-  }
+export class ProductService {
+  private apiUrl = "http://127.0.0.1:8000/products";
+  // private Urlproducts="http://127.0.0.1:8000/products/productID/reviews";
   
-  getfavourite(): Observable<any[]> {
-    return this.http.get<{ status: string; results: number; data: any[] }>(this.favUrl, { headers: this.getHeader() })
+  constructor(private http: HttpClient, private authService: AuthService) {}
+
+  getProduct(filter: { [key: string]: any } = {}, page: number = 1, limit: number = 8): Observable<{ products: Product[], total: number }> {
+    let params = new HttpParams()
+      .set('page', page)
+      .set('limit', limit);
+  
+    for (let key in filter) {
+      if (filter[key] !== undefined && filter[key] !== null) {
+        params = params.set(key, filter[key]);
+      }
+    }
+  
+    return this.http.get<{ status: string, results: number, numProducts: number, data: { products: Product[] } }>(this.apiUrl, { params })
       .pipe(
-        map(response => response.data) // استخراج `data` فقط
+        map(response => ({
+          products: response.data.products,
+          total: response.numProducts // ✅ استخدم `numProducts` بدلاً من `total`
+        }))
       );
   }
+
   
-  
-  // addFavorite(card:any):Observable<any>{
-  //   return this.http.post<any>(`${this.favUrl}/add`, card,{headers:this.getHeader()})
-  // }
-  addFavorite(productId: string): Observable<any> {
-    return this.http.patch<any>(`${this.favUrl}/add`, { productId }, { headers: this.getHeader() });
+
+  getProductById(_id: string) {
+    return this.http.get<Product>(`${this.apiUrl}/${_id}`);
+  }
+  getReviewsById(_id: string) {
+    return this.http.get(`${this.apiUrl}/${_id}/reviews`);
   }
 
-  // removeFavorite(id:Number):Observable<any>{
-  //   return this.http.delete<any>(`${this.favUrl}/${id}`,{headers:this.getHeader()})
-  // }
-  
-  removeFavorite(productId: string): Observable<any> {
-    return this.http.patch<any>(`${this.favUrl}/remove`, { productId }, { headers: this.getHeader() });
+  addNewReview(_id: string, review: any) {
+    const headers = this.authService.getAuthHeaders();
+    return this.http.post(`${this.apiUrl}/${_id}/reviews`, review, { headers });
   }
-  // isfav(id:Number):Observable{
-     
-  // }
+  addNewCheckout(Checkout: any) {
+    return this.http.post(this.apiUrl,Checkout); 
+  }
 }
