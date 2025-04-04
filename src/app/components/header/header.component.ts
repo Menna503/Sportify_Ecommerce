@@ -1,3 +1,4 @@
+
 import { CommonModule } from '@angular/common';
 import { Component,OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
    token:string|null=null;
   //  خاصه بالكارد
    cartItemCount: number = 0;
+   
   //  
   constructor(private cartService: CartService,private authService:AuthService ,private router:Router){
     this.token=localStorage.getItem('token');
@@ -41,21 +43,13 @@ export class HeaderComponent implements OnInit {
       console.log('Updated cart count:', count); // للتأكد من التحديث
       this.cartItemCount = count;
     });
+    
   }
  // !اضافه سما عشان ال logout
   logout(){
     this.authService.signout();
     this.router.navigate(['/login'], { replaceUrl: true })
     localStorage.removeItem('cart'); // مسح بيانات السلة من التخزين المحلي
-    this.cartService.clearCart(); // تحديث الكارت في الخدمة بحيث يرجّع القيمة لـ 0
+    // this.cartService.clearCart(); // تحديث الكارت في الخدمة بحيث يرجّع القيمة لـ 0
   } 
 }
-
-
-
-
-
-  
-
-  
-  

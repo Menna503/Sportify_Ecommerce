@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FavoritesService } from '../../services/products/favorites.service'; // إذا كنت تستخدم خدمة للمفضلة
 import { CartService } from '../../services/products/cart.service'; // إذا كنت تستخدم خدمة للعربة
@@ -38,21 +38,25 @@ export class CartComponent {
   }
 
   deleteProduct() {
-    this.cartService.removeFromCart(this.product.id).subscribe(() => {
-      this.productDeleted.emit(this.product.id);
-    });
+    // this.cartService.removeFromCart(this.product.id).subscribe(() => {
+    //   this.productDeleted.emit(this.product.id);
+    // });
   }
   updateQuantity(newValue: number) {
     const quantity = Math.max(1, +newValue);
     this.product.quantity = quantity;
     this.quantityChanged.emit();
-    this.cartService.updateQuantity(this.product.id, this.product.quantity, this.product.selectedSize).subscribe(); 
+    // this.cartService.updateQuantity(this.product.id, this.product.quantity, this.product.selectedSize).subscribe(); 
   }
 
+
+
+}
 
   // toggleFavorite() {
   //   this.favoritesService.toggleFavorite(this.product.id).subscribe(response => {
   //     console.log('Favorite status updated:', response);
   //   }); 
   // }
-}
+
+

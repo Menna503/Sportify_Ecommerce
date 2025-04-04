@@ -40,7 +40,7 @@ export class AuthService {
   private clearUserData(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('cart');
-    this.cartService.clearCart(); 
+    // this.cartService.clearCart(); 
     
   }
 
@@ -50,7 +50,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('cart');
     localStorage.removeItem('userData');
-    this.cartService.clearCart();
+    // this.cartService.clearCart();
   }
 
   isAuthenticated(): boolean {
