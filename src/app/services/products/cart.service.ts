@@ -4,62 +4,74 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class CartService {
   private apiUrl = 'http://127.0.0.1:8000/cart';
+  private cartItems = new BehaviorSubject<any[]>([]); // تعريف BehaviorSubject
+  cartItems$ = this.cartItems.asObservable(); // Observable للاشتراك
+ 
   private cartCount = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCount.asObservable();
-
   constructor(private http: HttpClient) {}
 
-  // دالة getHeaders لضبط الهيدرز مع التوكن
+
   private getHeaders() {
     const token = localStorage.getItem('token');
     return {
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      }),
+        'Content-Type': 'application/json'
+      })
     };
   }
 
-  /**
-   * addToCart:
-   * - بيرسل طلب POST لـ API (http://127.0.0.1:8000/cart/add) مع بيانات المنتج:
-   *    productId, quantity, size, userId
-   * - بعد النجاح، بيخزن بيانات السلة (اللي جت في response.data.cart) في localStorage
-   */
-  addToCart(productId: string, quantity: number, size: string, userId: string): Observable<any> {
-    const body = { productId, quantity, size, userId };
+  addToCart(productId: string, quantity: number, size: string): Observable<any> {
+    const body = { products: [{ productId, quantity, size }] };
     return this.http.post(`${this.apiUrl}/add`, body, this.getHeaders()).pipe(
       tap((response: any) => {
+        // تأكد إن الاستجابة فيها `data.cart`
         if (response && response.data && response.data.cart) {
-          // حفظ بيانات السلة في localStorage باستخدام مفتاح userId_cart
-          localStorage.setItem(`${userId}_cart`, JSON.stringify(response.data.cart));
+          // احفظ البيانات في الـ localStorage
+          localStorage.setItem('cart', JSON.stringify(response.data.cart));
           console.log("✅ Cart saved to localStorage:", response.data.cart);
-          
-          // تحديث عدد العناصر في السلة
-          const totalCount = response.data.cart.reduce((sum: number, item: any) => sum + item.quantity, 0);
-          this.cartCount.next(totalCount);
-        } else {
-          console.error("Response structure is not as expected:", response);
         }
       })
     );
   }
 
-  /**
-   * getCartFromLocalStorage:
-   * - بترجع بيانات السلة من localStorage باستخدام مفتاح userId_cart
-   */
-  getCartFromLocalStorage(userId: string): any[] {
-    const cart = localStorage.getItem(`${userId}_cart`);
-    return cart ? JSON.parse(cart) : [];
+  
+  updateQuantity(productId: string, quantity: number, size: string): Observable<any> {
+    const body = { products: [{ productId, quantity, size }] };
+    return this.http.post(`${this.apiUrl}/add`, body, this.getHeaders());
   }
+
+  clearCart(): Observable<any> {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      console.error("No token found in localStorage.");
+    }
+  
+    return this.http.post('http://127.0.0.1:8000/cart/checkout', {}, this.getHeaders()).pipe(
+      tap(() => {
+        localStorage.removeItem('cart');
+      })
+    );
+  }
+
+
+getCartProducts(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}`, this.getHeaders()).pipe(
+    tap((response: any) => {
+      // إذا كانت الاستجابة تحتوي على بيانات مُتداخلة (مثل response.data)
+      if (response && response.data) {
+        this.cartItems.next(response.data);
+      }
+    })
+  );
+}
 }
 
- 
 
   // addToCart(productId: string, quantity: number, size: string): Observable<any> {
   //   const body = { products: [{ productId, quantity, size }] };

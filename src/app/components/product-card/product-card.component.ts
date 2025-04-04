@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { routes } from '../../app.routes';
 import { CartService } from '../../services/products/cart.service';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-product-card',
-  imports: [CommonModule,RouterModule,FormsModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
@@ -23,24 +22,22 @@ export class ProductCardComponent {
       
 // !cart page
 constructor(private cartService: CartService, private router: Router) {}
-  selectedSize: string = '';
+  selectedSize: string = 'xl'; // Add selectedSize attribute
   selectedColor: string = '';
  
   addToCart() {
-    if (!this.selectedSize ) {
-      alert('Please select size and color');
+    if (!this.selectedSize) {
+      console.error("Please select a size before adding to cart.");
       return;
     }
   
-    const userId = localStorage.getItem('userId')!;
-    this.cartService.addToCart(this.data._id, 1, this.selectedSize, userId).subscribe(
+    this.cartService.addToCart(this.data._id, 1, this.selectedSize).subscribe(
       response => {
         console.log('Product added successfully:', response);
-        alert('Product added to cart!');
+        // ممكن كمان تضيف نافذة تأكيد للمستخدم
       },
       error => {
         console.error('Error adding product:', error);
-        alert('Error adding product to cart');
       }
     );
   }
