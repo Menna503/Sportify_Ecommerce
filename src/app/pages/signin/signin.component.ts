@@ -34,11 +34,17 @@ export class SigninComponent {
       console.log("done");
       this.authService.signin(this.signInPage.value).subscribe({ 
         next:(response:any)=>{
+
+          if(this.authService.isAuthenticated()){
+            // localStorage.setItem('token' , response.token)
+            console.log("user authenticated successfully");
+
           if(response.token){
             // localStorage.setItem('token' , response.token)
             this.authService.saveTokenRole(response.token , response.data.user.role,response.data.user._id ,response.data.user.firstName ,response.data.user.email);
             console.log("user authenticated successfully");
             console.log(response);
+
             console.log(response.data.user);
             // this.router.navigate(['/home'])
             // this.router.navigate(['/']);
@@ -61,6 +67,9 @@ export class SigninComponent {
             }
             console.log(response.token , response.data.user.role);
             
+
+            this.router.navigate(['/home'])
+
           }else{
             console.log("invalid||missung token");
           }

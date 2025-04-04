@@ -98,11 +98,11 @@ export class ProductService {
   getReviewsById(_id: string) {
     return this.http.get(`${this.apiUrl}/${_id}/reviews`);
   }
-
   addNewReview(_id: string, review: any) {
     const headers = this.authService.getAuthHeaders();
     return this.http.post(`${this.apiUrl}/${_id}/reviews`, review, { headers });
   }
+  
   addNewCheckout(Checkout: any) {
     return this.http.post(this.apiUrl,Checkout); 
   }
