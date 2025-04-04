@@ -19,17 +19,35 @@ export class AuthService {
   }
 
   signout():void{
-    localStorage.removeItem('token')
+    // localStorage.removeItem('token')
+    // localStorage.removeItem('role')
+    localStorage.clear();
   }
+  
 
   // isAuthenticated():boolean{
   //   return !!localStorage.getItem('token')
   // }
 
+  saveTokenRole(token:string , role:string ,id:string ,fname:string ,email:string):void{
+     localStorage.setItem('token' , token);
+     localStorage.setItem('role' , role);
+     localStorage.setItem('UserId' , id);
+     localStorage.setItem('Fname' , fname);
+     localStorage.setItem('Email' , email);
+  }
+
   getToken():String| null{
     return localStorage.getItem('token')
   }
 
+  getRole():String| null{
+    return localStorage.getItem('role') || '';
+  }
+
+  isAdmin():boolean{
+     return this.getRole() ==='admin';
+  }
   public getAuthHeaders():HttpHeaders{
     const Token =this.getToken();
     return new HttpHeaders({'Authorization':`Bearer ${Token}`})
