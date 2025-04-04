@@ -34,16 +34,10 @@ export class SigninComponent {
       console.log("done");
       this.authService.signin(this.signInPage.value).subscribe({ 
         next:(response:any)=>{
-<<<<<<< HEAD
-          if(this.authService.isAuthenticated()){
-            // localStorage.setItem('token' , response.token)
-            console.log("user authenticated successfully");
-=======
           if(response.token){
             localStorage.setItem('token' , response.token)
             console.log("user authenticated successfully");
             console.log(response);
->>>>>>> develop
             this.router.navigate(['/home'])
           }else{
             console.log("invalid||missung token");

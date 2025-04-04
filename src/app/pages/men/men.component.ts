@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-men',
   imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
   templateUrl: './men.component.html',
-  styleUrl: './men.component.css'
+  styleUrls: ['./men.component.css']
 })
 export class MenComponent {
   src = "assets/images/men_collection.svg";
@@ -24,9 +24,8 @@ export class MenComponent {
   selectedIndex: number | null = null;
   priceindex: number | null = null;
   totalItems = 0;
-itemsPerPage = 8;
-currentPage = 1;
-  
+  itemsPerPage = 8;
+  currentPage = 1;
 
   infoBrand: any = [
     { img: 'assets/icons/adidas.svg', brandName: 'Adidas' },
@@ -38,47 +37,21 @@ currentPage = 1;
   constructor(private http: HttpClient, private productService: ProductService) {}
 
   ngOnInit() {
-    // this.fetchData();
-   this. loadProducts();
-  
+    this.loadProducts();
   }
 
-  // fetchData() {
-  //   const params = {
-  //     gender: 'men',
-  //     category: 'clothes',
-  //     subCategory: this.subCategory,
-  //     sort: this.sort,
-  //     brand: this.brand
-  //   };
-
-  //   const filteredParams = Object.fromEntries(
-  //     Object.entries(params).filter(([_, value]) => value !== undefined && value !== "")
-  //   );
-
-  //   if (Object.keys(filteredParams).length >= 2) {
-  //     this.productService.getProduct(filteredParams).subscribe(products => {
-  //       this.menClothes = products;
-  //       console.log(this.menClothes);
-
-  //     });
-  //   }
-  // }
-
-  
   updateFilters(filterData: { sort: string; brand: string }) {
     this.sort = filterData.sort;
     this.brand = filterData.brand;
-    // this.fetchData(); 
     this.loadProducts();
   }
-  
 
   display(text: string) {
     this.subCategory = text;
-    this.currentPage = 1; 
+    this.currentPage = 1;
     this.loadProducts();
   }
+
   loadProducts() {
     const params = {
       gender: 'men',
@@ -93,49 +66,34 @@ currentPage = 1;
     );
 
     this.productService.getProduct(filteredParams, this.currentPage, this.itemsPerPage)
-  .subscribe({
-    next: (response) => {
-      this.menClothes = response.products;
-      this.totalItems = response.total;
-      console.log("✅ API Response:", response);
-    },
-    error: (err) => {
-      console.error("❌ Server Error:", err);
-      alert(Error: ${err.message || "Something went wrong!"});
-    }
-  });
-
+      .subscribe({
+        next: (response) => {
+          this.menClothes = response.products;
+          this.totalItems = response.total;
+          console.log("✅ API Response:", response);
+        },
+        error: (err) => {
+          console.error("❌ Server Error:", err);
+          // Instead of alerting, the error will be passed to the GlobalErrorHandler
+          throw err; // This will trigger the global error handler to handle the error page
+        }
+      });
   }
+
   changePage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.loadProducts();
     }
   }
+
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
-  get paginatedData(){
-    const start =(this.currentPage-1)*this.itemsPerPage;
-    const end = start +this.itemsPerPage
-  
-    return this.menClothes.slice(start , end)
+
+  get paginatedData() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.menClothes.slice(start, end);
   }
-  
-  
-  
-  
-
-  // itemsPerPage = 8;
-  // currentPage = 1;
-
-  // get paginatedData() {
-  //   const start = (this.currentPage - 1) * this.itemsPerPage;
-  //   const end = start + this.itemsPerPage;
-  //   return this.menClothes ? this.menClothes.slice(start, end) : [];
-  // }
-
-  // changePage(page: number) {
-  //   this.currentPage = page;
-  // }
 }
