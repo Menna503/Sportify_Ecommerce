@@ -20,6 +20,7 @@ import { CheckOutComponent } from "./pages/check-out/check-out.component";
 import { AdminComponent } from './pages/admin/admin.component';
 import { GlobalErrorHandler } from './services/error_handler/error-service.service';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
+import { CartPageComponent } from './pages/cart-page/cart-page.component';
 
 
 @Component({
@@ -39,7 +40,7 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
   ConfirmPaymentComponent
   ,FavComponent,PaginationComponent,
   HttpClientModule ,SignupPageComponent ,SigninComponent,
-  CartComponent,PaymentPageComponent,AdminComponent,ProductDetailsComponent],
+  CartComponent,CartPageComponent,PaymentPageComponent,AdminComponent,ProductDetailsComponent],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
