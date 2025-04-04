@@ -24,8 +24,8 @@ export class MenComponent {
   selectedIndex: number | null = null;
   priceindex: number | null = null;
   totalItems = 0;
-itemsPerPage = 8;
-currentPage = 1;
+  itemsPerPage = 8;
+  currentPage = 1;
   
 
   infoBrand: any = [
