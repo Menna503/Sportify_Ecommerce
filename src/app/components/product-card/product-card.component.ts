@@ -1,18 +1,31 @@
-import { Component, input, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-card',
-  imports: [CommonModule,RouterModule],
+  standalone: true, 
+  imports: [CommonModule, RouterModule],
   templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.css'
+  styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
-  @Input() data:any
-  @Input() isFav:boolean=false;
-   toggleFav(){
-    this.isFav=!this.isFav
-   }
-   
+  isHiddenPage: boolean = false; 
+  @Input() data: any;
+  @Input() isFav: boolean = false;
+
+  constructor(private router: Router, private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.checkCurrentRoute();
+  }
+
+  checkCurrentRoute() {
+    const currentUrl = this.router.url; 
+    this.isHiddenPage = currentUrl.includes('equipment') || currentUrl.includes('supplements');
+  }
+
+  toggleFav() {
+    this.isFav = !this.isFav;
+  }
 }

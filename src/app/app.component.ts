@@ -35,7 +35,6 @@ import { CheckOutComponent } from "./pages/check-out/check-out.component";
   selector: 'app-root',
 
   imports: [RouterOutlet,
-   
       FavComponent,
      PaymentPageComponent, CheckOutComponent
      ,HomeComponent,

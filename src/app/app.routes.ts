@@ -11,6 +11,8 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { Component } from '@angular/core';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
+import { EquipmentComponent } from './pages/equipment/equipment.component';
+import { ShoesComponent } from './pages/shoes/shoes.component';
 
 export const routes: Routes = [
     {path:'',redirectTo:'home',pathMatch:'full'},
@@ -20,10 +22,12 @@ export const routes: Routes = [
     {path:'fav' ,component:FavComponent},
     {path:'men' ,component:MenComponent},
     {path:'women' ,component:WomenComponent},
-    {path:'suplements' ,component:SuplementsComponent},
+    {path:'equipment',component:EquipmentComponent},
+    {path:'supplements' ,component:SuplementsComponent},
     {path:'cart',component:CartComponent},
     {path:'product/:id',component:ProductDetailsComponent},
     {path:'payment',component:PaymentPageComponent},
-    {path:'checkout',component:CheckOutComponent}
+    {path:'checkout',component:CheckOutComponent},
+    {path:'shoes',component:ShoesComponent}
 
 ];

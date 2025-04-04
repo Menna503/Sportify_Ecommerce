@@ -38,38 +38,16 @@ currentPage = 1;
   constructor(private http: HttpClient, private productService: ProductService) {}
 
   ngOnInit() {
-    // this.fetchData();
    this. loadProducts();
   
   }
 
-  // fetchData() {
-  //   const params = {
-  //     gender: 'men',
-  //     category: 'clothes',
-  //     subCategory: this.subCategory,
-  //     sort: this.sort,
-  //     brand: this.brand
-  //   };
-
-  //   const filteredParams = Object.fromEntries(
-  //     Object.entries(params).filter(([_, value]) => value !== undefined && value !== "")
-  //   );
-
-  //   if (Object.keys(filteredParams).length >= 2) {
-  //     this.productService.getProduct(filteredParams).subscribe(products => {
-  //       this.menClothes = products;
-  //       console.log(this.menClothes);
-
-  //     });
-  //   }
-  // }
-
+  
   
   updateFilters(filterData: { sort: string; brand: string }) {
     this.sort = filterData.sort;
     this.brand = filterData.brand;
-    // this.fetchData(); 
+   
     this.loadProducts();
   }
   
@@ -126,16 +104,5 @@ currentPage = 1;
   
   
 
-  // itemsPerPage = 8;
-  // currentPage = 1;
-
-  // get paginatedData() {
-  //   const start = (this.currentPage - 1) * this.itemsPerPage;
-  //   const end = start + this.itemsPerPage;
-  //   return this.menClothes ? this.menClothes.slice(start, end) : [];
-  // }
-
-  // changePage(page: number) {
-  //   this.currentPage = page;
-  // }
+ 
 }
