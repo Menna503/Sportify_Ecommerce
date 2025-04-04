@@ -11,34 +11,36 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { Component, NgModule } from '@angular/core';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
+import { EquipmentComponent } from './pages/equipment/equipment.component';
+import { ShoesComponent } from './pages/shoes/shoes.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { GuardService } from './services/auth/authGaurd/guard.service';
 
+
 export const routes: Routes = [
-    {path:'',redirectTo:'login',pathMatch:'full'},
-    {path:'home' , component:HomeComponent , canActivate:[GuardService]},
+    {path:'',redirectTo:'home',pathMatch:'full'},
+    {path:'home' , component:HomeComponent },
     {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
-    {path:'fav' ,component:FavComponent},
+    {path:'fav' ,component:FavComponent ,canActivate:[GuardService]},
     {path:'men' ,component:MenComponent},
     {path:'women' ,component:WomenComponent},
+    {path:'equipment',component:EquipmentComponent},
+    {path:'supplements' ,component:SuplementsComponent},
+    {path:'product/:id',component:ProductDetailsComponent,canActivate:[GuardService]},
+    {path:'payment',component:PaymentPageComponent,canActivate:[GuardService]},
+    {path:'checkout',component:CheckOutComponent,canActivate:[GuardService]},
+    {path:'shoes',component:ShoesComponent},
+    { path:'error', component:ErrorComponent},
+    { path: '**', redirectTo:'error'},
     {path:'suplements' ,component:SuplementsComponent},
     {path:'product/:id',component:ProductDetailsComponent},
-    {path:'payment',component:PaymentPageComponent},
-    {path:'checkout',component:CheckOutComponent},
-//cart page
-{ path: 'cart', component: CartPageComponent }, 
-//  for errors
-
-
-     { path: 'error', component: ErrorComponent },
-     { path: '**', redirectTo: 'error' },
+    { path: 'cart', component: CartPageComponent ,canActivate:[GuardService]}, 
     {path:'admin',component:AdminComponent , canActivate:[GuardService]}
 
 ];
-//cart page
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule],

@@ -12,7 +12,7 @@
                 <div class="flex gap-4 items-center">
                     <a [routerLink]="['/fav']"> <i class="fa-regular fa-heart text-ternaryText"></i> </a>
                     <a [routerLink]="['/cart']"> <img src="assets/icons/cart.svg" class="w-[23px]"></a>
-                    <i class="fa-regular fa-user relative text-ternaryText" (click)="getProfile()"></i>
+                    <i class="fa-regular fa-user relative text-ternaryText cursor-pointer" (click)="getProfile()"></i>
                 </div>
               }
               @else {
@@ -29,9 +29,9 @@
        
  </div>
 
-    <div class="profile absolute top-15 right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95" 
+    <div class="profile absolute top-15 right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95 " 
     [ngClass]="{'opacity-100 scale-100':ishidden,'opacity-0 scale-50':!ishidden}">
-        <img src="assets\images\profile.svg" alt="profile_pic" class="m-auto mt-4">
+        <img src="assets\images\profile.svg " alt="profile_pic" class="m-auto mt-4">
         <p class="text-center mt-1 text-xl">{{fname}}</p>
         <div class="flex items-center ml-7 mt-7">
             <i class="fa-solid fa-envelope mr-2 text-xl text-mainColor"></i>
@@ -50,9 +50,9 @@
             <li><a [routerLink]="['/home']" routerLinkActive="router-link-active"  >home</a></li>
             <li><a [routerLink]="['/men']">men</a></li>
             <li><a [routerLink]="['/women']" >womens</a></li>
-            <li><a  >Equipment</a></li>
-            <li><a  >Shoes</a></li>
-            <li><a [routerLink]="['/suplements']" >Supplements</a></li>
+            <li><a [routerLink]="['/equipment']" >Equipment</a></li>
+            <li><a [routerLink]="['/shoes']" >Shoes</a></li>
+            <li><a [routerLink]="['/supplements']" >Supplements</a></li>
         </ul>
     </div>
        
@@ -87,40 +87,52 @@
        <img src="assets/icons/logo_yellow.svg" alt="" class=" mt-2">
     </div>
 <ul class=" flex flex-col gap-4 p-5">
-    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer"[routerLink]="['/home']">
         <img src="assets/icons/home.svg">
-        <p>home</p>
+        <p >home</p>
     </li>
-    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer" [routerLink]="['/women']">
     <img src="assets/icons/women.svg">
     <p>women</p>
     </li>
   
-    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer"  [routerLink]="['/equipment']">
         <img src="assets/icons/equ.svg">
         <p>Equipments</p>
     </li>
-    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black"> 
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer" [routerLink]="['/shoes']" > 
         <img src="assets/icons/shoes.svg">
         <p>Shoes</p>
     </li>
-    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
+    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer" [routerLink]="['/supplements']" >
         <img src="assets/icons/sup.svg">
         <p>Supplements</p>
     </li>
-    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
-        <img src="assets/icons/love.svg">
-        <p>Favorite</p>
-    </li>
- 
-    <li  class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
-        <img src="assets/icons/cart.svg">
-         <p>Cart</p>
-    </li>
- 
-    <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
-        <img src="assets/icons/profile.svg">
-        <p>Profile</p>
-    </li>
+    @if(token){
+        <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer items-center"[routerLink]="['/fav']">
+            <img src="assets/icons/love.svg">
+            <p>Favorite</p>
+        </li>
+     
+        <li  class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer" [routerLink]="['/cart']">
+            <img src="assets/icons/cart.svg">
+             <p>Cart</p>
+        </li>
+     
+        <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black items-center">
+            <i class="fa-solid fa-right-from-bracket  text-xl text-secandaryText"></i>
+            <p class="text-l cursor-pointer" (click)="logout()">Logout</p>
+        </li>
+    }
+    @else{
+        <li class="flex gap-2 items-center ">
+            <button class="bg-mainColor rounded-xl px-6 py-2  cursor-pointer  text-gray-900  "> <a [routerLink]="['/login']">log in</a></button>
+           
+            <button class="bg-mainColor rounded-xl px-6 py-2  cursor-pointer text-gray-900  "> <a [routerLink]="['/signup']">Sign up</a></button>
+            
+
+        </li>
+    }
+    
 </ul>
 </div>

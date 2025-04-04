@@ -1,8 +1,8 @@
+
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { Component, EventEmitter, Input,Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { FavoritesService } from '../../services/favorites/favorites.service';
-
 import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -10,33 +10,47 @@ import { CartService } from '../../services/products/cart.service';
 
 @Component({
   selector: 'app-product-card',
-  imports: [CommonModule,RouterModule,HeaderComponent,FooterComponent],
+  imports: [CommonModule,RouterModule,HeaderComponent,FooterComponent,CommonModule, RouterModule],
+  standalone: true, 
   templateUrl: './product-card.component.html',
-  styleUrl: './product-card.component.css'
+  styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
-  @Input() data:any
-  @Input() isFav:boolean=false;
+  isHiddenPage: boolean = false; 
+  @Input() data: any;
+  @Input() isFav: boolean = false;
   @Output() removedFromFavorites = new EventEmitter<string>();
+  constructor(private router: Router, private route: ActivatedRoute,private favoritesService:FavoritesService,private cartService: CartService) {}
+  ngOnInit() {
+    this.checkCurrentRoute();
+    this.checkIfFavorite();
+  }
    
     
-    constructor(private cartService: CartService, private router: Router,private favoritesService:FavoritesService) {}
+   
 
-    ngOnInit(){
-      this.checkIfFavorite();
-    }
 
-    checkIfFavorite(){
-      this.favoritesService.getfavourite().subscribe({
-        next:(favourits)=>{
-          this.isFav=favourits.some(fav=>fav.id == this.data.id)
-        },
-        error:(err)=>{
-          console.log(err);
-          
-        }
-      })
-    }
+  checkCurrentRoute() {
+    const currentUrl = this.router.url; 
+    this.isHiddenPage = currentUrl.includes('equipment') || currentUrl.includes('supplements');
+  }
+  checkIfFavorite(){
+    this.favoritesService.getfavourite().subscribe({
+      next:(favourits)=>{
+        this.isFav=favourits.some(fav=>fav.id == this.data.id)
+      },
+      error:(err)=>{
+        console.log(err);
+        
+      }
+    })
+  }
+
+
+
+}
+}
+
     toggleFav(){
       // this.isFav=!this.isFav
       if(!this.isFav){
@@ -83,3 +97,4 @@ export class ProductCardComponent {
   }
   
 }
+

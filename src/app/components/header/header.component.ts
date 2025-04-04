@@ -17,10 +17,11 @@ export class HeaderComponent {
   ishidden:boolean=false;
    token:string|null=null;
   constructor(private authService:AuthService ,private router:Router){
-    this.token=localStorage.getItem('token');
-     console.log(this.token);
+    
   }
   ngOnInit() {
+     this.token=localStorage.getItem('token');
+      console.log(this.token);
        this.fname=localStorage.getItem('Fname');
        this.email=localStorage.getItem('Email')
   }
@@ -36,7 +37,10 @@ export class HeaderComponent {
 
   logout(){
     this.authService.signout();
-    this.router.navigate(['/login'], { replaceUrl: true })
+    this.router.navigate(['/home'], { replaceUrl: true });
+    this.token='';
+    this.ishidden=false;
+
   }
   
 }

@@ -27,7 +27,6 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
   providers:[{ provide: ErrorHandler, useClass:GlobalErrorHandler  }],
 
   imports: [RouterOutlet,
-   
       FavComponent,
      PaymentPageComponent, CheckOutComponent
      ,HomeComponent,
