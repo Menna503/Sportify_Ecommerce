@@ -12,5 +12,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     this.router.navigate(['/error'], {
       state: { errorMessage: error.message || 'Something went wrong' }
     });
+
+    
   }
 }

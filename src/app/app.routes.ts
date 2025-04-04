@@ -12,10 +12,12 @@ import { PaymentPageComponent } from './pages/payment-page/payment-page.componen
 import { Component } from '@angular/core';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
 import { ErrorComponent } from './pages/error/error.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { GuardService } from './services/auth/authGaurd/guard.service';
 
 export const routes: Routes = [
     {path:'',redirectTo:'login',pathMatch:'full'},
-    {path:'home' , component:HomeComponent},
+    {path:'home' , component:HomeComponent , canActivate:[GuardService]},
     {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
     {path:'fav' ,component:FavComponent},
@@ -27,6 +29,7 @@ export const routes: Routes = [
     {path:'payment',component:PaymentPageComponent},
     {path:'checkout',component:CheckOutComponent},
      { path: 'error', component: ErrorComponent },
-     { path: '**', redirectTo: 'error' }
+     { path: '**', redirectTo: 'error' },
+    {path:'admin',component:AdminComponent , canActivate:[GuardService]}
 
 ];
