@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { FavComponent } from './pages/fav/fav.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MenComponent } from './pages/men/men.component';
@@ -9,8 +9,9 @@ import { WomenComponent } from './pages/women/women.component';
 import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { CheckOutComponent } from './pages/check-out/check-out.component';
+import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { GuardService } from './services/auth/authGaurd/guard.service';
@@ -24,12 +25,22 @@ export const routes: Routes = [
     {path:'men' ,component:MenComponent},
     {path:'women' ,component:WomenComponent},
     {path:'suplements' ,component:SuplementsComponent},
-    {path:'cart',component:CartComponent},
     {path:'product/:id',component:ProductDetailsComponent},
     {path:'payment',component:PaymentPageComponent},
     {path:'checkout',component:CheckOutComponent},
+//cart page
+{ path: 'cart', component: CartPageComponent }, 
+//  for errors
+
+
      { path: 'error', component: ErrorComponent },
-     { path: '**', redirectTo: 'error' },
+     { path: '**', redirectTo: 'error' },
     {path:'admin',component:AdminComponent , canActivate:[GuardService]}
 
 ];
+//cart page
+@NgModule({
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule],
+  })
+  export class AppRoutingModule {}

@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { FavoritesService } from '../../services/favorites/favorites.service';
 
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { CartService } from '../../services/products/cart.service';
 
 @Component({
   selector: 'app-product-card',
@@ -18,7 +19,8 @@ export class ProductCardComponent {
   @Input() isFav:boolean=false;
   @Output() removedFromFavorites = new EventEmitter<string>();
    
-    constructor(private favoritesService:FavoritesService){}
+    
+    constructor(private cartService: CartService, private router: Router,private favoritesService:FavoritesService) {}
 
     ngOnInit(){
       this.checkIfFavorite();
@@ -58,7 +60,26 @@ export class ProductCardComponent {
           }
         })
       }
-     }
-  
-   
+}
+
+  selectedSize: string = 'sm'; // Add selectedSize attribute
+  selectedColor: string = '';
+ 
+  addToCart() {
+    if (!this.selectedSize) {
+      console.error("Please select a size before adding to cart.");
+      return;
+    }
+  
+    this.cartService.addToCart(this.data._id, 1, this.selectedSize).subscribe(
+      response => {
+        console.log('Product added successfully:', response);
+        // ممكن كمان تضيف نافذة تأكيد للمستخدم
+      },
+      error => {
+        console.error('Error adding product:', error);
+      }
+    );
+  }
+  
 }
