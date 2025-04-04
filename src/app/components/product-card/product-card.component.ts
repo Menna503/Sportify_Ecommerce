@@ -1,11 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 
+import { RouterModule, Router, ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Input,Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FavoritesService } from '../../services/favorites/favorites.service';
+import { HeaderComponent } from '../header/header.component';
+import { FooterComponent } from '../footer/footer.component';
 @Component({
   selector: 'app-product-card',
+  imports: [CommonModule,RouterModule,HeaderComponent,FooterComponent,CommonModule, RouterModule],
   standalone: true, 
-  imports: [CommonModule, RouterModule],
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
@@ -13,19 +16,51 @@ export class ProductCardComponent {
   isHiddenPage: boolean = false; 
   @Input() data: any;
   @Input() isFav: boolean = false;
-
-  constructor(private router: Router, private route: ActivatedRoute) {}
-
+  @Output() removedFromFavorites = new EventEmitter<string>();
+  constructor(private router: Router, private route: ActivatedRoute,private favoritesService:FavoritesService) {}
   ngOnInit() {
     this.checkCurrentRoute();
+    this.checkIfFavorite();
   }
 
   checkCurrentRoute() {
     const currentUrl = this.router.url; 
     this.isHiddenPage = currentUrl.includes('equipment') || currentUrl.includes('supplements');
   }
-
-  toggleFav() {
-    this.isFav = !this.isFav;
+  checkIfFavorite(){
+    this.favoritesService.getfavourite().subscribe({
+      next:(favourits)=>{
+        this.isFav=favourits.some(fav=>fav.id == this.data.id)
+      },
+      error:(err)=>{
+        console.log(err);
+        
+      }
+    })
   }
+
+  toggleFav(){
+    // this.isFav=!this.isFav
+    if(!this.isFav){
+      this.favoritesService.addFavorite(this.data).subscribe({
+        next:()=>{
+          console.log(`${this.data.id} is added`)
+          this.isFav=true
+        },
+          error: (err) => console.error("Error while removing from favorites:", err)
+      });
+      
+    }else{
+      this.favoritesService.removeFavorite(this.data.id).subscribe({
+        next:()=>{
+          console.log(`${this.data.id} is removed`)
+          this.isFav=false;
+          this.removedFromFavorites.emit(this.data.id);
+        },
+        error:(err)=>{
+            console.log(err);   
+        }
+      })
+    }
+}
 }

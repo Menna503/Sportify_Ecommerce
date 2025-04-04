@@ -32,6 +32,7 @@
 /* admin page */
 --color-productTitle:#AAA51E;
 
+
    
 
 }
@@ -39,6 +40,7 @@
     text-transform: capitalize;
     
 }
+
 .fontInter{
   font-family: 'Inter', sans-serif;
   
@@ -48,6 +50,9 @@
 input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0.5; 
 }
+
+    
+
 
     
 

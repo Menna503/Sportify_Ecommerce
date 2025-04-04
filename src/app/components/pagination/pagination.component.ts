@@ -62,6 +62,12 @@ export class PaginationComponent implements OnChanges {
   pageClicked(page: number) {
     if (page <= this.totalPages && page > 0) {
       this.onClick.emit(page);
-    }
-  }
+// <<<<<<< sama1
+    }
+  }
 }
+// =======
+//     }
+//   }
+// }
+// >>>>>>> develop

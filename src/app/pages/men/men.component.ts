@@ -13,7 +13,7 @@ import { HttpClient } from '@angular/common/http';
   selector: 'app-men',
   imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
   templateUrl: './men.component.html',
-  styleUrl: './men.component.css'
+  styleUrls: ['./men.component.css']
 })
 export class MenComponent {
   src = "assets/images/men_collection.svg";
@@ -24,9 +24,8 @@ export class MenComponent {
   selectedIndex: number | null = null;
   priceindex: number | null = null;
   totalItems = 0;
-itemsPerPage = 8;
-currentPage = 1;
-  
+  itemsPerPage = 8;
+  currentPage = 1;
 
   infoBrand: any = [
     { img: 'assets/icons/adidas.svg', brandName: 'Adidas' },
@@ -50,13 +49,13 @@ currentPage = 1;
    
     this.loadProducts();
   }
-  
 
   display(text: string) {
     this.subCategory = text;
-    this.currentPage = 1; 
+    this.currentPage = 1;
     this.loadProducts();
   }
+
   loadProducts() {
     const params = {
       gender: 'men',
@@ -71,25 +70,27 @@ currentPage = 1;
     );
 
     this.productService.getProduct(filteredParams, this.currentPage, this.itemsPerPage)
-  .subscribe({
-    next: (response) => {
-      this.menClothes = response.products;
-      this.totalItems = response.total;
-      console.log("✅ API Response:", response);
-    },
-    error: (err) => {
-      console.error("❌ Server Error:", err);
-      alert(`Error: ${err.message || "Something went wrong!"}`);
-    }
-  });
-
+      .subscribe({
+        next: (response) => {
+          this.menClothes = response.products;
+          this.totalItems = response.total;
+          console.log("✅ API Response:", response);
+        },
+        error: (err) => {
+          console.error("❌ Server Error:", err);
+          // Instead of alerting, the error will be passed to the GlobalErrorHandler
+          throw err; // This will trigger the global error handler to handle the error page
+        }
+      });
   }
+
   changePage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.loadProducts();
     }
   }
+
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
