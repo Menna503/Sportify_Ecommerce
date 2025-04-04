@@ -95,11 +95,22 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
 
     
       this.productService.addNewReview(productId, newReview).subscribe({
-        next: () => {
-          console.log('Review added successfully');
+        next: (response: any) => {
+          console.log('Review added successfully', response);
           this.myEvent.emit(newReview);
+          this.reviews.unshift(response.data);
           this.submitted =false;
           this.Form.reset();
+
+          this.productService.getReviewsById(this.ID).subscribe({
+            next: (data: any) => {
+              this.reviews = data?.data?.reviews || [];
+              console.log("Updated Reviews:", this.reviews);
+            },
+            error: (err) => {
+              console.log(err);
+            }
+          });
         },
         error: (err) => {
           console.log('Error adding Review:', err);

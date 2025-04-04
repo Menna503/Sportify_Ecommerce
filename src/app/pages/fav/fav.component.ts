@@ -31,17 +31,18 @@ export class FavComponent {
     }
 
     removeFromFavorites(itemId: string) {
-      // استدعاء API لحذف المنتج من قاعدة البيانات
       this.favoritesService.removeFavorite(itemId).subscribe({
         next: () => {
-          // حذف المنتج من المصفوفة بدون عمل Refresh
-          this.favorites = this.favorites.filter(item => item.id !== itemId);
+          console.log(`${itemId} removed from favorites`);
+          this.favorites = this.favorites.filter(item => item.id !== itemId); // ✅ تحديث الواجهة مباشرة
         },
         error: (err) => {
           console.error('Error removing item:', err);
         }
       });
     }
+    
+
     
 // lo
   //////////////////////////////////////////for scrolling horzonitly for responsive///////////////////////////
@@ -91,6 +92,6 @@ export class FavComponent {
   //     const x = e.touches[0].pageX - slider.offsetLeft;
   //     const walk = (x - startX) * 2;
   //     slider.scrollLeft = scrollLeft - walk;
-  //   });
-  // }
+  //   });
+  // }
 }
