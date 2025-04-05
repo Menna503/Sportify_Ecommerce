@@ -12,6 +12,7 @@ export interface Product {
   price: number;
   brand: string;
   imageUrl: string;
+  size_range: string[]; 
   category?: any;
   subCategory?: any;
   gender?: string;
