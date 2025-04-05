@@ -10,15 +10,14 @@ import { ProductService } from '../../services/products/product.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-women',
+  selector: 'app-shoes',
  imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
-  templateUrl: './women.component.html',
-  styleUrl: './women.component.css'
+  templateUrl: './shoes.component.html',
+  styleUrl: './shoes.component.css'
 })
-export class WomenComponent {
-    src = "assets/images/image_71.svg";
-     menClothes: any;
-     subCategory: string = '';
+export class ShoesComponent {
+src = "assets/images/shoes_img.svg";
+     productes: any;
      sort: string = '';
      brand: string = '';
      selectedIndex: number | null = null;
@@ -29,15 +28,17 @@ export class WomenComponent {
      
    
      infoBrand: any = [
-       { img: 'assets/icons/adidas.svg', brandName: 'Adidas' },
-       { img: 'assets/icons/nike.svg', brandName: 'Nike' },
-       { img: 'assets/icons/nilton.svg', brandName: 'Nileton' },
-       { img: 'assets/icons/misery.svg', brandName: 'Mesery' }
+      { img: 'assets/icons/adidas.svg', brandName: 'ADIDAS' },
+      { img: 'assets/icons/nike.svg', brandName: 'Nike' },
+      { img: 'assets/icons/puma-logo.svg', brandName: 'PUMA' },
+  
+      
      ];
    
      constructor(private http: HttpClient, private productService: ProductService) {}
    
      ngOnInit() {
+      this.currentPage=1;
       this. loadProducts();
      
      }
@@ -52,16 +53,10 @@ export class WomenComponent {
      }
      
    
-     display(text: string) {
-       this.subCategory = text;
-       this.currentPage = 1; 
-       this.loadProducts();
-     }
+   
      loadProducts() {
        const params = {
-         gender: 'women',
-         category: 'clothes',
-         subCategory: this.subCategory,
+         category: 'shoes',
          sort: this.sort,
          brand: this.brand
        };
@@ -73,7 +68,7 @@ export class WomenComponent {
        this.productService.getProduct(filteredParams, this.currentPage, this.itemsPerPage)
      .subscribe({
        next: (response) => {
-         this.menClothes = response.products;
+         this.productes = response.products;
          this.totalItems = response.total;
          console.log("✅ API Response:", response);
        },
@@ -97,13 +92,7 @@ export class WomenComponent {
        const start =(this.currentPage-1)*this.itemsPerPage;
        const end = start +this.itemsPerPage
      
-       return this.menClothes.slice(start , end)
+       return this.productes.slice(start , end)
      }
      
-     
-     
-     
-
 }
-
-

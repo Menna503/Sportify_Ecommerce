@@ -43,10 +43,16 @@ export class ProductService {
   
     return this.http.get<{ status: string, results: number, numProducts: number, data: { products: Product[] } }>(this.apiUrl, { params })
       .pipe(
-        map(response => ({
-          products: response.data.products,
-          total: response.numProducts 
-        })),
+        map(response => {
+          if (!response.data.products || response.data.products.length === 0) {
+            throw new Error('No products found');
+          }
+          return {
+            products: response.data.products,
+            total: response.numProducts
+          };
+        }),
+       
         catchError((error) => this.handleError(error))  
       );
   }

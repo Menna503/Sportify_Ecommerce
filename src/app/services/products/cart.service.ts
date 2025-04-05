@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -13,8 +14,8 @@ export class CartService {
  
   private cartCount = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCount.asObservable();
+  
   constructor(private http: HttpClient) {}
-
 
   private getHeaders() {
     const token = localStorage.getItem('token');
@@ -28,46 +29,55 @@ export class CartService {
 
   addToCart(productId: string, quantity: number, size: string): Observable<any> {
     const body = { products: [{ productId, quantity, size }] };
-    return this.http.post(`${this.apiUrl}/add`, body, this.getHeaders()).pipe(
+    return this.http.post(`${this.apiUrl}`, body, this.getHeaders()).pipe(
       tap((response: any) => {
-        // تأكد إن الاستجابة فيها `data.cart`
         if (response && response.data && response.data.cart) {
-          // احفظ البيانات في الـ localStorage
+          const updatedCart = response.data.cart; // اعرف المتغير ده
           localStorage.setItem('cart', JSON.stringify(response.data.cart));
-          console.log("✅ Cart saved to localStorage:", response.data.cart);
+          this.cartItems.next(response.data.cart);
+            // تحديث عداد الكارت
+         this.cartCount.next(updatedCart.length);
+
         }
       })
     );
   }
-
   
   updateQuantity(productId: string, quantity: number, size: string): Observable<any> {
     const body = { products: [{ productId, quantity, size }] };
-    return this.http.post(`${this.apiUrl}/add`, body, this.getHeaders());
+    return this.http.post(`${this.apiUrl}`, body, this.getHeaders());
   }
 
-  clearCart(): Observable<any> {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      console.error("No token found in localStorage.");
-    }
-  
-    return this.http.post('http://127.0.0.1:8000/cart/checkout', {}, this.getHeaders()).pipe(
-      tap(() => {
-        localStorage.removeItem('cart');
+  getCartProducts(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`, this.getHeaders()).pipe(
+      tap((response: any) => {
+        if (response && response.data) {
+          this.cartItems.next(response.data);
+        }
       })
     );
   }
-
-
-getCartProducts(): Observable<any[]> {
-  return this.http.get<any[]>(`${this.apiUrl}`, this.getHeaders()).pipe(
+//! to remove item
+//! To remove an item using the DELETE request with a body
+removeFromCart(productId: string, size: string): Observable<any> {
+  const url = `${this.apiUrl}`; // endpoint for removing product
+  const body = { productId, size }; // body containing productId and size
+  // Use HttpClient.request with DELETE method to send a request with a body
+  return this.http.request('DELETE', url, { 
+    headers: this.getHeaders().headers, 
+    body 
+  }).pipe(
     tap((response: any) => {
-      // إذا كانت الاستجابة تحتوي على بيانات مُتداخلة (مثل response.data)
-      if (response && response.data) {
-        this.cartItems.next(response.data);
+      // Assuming the response returns the updated cart
+      if (response && response.data && response.data.cart) {
+        const updatedCart = response.data.cart;
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+        this.cartItems.next(updatedCart);
+        this.cartCount.next(updatedCart.length);
       }
     })
   );
 }
 }
+
+

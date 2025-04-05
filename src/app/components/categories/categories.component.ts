@@ -12,9 +12,9 @@ export class CategoriesComponent {
   allCategories: { name: string; img: string; src: string }[] = [
     { name: 'MAN', img: 'assets/images/man_categories.svg', src: '/men' },
     { name: 'WOMEN', img: 'assets/images/women_categories.svg', src: '/women' },
-    { name: 'SHOES', img: 'assets/images/shoes_categories.svg', src: '/women' },
-    { name: 'SUPPLEMENTS', img: 'assets/images/supplements_categorie.svg', src: '/suplements' },
-    { name: 'EQUIPMENTS', img: 'assets/images/equipments.svg', src: '/women' },
+    { name: 'SHOES', img: 'assets/images/shoes_categories.svg', src: '/shoes' },
+    { name: 'SUPPLEMENTS', img: 'assets/images/supplements_categorie.svg', src: '/supplements' },
+    { name: 'EQUIPMENTS', img: 'assets/images/equipments.svg', src: '/equipment' },
   ];
 
   displayedCategories: { name: string; img: string; src: string }[] = [];

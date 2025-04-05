@@ -37,12 +37,16 @@ export class MenComponent {
   constructor(private http: HttpClient, private productService: ProductService) {}
 
   ngOnInit() {
-    this.loadProducts();
+   this. loadProducts();
+  
   }
 
+  
+  
   updateFilters(filterData: { sort: string; brand: string }) {
     this.sort = filterData.sort;
     this.brand = filterData.brand;
+   
     this.loadProducts();
   }
 
@@ -90,10 +94,16 @@ export class MenComponent {
   get totalPages(): number {
     return Math.ceil(this.totalItems / this.itemsPerPage);
   }
-
-  get paginatedData() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    return this.menClothes.slice(start, end);
+  get paginatedData(){
+    const start =(this.currentPage-1)*this.itemsPerPage;
+    const end = start +this.itemsPerPage
+  
+    return this.menClothes.slice(start , end)
   }
+  
+  
+  
+  
+
+ 
 }
