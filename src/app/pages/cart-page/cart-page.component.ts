@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CartComponent } from '../../components/cart/cart.component';
 import { AuthService } from '../../services/auth/authservice/auth.service';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
@@ -17,7 +18,7 @@ export class CartPageComponent implements OnInit {
   cartProducts: any ;
   totalPrice: number = 0;
    user_id: string = localStorage.getItem('UserId')|| "";
-  constructor(private cartService: CartService,private authservice:AuthService) {}
+  constructor(private cartService: CartService,private authservice:AuthService ,private router: Router) {}
   
 
   ngOnInit() {
@@ -63,7 +64,9 @@ export class CartPageComponent implements OnInit {
     // this.cartProducts = this.cartService.getCartProducts();
     // this.calculateTotal();
   }
-
+  goToCheckout(){
+    this.router.navigate(['/checkout']);
+  }
 
   }
 

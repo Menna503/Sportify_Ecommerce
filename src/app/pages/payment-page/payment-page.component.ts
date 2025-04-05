@@ -46,16 +46,7 @@ export class PaymentPageComponent {
         address: this.Form.get('address')?.value
 
       }
-      this.productsService.addNewCheckout(newCheckout).subscribe({
-        next: () => {
-          console.log('Checkout added successfully');
-          this.Form.reset();
-          this.router.navigate(['/payment']);
-        },
-        error: (err) => {
-          console.log('Error adding Checkout:', err);
-        }
-      });
+   
     }
     return;
    

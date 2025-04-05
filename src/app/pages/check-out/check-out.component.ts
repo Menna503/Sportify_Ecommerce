@@ -34,31 +34,26 @@ export class CheckOutComponent {
     return this.Form.controls['address'].valid;
   }
   submitted = false;
-  submit(){
+  submit() {
     this.submitted = true;
+    console.log('Form validity:', this.Form.valid);
+  
     if (this.Form.valid) {
-
       this.Form.markAllAsTouched(); 
-      let newCheckout = {
-        name: this.Form.get('name')?.value,
-        email: this.Form.get('email')?.value,
-        phone: this.Form.get('phone')?.value,
-        address: this.Form.get('address')?.value
+      console.log('Form values:', this.Form.value);
 
-      }
-      this.productsService.addNewCheckout(newCheckout).subscribe({
-        next: () => {
-          console.log('Checkout added successfully');
-          this.Form.reset();
-          this.router.navigate(['/payment']);
-        },
-        error: (err) => {
-          console.log('Error adding Checkout:', err);
-        }
-      });
+      this.router.navigate(['/payment']);
+      console.log('Form is valid, navigating to payment...');
+    } else {
+      console.log('Form is invalid. Please fill in all required fields correctly.');
     }
-    return;
-   
   }
+   
+  
+  goToCheckout() {
+    this.router.navigate(['/checkout']);
+    console.log('Navigating back to checkout...');
+  }
+ 
 
 }

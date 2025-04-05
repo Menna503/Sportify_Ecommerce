@@ -70,7 +70,7 @@
                     <div class="h-2 mt-1">
                       @if(Form.get('phone')?.value && !PhoneValid){
                         <span class="text-sm text-left  text-red-600">
-                          Phone should be 12 numbers
+                          Phone should be 11 numbers
                         </span>
                       }
                       @if(!Form.get('phone')?.value && submitted  ){
@@ -86,7 +86,7 @@
                     submit
                   </button>
 
-                  <button class=" p-3 ps-5 pr-5 border border-[#454545] w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] hover:text-white hover:cursor-pointer  transition">
+                  <button type="button" class="p-3 ps-5 pr-5 border border-[#454545] w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] hover:text-white hover:cursor-pointer transition" (click)="goToCheckout()">
                     Cancel
                   </button>
                 </div>

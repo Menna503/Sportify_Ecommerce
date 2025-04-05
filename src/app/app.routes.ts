@@ -26,13 +26,9 @@ export const routes: Routes = [
     {path:'women' ,component:WomenComponent},
     {path:'suplements' ,component:SuplementsComponent},
     {path:'product/:id',component:ProductDetailsComponent},
+    { path: 'checkout', component: CheckOutComponent },
     {path:'payment',component:PaymentPageComponent},
-    {path:'checkout',component:CheckOutComponent},
-//cart page
-{ path: 'cart', component: CartPageComponent }, 
-//  for errors
-
-
+    { path: 'cart', component: CartPageComponent }, 
      { path: 'error', component: ErrorComponent },
      { path: '**', redirectTo: 'error' },
     {path:'admin',component:AdminComponent , canActivate:[GuardService]}

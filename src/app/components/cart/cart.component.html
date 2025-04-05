@@ -8,21 +8,14 @@
   
         <div class="flex gap-2 mt-5 flex-wrap">
            <!-- !sizes -->
-            <select [(ngModel)]="product.selectedSize" class="border px-3 h-8 rounded text-gray-700 border-inputColor w-full md:w-auto">
-                <option *ngFor="let size of product.size_range" [value]="size">{{ size }}</option>
-            </select>
-  
+
+           <div class="w-full md:w-20  h-8 border text-center rounded flex justify-center items-center p-2 border-inputColor text-textColor">
+            {{product.size}}
+           </div>
           
             <!-- !quantity -->
-            <div class="w-full md:w-20 h-8 border text-center rounded flex justify-between items-center p-2 border-inputColor text-textColor">
-                <i class="fa-solid fa-minus text-xs cursor-pointer" (click)="decreaseQuantity()"></i>
-                <input type="number" 
-                [(ngModel)]="product.quantity" 
-                (ngModelChange)="updateQuantity($event)"
-                min="1" 
-                class="w-10 text-center outline-none no-arrows"
-                (change)="product.quantity"> <!-- التحويل الصريح لرقم -->
-                <i class="fa-solid fa-plus text-xs cursor-pointer" (click)="increaseQuantity()"></i>
+            <div class="w-full md:w-20 h-8 border text-center rounded flex justify-center items-center p-2 border-inputColor text-textColor">
+                {{product.quantity}}
             </div>
   
 

@@ -82,9 +82,5 @@ export class ProductService {
     );
   }
 
-  addNewCheckout(Checkout: any) {
-    return this.http.post(this.apiUrl, Checkout).pipe(
-      catchError((error) => this.handleError(error)) 
-    );
-  }
+
 }
