@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CartService } from '../../services/products/cart.service';
 import { AuthService } from '../../services/auth/authservice/auth.service';
 import { Router } from '@angular/router';
 
@@ -16,14 +17,26 @@ export class HeaderComponent {
   show:string='hidden'
   ishidden:boolean=false;
    token:string|null=null;
-  constructor(private authService:AuthService ,private router:Router){
-    
+   data:any;
+ //  خاصه بالكارد
+ cartItemCount: number = 0;
+  constructor(private authService:AuthService ,private router:Router,private cartService: CartService)
+  {
+    this.token=localStorage.getItem('token');
+     console.log(this.token);
   }
   ngOnInit() {
      this.token=localStorage.getItem('token');
       console.log(this.token);
        this.fname=localStorage.getItem('Fname');
        this.email=localStorage.getItem('Email')
+
+
+       this.cartService.cartCount$.subscribe(count => {
+        console.log('Updated cart count:', count); // للتأكد من التحديث
+        this.cartItemCount = count;
+      });
+    
   }
 
   toggel() {
@@ -41,6 +54,12 @@ export class HeaderComponent {
     this.token='';
     this.ishidden=false;
 
+
+
+    localStorage.removeItem('cart'); // مسح بيانات السلة من التخزين المحلي
+    
+
   }
   
 }
+
