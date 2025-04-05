@@ -36,10 +36,10 @@ export class SignupPageComponent {
     if (!password || !confirmPassword) return null;
   
     if (confirmPassword.value !== password.value) {
-      confirmPassword.setErrors({ passwordsDoNotMatch: true }); // إضافة الخطأ
+      confirmPassword.setErrors({ passwordsDoNotMatch: true }); 
       return { passwordsDoNotMatch: true };
     } else {
-      confirmPassword.setErrors(null); // إزالة الخطأ عند التوافق
+      confirmPassword.setErrors(null); 
       return null;
     }
   }

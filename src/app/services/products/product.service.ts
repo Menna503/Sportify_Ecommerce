@@ -12,6 +12,7 @@ export interface Product {
   price: number;
   brand: string;
   imageUrl: string;
+  size_range: string[]; 
   category?: any;
   subCategory?: any;
   gender?: string;
@@ -88,9 +89,5 @@ export class ProductService {
     );
   }
 
-  addNewCheckout(Checkout: any) {
-    return this.http.post(this.apiUrl, Checkout).pipe(
-      catchError((error) => this.handleError(error)) 
-    );
-  }
+
 }

@@ -16,6 +16,7 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ErrorComponent } from './pages/error/error.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { GuardService } from './services/auth/authGaurd/guard.service';
+import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
 
 
 export const routes: Routes = [
@@ -27,18 +28,18 @@ export const routes: Routes = [
     {path:'men' ,component:MenComponent},
     {path:'women' ,component:WomenComponent},
     {path:'equipment',component:EquipmentComponent},
-    {path:'supplements' ,component:SuplementsComponent},
     {path:'product/:id',component:ProductDetailsComponent,canActivate:[GuardService]},
     {path:'payment',component:PaymentPageComponent,canActivate:[GuardService]},
     {path:'checkout',component:CheckOutComponent,canActivate:[GuardService]},
     {path:'shoes',component:ShoesComponent},
-    { path:'error', component:ErrorComponent},
-    
-    {path:'suplements' ,component:SuplementsComponent},
-    {path:'product/:id',component:ProductDetailsComponent},
-    { path:'cart', component: CartPageComponent }, 
+    {path:'supplements' ,component:SuplementsComponent},
+    { path: 'cart', component: CartPageComponent }, 
+    { path: 'confirmPayment', component: ConfirmPaymentComponent }, 
     {path:'admin',component:AdminComponent , canActivate:[GuardService]},
-    { path: '**', redirectTo:'error'},
+     { path: 'error', component: ErrorComponent },
+     { path: '**', redirectTo: 'error' }
+    
+
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

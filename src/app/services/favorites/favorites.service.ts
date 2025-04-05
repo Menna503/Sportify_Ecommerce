@@ -23,26 +23,18 @@ export class FavoritesService {
   getfavourite(): Observable<any[]> {
     return this.http.get<{ status: string; results: number; data: any[] }>(this.favUrl, { headers: this.getHeader() })
       .pipe(
-        map(response => response.data) // استخراج `data` فقط
+        map(response => response.data) 
       );
   }
-  
-  
-  // addFavorite(card:any):Observable<any>{
-  //   return this.http.post<any>(`${this.favUrl}/add`, card,{headers:this.getHeader()})
-  // }
+   
   addFavorite(productId: string): Observable<any> {
     return this.http.patch<any>(`${this.favUrl}/add`, { productId }, { headers: this.getHeader() });
   }
 
-  // removeFavorite(id:Number):Observable<any>{
-  //   return this.http.delete<any>(`${this.favUrl}/${id}`,{headers:this.getHeader()})
-  // }
-  
+
   removeFavorite(productId: string): Observable<any> {
     return this.http.patch<any>(`${this.favUrl}/remove`, { productId }, { headers: this.getHeader() });
   }
-  // isfav(id:Number):Observable{
-     
-  // }
+ 
+    
 }

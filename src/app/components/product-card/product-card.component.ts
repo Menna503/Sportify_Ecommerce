@@ -5,6 +5,7 @@ import { FavoritesService } from '../../services/favorites/favorites.service';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CartService } from '../../services/products/cart.service';
+import { ProductService } from '../../services/products/product.service';
 
 @Component({
   selector: 'app-product-card',
@@ -19,10 +20,9 @@ export class ProductCardComponent {
   @Input() isFav: boolean = false;
   @Output() removedFromFavorites = new EventEmitter<string>();
   
-  selectedSize: string = 'sm'; // قيمة افتراضية للـ size
+ 
   selectedColor: string = '';
-  
-  // خاصية لتحديد إذا تمت عملية الإضافة
+  selectedSize:string= 'm' ;
   isAdded: boolean = false;
 
   constructor(
@@ -35,7 +35,9 @@ export class ProductCardComponent {
   ngOnInit() {
     this.checkCurrentRoute();
     this.checkIfFavorite();
+  
   }
+  
   
   checkCurrentRoute() {
     const currentUrl = this.router.url; 
@@ -77,17 +79,12 @@ export class ProductCardComponent {
   }
 
   addToCart() {
-    if (!this.selectedSize) {
-      console.error("Please select a size before adding to cart.");
-      return;
-    }
-
     this.cartService.addToCart(this.data._id, 1, this.selectedSize).subscribe(
       response => {
         console.log('Product added successfully:', response);
-        // تعيين الحالة لتشير أنه تم الإضافة
+        
         this.isAdded = true;
-        // إعادة الحالة بعد 3 ثواني مثلاً
+      
         setTimeout(() => {
           this.isAdded = false;
         }, 1000);
