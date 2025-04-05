@@ -12,7 +12,7 @@
 
         <div class="grid grid-cols-1 mt-4 lg:mt-4 md:grid-cols-2 justify-center gap-15 md:gap-8 lg:gap-0">
             <div class=" col-span-1 rounded-lg w-full flex justify-center text-center align-middle">
-                <img src="{{products?.data?.imageUrl}}" class="w-[65%] rounded-lg md:w-[90%] lg:w-[65%]">
+                <img src="{{products?.data?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[70%]">
             </div>
 
             <div class=" text-textcolor flex flex-col col-span-1 mx-6 lg:mx-0 gap-4" >
@@ -38,8 +38,8 @@
                       <span class="lg:w-12">:</span>
                       <span class="font-abhaya text-textcolor flex gap-1 sm:gap-1 md:gap-1 lg:gap-1">
                         
-                        <span  *ngFor="let item of products?.data?.size_range" class="border flex justify-center items-center border-[#999999] rounded-full px-3 md:px-3  text-[15px] lg:text-[18px] ">{{item}}</span>
-                        
+                        <button *ngFor="let item of products?.data?.size_range" (click)="selectSize(item)"
+                        [ngClass]="{'bg-black text-white border-gold': selectedSize === item,'bg-white text-[#2F2F2F] border-[#999999]': selectedSize !== item}"class=" cursor-pointer border rounded-full px-3 md:px-3 text-[15px] lg:text-[18px] font-abhaya py-1 transition duration-300 ">{{item}}</button>
                         
                       </span>
                     </div>
@@ -57,26 +57,52 @@
                     </div>
 
                     <div class="flex gap-5">
-                      <span class="lg:w-32">Rate</span>
+                      <span class="lg:w-32">Quantity</span>
                       <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">{{products?.data?.rating}}</span>
+                      <div class="w-full md:w-30 px-3 h-10 border text-center rounded flex justify-between items-center p-2 border-inputColor text-textColor">
+                        <i class="fa-solid fa-minus text-lg  cursor-pointer" (click)="decreaseQuantity()"></i>
+                        
+                        <input 
+                          type="number"
+                          min="1"
+                          [value]="quantity"
+                          readonly
+                          class="w-10 text-center pb-2 outline-none no-arrows">
+                        <i class="fa-solid fa-plus text-lg cursor-pointer" (click)="increaseQuantity()"></i>
+                      </div>
                     </div>
-                  </div>
                   
                 <div class="flex gap-3  mt-4">
-                    <button class="bg-mainColor rounded-lg p-2 px-4 w-3/4 lg:w-1/2 text-lg">add to cart</button>
-                    <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center">
-                        <i class="fa-regular fa-heart text-lg" ></i>
-                    </div>
+                 
+                    <button class="bg-mainColor text-cart rounded-lg p-2 px-4 w-3/4 lg:w-1/2 text-lg cursor-pointer" (click)="addToCart()">add to cart</button>
+
                    
-                    <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center">
+                    <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer"(click)="togglefav()">
+                      <i class="fa-regular  fa-heart text-xl transition-all duration-300" 
+                      [ngClass]="{ 'hidden': isFav }">
+                   </i>
+                   <i class="fa-solid fa-heart text-red-700 text-xl absolute transition-all duration-300" 
+                      [ngClass]="{ 'hidden': !isFav }">
+                   </i>
+                    </div>
+                    
+                   @if(isAdmin()){
+                    <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer">
                       <i class="fa-regular fa-pen-to-square text-xl text-gold"></i>
                   </div>
-                  <div class="rounded-lg border-2 border-[#EC4967] w-10 h-10 flex justify-center items-center">
+                  <div class="rounded-lg border-2 border-[#EC4967] w-10 h-10 flex justify-center items-center cursor-pointer">
                     <i class="fa-regular fa-trash-can text-xl text-[#EC4967]"></i>
                 </div>
+                   }
+                   
+              
               
                 </div>
+                @if(!this.selectedSize && showSizeMessage ){
+                  <span class="text-sm text-left  text-red-600">
+                    Please select a size before adding to cart.
+                  </span>
+                }
           
             </div>
         </div>
@@ -198,7 +224,7 @@
             </div>
            
           </div>
-          <button type="submit"  class="p-3  bg-[#2A2A2A] w-[80%] lg:w-1/2 mt-6 text-white text-xl font-semibold rounded-xl hover:bg-[#525252] transition">
+          <button type="submit"  class="p-3  bg-[#2A2A2A] w-[80%] lg:w-1/2 mt-6 text-white text-xl font-semibold rounded-xl hover:bg-[#525252] transition cursor-pointer">
             Submit
           </button>
       </form>

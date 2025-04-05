@@ -10,6 +10,8 @@ import { ProductService } from '../../services/products/product.service';
 import { MenCollectionComponent } from '../../components/image-collection/men-collection.component';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth/authservice/auth.service';
+import { CartService } from '../../services/products/cart.service';
+import { FavoritesService } from '../../services/favorites/favorites.service';
 
 @Component({
   selector: 'app-product-details' , 
@@ -23,20 +25,28 @@ import { AuthService } from '../../services/auth/authservice/auth.service';
 export class ProductDetailsComponent implements OnInit {
  
   ID:string = '';
-constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,private productService:ProductService,router: Router){
+  isFav: boolean = false;
+  @Output() removedFromFavorites = new EventEmitter<string>();
+constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,private productService:ProductService,private router: Router,private cartService: CartService,private favoritesService:FavoritesService){
   this.ID =activatedRoute.snapshot.params['id'];
 }
     
    products:any;
    reviews: any;
+   quantity: number = 1;
+   selectedSize: string | null = null;
+   showSizeMessage :boolean = false;
+  
+
   ngOnInit(): void {
+    this.checkIfFavorite();
     this.productService.getProductById(this.ID).subscribe({
      next:(data)=>{this.products = data ,console.log(this.products)},
      error:(err)=>{console.log(err)},
      complete:()=>{console.log("completed")}
     });
-
     
+  
     this.productService.getReviewsById(this.ID).subscribe({
       next: (data: any) => {
         this.reviews = data?.data?.reviews || []; 
@@ -51,7 +61,39 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
     });
   }
 
-
+  checkIfFavorite() {
+    this.favoritesService.getfavourite().subscribe({
+      next: (favourites) => {
+        this.isFav = favourites.some(fav => fav.id === this.products?.data?._id);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+  }
+  
+  togglefav(){
+    if (!this.isFav) {
+      this.favoritesService.addFavorite(this.products?.data).subscribe({
+        next: () => {
+          console.log(`${this.products?.data?._id} is added`);
+          this.isFav = true;
+        },
+        error: (err) => console.error("Error adding to favorites:", err)
+      });
+    } else {
+      this.favoritesService.removeFavorite(this.products?.data?._id).subscribe({
+        next: () => {
+          console.log(`${this.products?.data?._id} is removed`);
+          this.isFav = false;
+          this.removedFromFavorites.emit(this.products?.data?._id);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    }
+  }
 
   Form = new FormGroup({
     user: new FormControl(null, [Validators.required,Validators.minLength(3)]),
@@ -95,11 +137,22 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
 
     
       this.productService.addNewReview(productId, newReview).subscribe({
-        next: () => {
-          console.log('Review added successfully');
+        next: (response: any) => {
+          console.log('Review added successfully', response);
           this.myEvent.emit(newReview);
+          this.reviews.unshift(response.data);
           this.submitted =false;
           this.Form.reset();
+
+          this.productService.getReviewsById(this.ID).subscribe({
+            next: (data: any) => {
+              this.reviews = data?.data?.reviews || [];
+              console.log("Updated Reviews:", this.reviews);
+            },
+            error: (err) => {
+              console.log(err);
+            }
+          });
         },
         error: (err) => {
           console.log('Error adding Review:', err);
@@ -111,4 +164,46 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
     }
    
   }
+  increaseQuantity() {
+    this.quantity++;
+  }
+  
+  decreaseQuantity() {
+    if (this.quantity > 1) {
+      this.quantity--;
+    }
+  }
+  selectSize(size: string) {
+    this.selectedSize = size;
+  }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'admin';
+  }
+
+  addToCart() {
+    if (!this.selectedSize) {
+      console.error("Please select a size before adding to cart.");
+      this.showSizeMessage = true;
+      return;
+    }
+  else{
+    const productData = {
+      productId: this.products.data._id, 
+      quantity: this.quantity,
+      selectedSize: this.selectedSize,
+    };
+  
+    this.cartService.addToCart(this.products.data._id, this.quantity, this.selectedSize).subscribe(
+      response => {
+        console.log('Product added to cart:', response);
+        this.router.navigate(['/cart']);
+      },
+      error => {
+        console.error('Error adding product to cart:', error);
+      }
+    );
+  }
+  }
+  
 }

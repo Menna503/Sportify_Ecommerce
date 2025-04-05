@@ -1,18 +1,72 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { ProductService } from '../../services/products/product.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { CartService } from '../../services/products/cart.service';
+import { AuthService } from '../../services/auth/authservice/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-check-out',
-  imports: [FooterComponent ,HeaderComponent,ReactiveFormsModule],
+  imports: [FooterComponent ,HeaderComponent,ReactiveFormsModule,RouterModule],
   templateUrl: './check-out.component.html',
   styleUrl: './check-out.component.css'
 })
 export class CheckOutComponent {
-  constructor(private productsService: ProductService,private router: Router) {} 
+  cartProducts: any[] = [];
+      totalPrice: number = 0;
+    
+      user_id: string = localStorage.getItem('UserId') || "";
+      cartSub!: Subscription;
+    
+      constructor(
+        private cartService: CartService,
+        private authservice: AuthService,
+        private cdr: ChangeDetectorRef,
+        private router: Router
+      ) {}
+    
+      ngOnInit() {
+        
+        this.cartSub = this.cartService.cartItems$.subscribe((updatedCart) => {
+          this.cartProducts = updatedCart;
+          this.calculateTotal(); 
+          this.cdr.detectChanges(); 
+          if (this.cartProducts.length === 0) {
+            console.log('✅ Cart is empty!');
+          }
+        }
+      );
+        this.authservice.getuser(this.user_id).subscribe({
+          
+         next:(data:any)=>{this.cartProducts = data.data.user.cart ,this.calculateTotal(),console.log(this.cartProducts)},
+         
+          error: (err) => console.log(err),
+          complete: () => console.log('completed')
+        });
+      }
+    
+      calculateTotal() {
+        this.totalPrice = this.cartProducts.reduce((acc, item) => {
+          const quantity = item.quantity || 1;
+          const price = item.product?.price || 0;
+    
+          return acc + (Number(price) * quantity);
+         
+        }, 0);
+      
+        console.log("💰 total price:", this.totalPrice);
+        
+      }
+      ngOnDestroy() {
+        if (this.cartSub) {
+          this.cartSub.unsubscribe();
+        }
+      }
+  
+
   Form = new FormGroup({
     name: new FormControl(null, [Validators.required,Validators.minLength(3)]),
     email: new FormControl(null,[Validators.required,Validators.email]),
@@ -32,33 +86,26 @@ export class CheckOutComponent {
   }
   get AddressValid(){
     return this.Form.controls['address'].valid;
+
   }
   submitted = false;
-  submit(){
+  submit() {
     this.submitted = true;
+    console.log('Form validity:', this.Form.valid);
+  
     if (this.Form.valid) {
-
       this.Form.markAllAsTouched(); 
-      let newCheckout = {
-        name: this.Form.get('name')?.value,
-        email: this.Form.get('email')?.value,
-        phone: this.Form.get('phone')?.value,
-        address: this.Form.get('address')?.value
-
-      }
-      this.productsService.addNewCheckout(newCheckout).subscribe({
-        next: () => {
-          console.log('Checkout added successfully');
-          this.Form.reset();
-          this.router.navigate(['/payment']);
-        },
-        error: (err) => {
-          console.log('Error adding Checkout:', err);
-        }
-      });
+      console.log('Form values:', this.Form.value);
+      localStorage.setItem('address',this.Form.controls.address.value || '');
+      console.log('address value:', this.Form.controls.address.value);
+      this.router.navigate(['/payment']);
+      console.log('Form is valid, navigating to payment...');
+    } else {
+      console.log('Form is invalid. Please fill in all required fields correctly.');
     }
-    return;
-   
   }
+   
+  
+ 
 
 }

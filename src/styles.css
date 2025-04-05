@@ -1,9 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+
 @import "tailwindcss";
 
-/* .text {
-    @apply text-lg font-bold text-gray-900;
-}   not work */
 
 @theme {
     --color-mainColor: #E1EB58;
@@ -32,6 +29,7 @@
 /* admin page */
 --color-productTitle:#AAA51E;
 
+
    
 
 }
@@ -39,6 +37,7 @@
     text-transform: capitalize;
     
 }
+
 .fontInter{
   font-family: 'Inter', sans-serif;
   
@@ -48,6 +47,9 @@
 input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0.5; 
 }
+
+    
+
 
     
 

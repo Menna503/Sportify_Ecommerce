@@ -5,53 +5,104 @@ import { ProductCardComponent } from '../../components/product-card/product-card
 import { FooterComponent } from "../../components/footer/footer.component";
 import { PaginationComponent } from '../../components/pagination/pagination.component';
 import { CommonModule } from '@angular/common';
+import { FilterComponent } from '../../components/filter/filter.component';
+import { ProductService } from '../../services/products/product.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-women',
-  imports: [HeaderComponent, MenCollectionComponent, ProductCardComponent, FooterComponent,PaginationComponent,CommonModule],
+ imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
   templateUrl: './women.component.html',
   styleUrl: './women.component.css'
 })
 export class WomenComponent {
-    src="assets/images/image_71.svg"
-    isHidden:boolean=true;
-toggelFilter(){
-  this.isHidden=!this.isHidden;
-}
-itemsPerPage=8
-currentPage=1
-data=[
-  {id:1,},
-  {id:2,},
-  {id:3,},
-  {id:4,},
-  {id:5,},
-  {id:6,},
-  {id:7,},
-  {id:8,},
-  {id:9,},
-  {id:10,},
-  {id:11,},
-  {id:12,},
-  {id:14,},
-  {id:15,},
-  {id:16,},
-  {id:17,},
-  {id:18,},
-  {id:19,},
-  {id:20,},
-]
-
-get paginatedData(){
-  const start =(this.currentPage-1)*this.itemsPerPage;
-  const end = start +this.itemsPerPage
-
-  return this.data.slice(start , end)
-}
-
-changePage(page :number){
-  this.currentPage=page
-}
+    src = "assets/images/image_71.svg";
+     menClothes: any;
+     subCategory: string = '';
+     sort: string = '';
+     brand: string = '';
+     selectedIndex: number | null = null;
+     priceindex: number | null = null;
+     totalItems = 0;
+   itemsPerPage = 8;
+   currentPage = 1;
+     
+   
+     infoBrand: any = [
+       { img: 'assets/icons/adidas.svg', brandName: 'Adidas' },
+       { img: 'assets/icons/nike.svg', brandName: 'Nike' },
+       { img: 'assets/icons/nilton.svg', brandName: 'Nileton' },
+       { img: 'assets/icons/misery.svg', brandName: 'Mesery' }
+     ];
+   
+     constructor(private http: HttpClient, private productService: ProductService) {}
+   
+     ngOnInit() {
+      this. loadProducts();
+     
+     }
+   
+     
+     
+     updateFilters(filterData: { sort: string; brand: string }) {
+       this.sort = filterData.sort;
+       this.brand = filterData.brand;
+      
+       this.loadProducts();
+     }
+     
+   
+     display(text: string) {
+       this.subCategory = text;
+       this.currentPage = 1; 
+       this.loadProducts();
+     }
+     loadProducts() {
+       const params = {
+         gender: 'women',
+         category: 'clothes',
+         subCategory: this.subCategory,
+         sort: this.sort,
+         brand: this.brand
+       };
+   
+       const filteredParams = Object.fromEntries(
+         Object.entries(params).filter(([_, value]) => value !== undefined && value !== "")
+       );
+   
+       this.productService.getProduct(filteredParams, this.currentPage, this.itemsPerPage)
+     .subscribe({
+       next: (response) => {
+         this.menClothes = response.products;
+         this.totalItems = response.total;
+         console.log(" API Response:", response);
+       },
+       error: (err) => {
+         console.error(" Server Error:", err);
+         alert(`Error: ${err.message || "Something went wrong!"}`);
+       }
+     });
+   
+     }
+     changePage(page: number) {
+       if (page >= 1 && page <= this.totalPages) {
+         this.currentPage = page;
+         this.loadProducts();
+       }
+     }
+     get totalPages(): number {
+       return Math.ceil(this.totalItems / this.itemsPerPage);
+     }
+     get paginatedData(){
+       const start =(this.currentPage-1)*this.itemsPerPage;
+       const end = start +this.itemsPerPage
+     
+       return this.menClothes.slice(start , end)
+     }
+     
+     
+     
+     
 
 }
 

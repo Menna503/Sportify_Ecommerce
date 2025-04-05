@@ -24,7 +24,7 @@ export class SignupPageComponent {
     firstName: new FormControl('', [Validators.minLength(3), Validators.required]),
     lastName: new FormControl('', [Validators.minLength(3), Validators.required]),
     email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.minLength(6), Validators.required]),
+    password: new FormControl('', [Validators.minLength(8), Validators.required]),
    passwordConfirm: new FormControl('', Validators.required),
     rememberMe: new FormControl(false) 
   }, {validators:this.passwordMatch});
@@ -36,10 +36,10 @@ export class SignupPageComponent {
     if (!password || !confirmPassword) return null;
   
     if (confirmPassword.value !== password.value) {
-      confirmPassword.setErrors({ passwordsDoNotMatch: true }); // إضافة الخطأ
+      confirmPassword.setErrors({ passwordsDoNotMatch: true }); 
       return { passwordsDoNotMatch: true };
     } else {
-      confirmPassword.setErrors(null); // إزالة الخطأ عند التوافق
+      confirmPassword.setErrors(null); 
       return null;
     }
   }

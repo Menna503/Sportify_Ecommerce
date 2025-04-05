@@ -1,57 +1,75 @@
 import { CommonModule } from '@angular/common';
-import { Component} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HeaderComponent } from "../header/header.component";
-import { FooterComponent } from "../footer/footer.component";
+import { CartService } from '../../services/products/cart.service';
+import { ProductService } from '../../services/products/product.service';
 
 @Component({
   selector: 'app-cart',
-  imports: [
-    CommonModule,
-    FormsModule,
-    HeaderComponent,
-    FooterComponent,
-    RouterModule
-],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './cart.component.html',
-  styleUrl: './cart.component.css'
+  styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-// size selected
-  sizes = ['XL', '2XL', '3XL', '4XL', '5XL'];
-  selectedSize = 'XL'; 
-  // color selected
-  colors=['Blue','Red'];
-  selectedColor ='Blue'
+  @Input() product: any;
+  @Output() quantityChanged = new EventEmitter<void>();
+  @Output() productDeleted = new EventEmitter<string>();
+  products:any;
+  selectedSize: string | null = null;
+ 
+  
 
-  // + or - 
-  increaseQuantity(event: Event) {
-    let inputElement = (event.target as HTMLElement).previousElementSibling as HTMLInputElement;
-    if (inputElement) {
-      inputElement.stepUp();
-    }
+  constructor(private cartService: CartService,  private productService: ProductService) {}
+
+  ngOnInit() {
+    console.log('Product quantity:', this.product.quantity);
+  
   }
   
-  decreaseQuantity(event: Event) {
-    let inputElement = (event.target as HTMLElement).nextElementSibling as HTMLInputElement;
-    if (inputElement) {
-      inputElement.stepDown();
+  increaseQuantity() {
+    this.product.quantity++;
+    this.quantityChanged.emit();
+  }
+
+  decreaseQuantity() {
+    if (this.product.quantity > 1) {
+       this.product.quantity--;
+      this.quantityChanged.emit();
     }
   }
-   
 
+  updateQuantity(newValue: number) {
+    const quantity = Math.max(1, +newValue);
+    this.product.quantity = quantity;
+    this.quantityChanged.emit();
+    console.log(quantity);
+
+    this.cartService.updateQuantity(
+      this.product.product._id,
+      this.product.quantity,
+      this.product.selectedSize,
+       
+    ).subscribe(() => {
+      console.log('✅ Quantity updated');
+    });
+  }
+  selectSize(size: string) {
+    this.selectedSize = size;
+    console.log('Selected size:', this.selectedSize);
+  }
+
+
+  deleteProduct() {
+
+    const targetProductId = this.product.product._id;  
+    const selectedSize = this.product.selectedSize; 
+    this.cartService.removeFromCart(targetProductId, selectedSize).subscribe(() => {
+    
+      this.productDeleted.emit(targetProductId);
+      console.log('✅ Product deleted from cart:', targetProductId);
+    });
+  }
+
+ 
 }
-import { RouterModule } from '@angular/router';
-
-// ! 🎯 Goal: Make sure each (+) and (-) button only controls its own input field without affecting other products.
-/*
-✅ Solution:
-   - Used `$event.target` to identify the clicked button.
-   - `previousElementSibling` gets the input field when clicking (+).
-   - `nextElementSibling` gets the input field when clicking (-).
-   - Used `stepUp()` and `stepDown()` to directly increase or decrease the value.
-   - No need for `ngModel`, keeping each product independent.
-
-🔹 Result: Each product remains separate, and quantity adjustments do not interfere with other items.
-*/
-//

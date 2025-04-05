@@ -1,40 +1,30 @@
 <app-header></app-header>
- <app-men-collection [src]="src"></app-men-collection>
-<div class="w-[80%]  m-auto pt-8 font-[InriaSerif] ">
-    <div class=" flex  gap-6 mb-6">
-        <p class="text-2xl  font-bold  uppercase text-[#3B3B3B] ">men collection</p>
-        <button class="rounded-md bg-secondColor px-10 py-1 text-xl text-ternaryText  ">t-shirt</button>
-        <button class="rounded-md bg-secondColor px-10 py-1 text-xl text-ternaryText">trousers</button>
-        <div class="relative">
-            <button class="rounded-md bg-secondColor px-10 py-1 text-xl text-ternaryText flex gap-2 " (click)="toggelFilter()"><img src="assets/icons/filter.svg" > <p>filter</p></button>
-            <div class=" #id bg-white shadow-2xl shadow-gray-500 rounded-xl w-[180%] absolute left-0 p-2 " [ngClass]="{'hidden': isHidden}">
-                 <p class="text-md text-[#3B3B3B] ml-2">filter</p> 
-                 <div class="flex  gap-2 text-[#3B3B3B]"><button class="py-1 rounded-md bg-secondColor basis-[50%]">price</button><button class="py-1 rounded-md bg-secondColor basis-[50%]">brand</button></div>
-              <button class="rounded-xl  text-[#3B3B3B]  hover:bg-[#F0F4BC] w-[100%] text-start p-2 flex justify-between items-center"><p>hight to low</p> <i class="fa-solid fa-check"></i></button> 
-                 <button class="rounded-xl  text-[#3B3B3B]  hover:bg-[#F0F4BC] w-[100%] text-start p-2">low to hight</button>
-                
-                
-            </div>
-        </div>
+<app-men-collection [src]="src"></app-men-collection>
+<div class="w-[90%] md:w-[90%] m-auto pt-8 font-[InriaSerif] ">
+    <div class=" flex justify-center items-center  md:gap-4 gap-2 mb-6">
+    
+        <button
+            class="rounded-md  px-7 py-1  text-md text-ternaryText  md:px-10 md:py-1 md:text-xl md:basis-auto  cursor-pointer" (click)="display('shirts')"   [ngClass]="subCategory === 'shirts' ? 'bg-mainColor ' : 'bg-secondColor'">t-shirt</button>
+        <button
+            class="rounded-md  px-4 py-1  text-md text-ternaryText md:px-10 md:py-1 md:text-xl  cursor-pointer" (click)="display('pants')" [ngClass]="subCategory==='pants'?'bg-mainColor':'bg-secondColor'">trousers</button>
        
-        
+         <app-filter [infoBrand]="infoBrand" (filterChanged)="updateFilters($event)"></app-filter>
 
-       
+
     </div>
-<div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
-    <div class="flex gap-4 md:flex-wrap">
-        <!-- *ngFor="let item of list" -->      
-        <app-product-card 
-        *ngFor="let item of paginatedData"  
-        class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)] "></app-product-card>
-        
-      </div>
-    </div>     
-      
+    <div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
+        <div class="flex gap-4 md:flex-wrap">
+            <app-product-card *ngFor="let item of menClothes"
+                class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)]  xl:w-[calc(33.33%-1rem)] " [data]="item" ></app-product-card>
+
+        </div>
+    </div>
+
 </div>
-<app-pagination [totalItems]="data.length"
-[itemsPerPage]="itemsPerPage"
- [currentPage]="currentPage"
-(onClick)="changePage($event)"
- class=" flex justify-center mt-10"></app-pagination>   
+
+    <app-pagination 
+[totalItems]="totalItems" 
+[itemsPerPage]="itemsPerPage" 
+[currentPage]="currentPage"
+(onClick)="changePage($event)" class=" flex justify-center mt-10"></app-pagination>
 <app-footer></app-footer>
