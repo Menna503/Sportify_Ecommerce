@@ -39,7 +39,6 @@ export const routes: Routes = [
     { path:'cart', component: CartPageComponent }, 
     {path:'admin',component:AdminComponent , canActivate:[GuardService]},
     { path: '**', redirectTo:'error'},
-
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
