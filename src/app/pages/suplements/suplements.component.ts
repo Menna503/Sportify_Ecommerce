@@ -8,10 +8,11 @@ import { CommonModule } from '@angular/common';
 import { ProductService } from '../../services/products/product.service';
 import { HttpClient } from '@angular/common/http';
 import { FilterComponent } from '../../components/filter/filter.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-suplements',
-imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
+imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent,RouterModule, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
   templateUrl: './suplements.component.html',
   styleUrl: './suplements.component.css'
 })
@@ -68,10 +69,10 @@ src="assets/images/suplements_collection.svg";
        next: (response) => {
          this.productes = response.products;
          this.totalItems = response.total;
-         console.log("✅ API Response:", response);
+         console.log(" API Response:", response);
        },
        error: (err) => {
-         console.error("❌ Server Error:", err);
+         console.error(" Server Error:", err);
          alert(`Error: ${err.message || "Something went wrong!"}`);
        }
      });

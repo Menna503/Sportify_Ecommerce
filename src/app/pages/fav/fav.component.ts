@@ -17,9 +17,8 @@ export class FavComponent {
     ngOnInit(){
       this.favoritesService.getfavourite().subscribe({
          next:(data)=>{
-          // this.favorites=Object.values(data);
-          // console.log(this.favorites);
-          console.log("Fetched Favorites:", data); // تحقق من البيانات في الكونسول
+  
+          console.log("Fetched Favorites:", data); 
       this.favorites = data ;
       console.log(this.favorites);
          },
@@ -34,7 +33,7 @@ export class FavComponent {
       this.favoritesService.removeFavorite(itemId).subscribe({
         next: () => {
           console.log(`${itemId} removed from favorites`);
-          this.favorites = this.favorites.filter(item => item.id !== itemId); // ✅ تحديث الواجهة مباشرة
+          this.favorites = this.favorites.filter(item => item.id !== itemId); 
         },
         error: (err) => {
           console.error('Error removing item:', err);
@@ -44,54 +43,4 @@ export class FavComponent {
     
 
     
-// lo
-  //////////////////////////////////////////for scrolling horzonitly for responsive///////////////////////////
-  // @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
-
-  // ngAfterViewInit() {
-  //   const slider = this.scrollContainer.nativeElement;
-  //   let isDown = false;
-  //   let startX: number;
-  //   let scrollLeft: number;
-
-  //   slider.addEventListener('mousedown', (e: MouseEvent) => {
-  //     isDown = true;
-  //     startX = e.pageX - slider.offsetLeft;
-  //     scrollLeft = slider.scrollLeft;
-  //   });
-
-  //   slider.addEventListener('mouseleave', () => {
-  //     isDown = false;
-  //   });
-
-  //   slider.addEventListener('mouseup', () => {
-  //     isDown = false;
-  //   });
-
-  //   slider.addEventListener('mousemove', (e: MouseEvent) => {
-  //     if (!isDown) return;
-  //     e.preventDefault();
-  //     const x = e.pageX - slider.offsetLeft;
-  //     const walk = (x - startX) * 2; // سرعة التمرير
-  //     slider.scrollLeft = scrollLeft - walk;
-  //   });
-
-  //   // دعم اللمس للموبايل
-  //   slider.addEventListener('touchstart', (e: TouchEvent) => {
-  //     isDown = true;
-  //     startX = e.touches[0].pageX - slider.offsetLeft;
-  //     scrollLeft = slider.scrollLeft;
-  //   });
-
-  //   slider.addEventListener('touchend', () => {
-  //     isDown = false;
-  //   });
-
-  //   slider.addEventListener('touchmove', (e: TouchEvent) => {
-  //     if (!isDown) return;
-  //     const x = e.touches[0].pageX - slider.offsetLeft;
-  //     const walk = (x - startX) * 2;
-  //     slider.scrollLeft = scrollLeft - walk;
-  //   });
-  // }
-}
+  }

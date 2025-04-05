@@ -18,7 +18,7 @@ export class HeaderComponent {
   ishidden:boolean=false;
    token:string|null=null;
    data:any;
- //  خاصه بالكارد
+ 
  cartItemCount: number = 0;
   constructor(private authService:AuthService ,private router:Router,private cartService: CartService)
   {
@@ -33,7 +33,7 @@ export class HeaderComponent {
 
 
        this.cartService.cartCount$.subscribe(count => {
-        console.log('Updated cart count:', count); // للتأكد من التحديث
+        console.log('Updated cart count:', count); 
         this.cartItemCount = count;
       });
     
@@ -44,7 +44,7 @@ export class HeaderComponent {
   }
   
   getProfile(){
-  //  this.ishidden=this.ishidden==='hidden'?'block':'hidden';
+ 
   this.ishidden=!this.ishidden
   }
 
@@ -56,7 +56,7 @@ export class HeaderComponent {
 
 
 
-    localStorage.removeItem('cart'); // مسح بيانات السلة من التخزين المحلي
+    localStorage.removeItem('cart'); 
     
 
   }

@@ -78,8 +78,7 @@ export class MenComponent {
         },
         error: (err) => {
           console.error("❌ Server Error:", err);
-          // Instead of alerting, the error will be passed to the GlobalErrorHandler
-          throw err; // This will trigger the global error handler to handle the error page
+          throw err; 
         }
       });
   }

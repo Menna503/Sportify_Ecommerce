@@ -11,14 +11,7 @@
               @if(token){
                 <div class="flex gap-4 items-center">
                     <a [routerLink]="['/fav']"> <i class="fa-regular fa-heart text-ternaryText"></i> </a>
-                    <!-- <a [routerLink]="['/cart']"> <img src="assets/icons/cart.svg" class="w-[23px]"></a> -->
-                    <a [routerLink]="['/cart']" class="relative">
-                        <img src="assets/icons/cart.svg" class="w-[23px]">
-                        <span [hidden]="cartItemCount === 0"
-                            class="absolute -top-4 -right-3 bg-mainColor text-textColor text-xs px-1 py-0.5 rounded-full border border-textColor  z-[9999]">
-                          {{cartItemCount}}
-                        </span>
-                      </a>
+                    <a [routerLink]="['/cart']"> <img src="assets/icons/cart.svg" class="w-[23px]"></a>
                     <i class="fa-regular fa-user relative text-ternaryText cursor-pointer" (click)="getProfile()"></i>
                 </div>
               }
@@ -54,9 +47,9 @@
 
     <div class="links fontInter   md:text-xl text-[#212121] text-xl">
         <ul class="bg-mainColor h-10 flex justify-center md:gap-6 gap-2 items-center py-7 mt-5">
-            <li><a [routerLink]="['/home']" routerLinkActive="router-link-active"  >home</a></li>
+            <li><a [routerLink]="['/home']" routerLinkActive="router-link-active">home</a></li>
             <li><a [routerLink]="['/men']">men</a></li>
-            <li><a [routerLink]="['/women']" >women</a></li>
+            <li><a [routerLink]="['/women']" >womens</a></li>
             <li><a [routerLink]="['/equipment']" >Equipment</a></li>
             <li><a [routerLink]="['/shoes']" >Shoes</a></li>
             <li><a [routerLink]="['/supplements']" >Supplements</a></li>
@@ -121,17 +114,10 @@
             <p>Favorite</p>
         </li>
      
-      <li  class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black">
-       
-         <a [routerLink]="['/cart']" class="relative">
-            <img src="assets/icons/cart.svg" class="w-[23px]">
-            <span [hidden]="cartItemCount === 0"
-            class="absolute -top-4 -right-3 bg-mainColor text-textColor text-xs px-1 py-0.5 rounded-full border border-textColor  z-[9999]">
-              {{cartItemCount}}
-            </span>
-          </a>
-          <p>Cart</p>
-     </li>
+        <li  class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer" [routerLink]="['/cart']">
+            <img src="assets/icons/cart.svg">
+             <p>Cart</p>
+        </li>
      
         <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black items-center">
             <i class="fa-solid fa-right-from-bracket  text-xl text-secandaryText"></i>

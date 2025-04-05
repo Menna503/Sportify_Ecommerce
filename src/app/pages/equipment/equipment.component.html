@@ -3,15 +3,10 @@
 <div class="w-[90%] md:w-[90%] m-auto pt-8 font-[InriaSerif] ">
     <div class=" flex justify-center items-center  md:gap-4 gap-2 mb-6">
     
-       
-         <!-- <app-filter [infoBrand]="infoBrand"></app-filter> -->
          <app-filter [infoBrand]="infoBrand" (filterChanged)="updateFilters($event)"></app-filter>
-
-
     </div>
     <div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
         <div class="flex gap-4 md:flex-wrap">
-            <!-- *ngFor="let item of list" -->
             <app-product-card *ngFor="let item of productes"
                 class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)]  xl:w-[calc(33.33%-1rem)] " [data]="item" ></app-product-card>
 

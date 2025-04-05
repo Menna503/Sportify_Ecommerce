@@ -6,15 +6,13 @@
     </p>
   </div>
 
-  <!-- Categories Grid with Arrows -->
+ 
   <div class="grid grid-cols-12 md:grid-cols-12 lg:grid-cols-12 gap-4 items-center ">
-    <!-- Left Arrow -->
     <div class="col-span-1 flex justify-center">
       <i class="fa-solid fa-angle-left cursor-pointer text-4xl sm:text-5xl md:text-5xl md:static text-black    rounded-full p-2 "
         (click)="moveLeft()"></i>
     </div>
 
-    <!-- Categories -->
     <div class=" col-span-10 md:col-span-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2  ">
       <div *ngFor="let category of displayedCategories" class="relative ">
         <div class="sm:w-fit flex justify-center"> <img [src]="category.img" class="w-fit" alt="Category Image" /></div>
@@ -31,7 +29,6 @@
       </div>
     </div>
 
-    <!-- Right Arrow -->
     <div class="col-span-1 flex justify-center">
       <i class="fa-solid fa-angle-right cursor-pointer text-4xl md:text-5xl   sm:text-5xl  md:static  text-black  rounded-full p-2"
         (click)="moveRight()"></i>

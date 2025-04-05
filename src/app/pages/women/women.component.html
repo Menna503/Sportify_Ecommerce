@@ -8,14 +8,12 @@
         <button
             class="rounded-md  px-4 py-1  text-md text-ternaryText md:px-10 md:py-1 md:text-xl  cursor-pointer" (click)="display('pants')" [ngClass]="subCategory==='pants'?'bg-mainColor':'bg-secondColor'">trousers</button>
        
-         <!-- <app-filter [infoBrand]="infoBrand"></app-filter> -->
          <app-filter [infoBrand]="infoBrand" (filterChanged)="updateFilters($event)"></app-filter>
 
 
     </div>
     <div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
         <div class="flex gap-4 md:flex-wrap">
-            <!-- *ngFor="let item of list" -->
             <app-product-card *ngFor="let item of menClothes"
                 class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)]  xl:w-[calc(33.33%-1rem)] " [data]="item" ></app-product-card>
 

@@ -68,10 +68,10 @@ export class EquipmentComponent {
        next: (response) => {
          this.productes = response.products;
          this.totalItems = response.total;
-         console.log("✅ API Response:", response);
+         console.log("API Response:", response);
        },
        error: (err) => {
-         console.error("❌ Server Error:", err);
+         console.error(" Server Error:", err);
          alert(`Error: ${err.message || "Something went wrong!"}`);
        }
      });

@@ -15,13 +15,13 @@
               <div class="border border-[#ababab] rounded-lg px-8 pt-10 flex flex-col gap-3 justify-items-center place-items-center">
                 <img src="assets/images/logos_mastercard.svg" class="w-1/2 sm:w-1/4  md:w-1/4">
                 <p class="text-md md:text-xl lg:text-lg text-[#454545]">Master Card</p>
-                <input type="radio" class="h-5 w-5">
+                <input type="radio" name="pay" class="h-5 w-5">
               </div>
               
               <div class="border border-[#ababab]  rounded-lg p-8 flex flex-col gap-3 justify-items-center place-items-center">
                 <img src="assets/images/visa.svg" class="w-1/2 sm:w-1/4 md:w-1/4">
                 <p class="text-xl text-[#454545]">Visa Card</p>
-                <input type="radio" class="h-5 w-5">
+                <input type="radio" name="pay" class="h-5 w-5">
               </div>
               
             </div>
@@ -76,36 +76,37 @@
             
     
                 <div class="grid grid-cols-2 w-full px-8 pt-7 md:w-3/4 lg:px-0 gap-4 lg:mt-4">
-                  <button type="submit" class=" p-3 ps-5 pr-5 bg-mainColor w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#abb165] hover:text-black hover:cursor-pointer transition">
+                  <button type="submit" class=" p-3 ps-5 pr-5 bg-mainColor w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#abb165] hover:text-black hover:cursor-pointer transition"(click)="goToSuccess()">
                     Pay 1200.00$
                   </button>
 
-                  <button class=" p-3 ps-5 pr-5 border border-[#454545] w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] hover:text-white hover:cursor-pointer  transition">
+                  <a  [routerLink]="['/checkout']"><button class=" p-3 ps-5 pr-5 border border-[#454545] w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] hover:text-white hover:cursor-pointer  transition">
                     Cancel
-                  </button>
+                  </button></a>
                 </div>
                   
             </div>
         </form>
     </div>
     
-    <div class="bg-white w-full lg:mt-5 lg:col-span-1 p-4 lg:p-6 shadow-md rounded-2xl h-fit">               
+    <div class="bg-white w-full md:col-span-1 p-4 md:p-6 shadow-md rounded-2xl h-fit">
       <h2 class="text-xl font-bold mb-4 font-inria text-cart">Order Summary</h2>
-     <div class="flex justify-between font-inria text-cart font-black">
-         <span>5 Products</span>
-     </div>
-     <div class="flex justify-between mt-2 font-inria text-cart font-bold">
-         <span>Total Products</span>
-         <span>$1200.00</span>
-     </div>
-     <div class="flex justify-between mt-2 font-inria text-cart font-bold">
-         <span>Shipping</span>
-         <span>$16</span>
-     </div>
-     <div class="border-t mt-4 pt-4 flex justify-between text-ternaryText font-inria font-extrabold">
-         <span>Total</span>
-         <span>$1266.00</span>
-     </div>
+      <div class="flex justify-between font-inria text-cart font-black">
+        <span>{{ cartProducts.length }} Items </span>
+      </div>
+      <div class="flex justify-between mt-2 font-inria text-cart font-bold">
+        <span>Total Price</span>
+        <span>${{ totalPrice }}</span>
+      </div>
+      <div class="flex justify-between mt-2 font-inria text-cart font-bold">
+        <span>Shipping</span>
+        <span>$16</span>
+      </div>
+      <div class="border-t mt-4 pt-4 flex justify-between text-ternaryText font-inria font-extrabold">
+        <span>Total (including taxes)</span>
+        <span>${{ totalPrice + 16 }}</span>
+      </div>
+      
      
  </div>
 </div>
