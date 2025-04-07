@@ -14,9 +14,10 @@ import { EquipmentComponent } from './pages/equipment/equipment.component';
 import { ShoesComponent } from './pages/shoes/shoes.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { ErrorComponent } from './pages/error/error.component';
-import { AdminComponent } from './pages/admin/admin.component';
 import { GuardService } from './services/auth/authGaurd/guard.service';
 import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
+import { AdminAddProductComponent } from './components/admin-add-product/admin-add-product.component';
+import { AdminEditProductComponent } from './components/admin-edit-product/admin-edit-product.component';
 
 
 export const routes: Routes = [
@@ -35,10 +36,10 @@ export const routes: Routes = [
     {path:'supplements' ,component:SuplementsComponent},
     { path: 'cart', component: CartPageComponent }, 
     { path: 'confirmPayment', component: ConfirmPaymentComponent }, 
-    {path:'admin',component:AdminComponent , canActivate:[GuardService]},
      { path: 'error', component: ErrorComponent },
-     { path: '**', redirectTo: 'error' }
-    
+    //  { path: '**', redirectTo: 'error' },
+     { path: 'admin', component: AdminAddProductComponent, canActivate: [GuardService] },
+     { path: 'admin-edit/:id', component: AdminEditProductComponent },
 
 ];
 @NgModule({

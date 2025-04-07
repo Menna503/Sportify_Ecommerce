@@ -30,18 +30,20 @@ export class CartService {
 
   addToCart(productId: string, quantity: number, size: string): Observable<any> {
     const body = { products: [{ productId, quantity, size }] };
-    return this.http.post(`${this.apiUrl}`, body, this.getHeaders()).pipe(
+    return this.http.post(`${this.apiUrl}/add`, body, this.getHeaders()).pipe(
       tap((response: any) => {
         if (response && response.data && response.data.cart) {
-          const updatedCart = response.data.cart;
+          const updatedCart = response.data.cart; // اعرف المتغير ده
           localStorage.setItem('cart', JSON.stringify(response.data.cart));
           this.cartItems.next(response.data.cart);
+            // تحديث عداد الكارت
          this.cartCount.next(updatedCart.length);
 
         }
       })
     );
   }
+
   
   updateQuantity(productId: string, quantity: number, size: string): Observable<any> {
     const body = { products: [{ productId, quantity, size }] };
@@ -86,5 +88,4 @@ Checkout() {
       return this.http.patch(`${this.apiUrl}`, {updates:arr},  { headers });
     }
 }
-
 
