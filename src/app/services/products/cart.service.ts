@@ -1,10 +1,13 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../auth/authservice/auth.service';
-
+import { CartUpdate } from '../../components/cart/cart.component';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
@@ -16,7 +19,7 @@ export class CartService {
   private cartCount = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCount.asObservable();
   
-  constructor(private http: HttpClient,private authService: AuthService) {}
+  constructor(private http: HttpClient,private authService: AuthService ,  private router: Router) {}
 
   private getHeaders() {
     const token = localStorage.getItem('token');
@@ -27,6 +30,18 @@ export class CartService {
       })
     };
   }
+
+    private handleError(error: HttpErrorResponse) {
+    
+      console.error('Error occurred:', error);
+      const errorMessage = error.message || 'Something went wrong!';
+      this.router.navigate(['/error'], {
+        state: { errorMessage }
+      });
+  
+  
+      return throwError(() => new Error(errorMessage));
+    }
 
   addToCart(productId: string, quantity: number, size: string): Observable<any> {
     const body = { products: [{ productId, quantity, size }] };
@@ -40,7 +55,8 @@ export class CartService {
          this.cartCount.next(updatedCart.length);
 
         }
-      })
+      }),
+      catchError((error) => this.handleError(error))
     );
   }
 
@@ -56,7 +72,8 @@ export class CartService {
         if (response && response.data) {
           this.cartItems.next(response.data);
         }
-      })
+      }),
+      catchError((error) => this.handleError(error)) 
     );
   }
 
@@ -83,9 +100,10 @@ Checkout() {
     return this.http.post(`${this.apiUrl}/checkout`, {},  { headers });
   }
 
-  updatedCart(arr:any) {
+  updatedCart(arr: CartUpdate[]): Observable<any> {
     const headers = this.authService.getAuthHeaders();
-      return this.http.patch(`${this.apiUrl}`, {updates:arr},  { headers });
-    }
+    return this.http.patch(`${this.apiUrl}`, { updates: arr }, { headers });
+  }
+  
 }
 

@@ -12,7 +12,6 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../../services/auth/authservice/auth.service';
 import { CartService } from '../../services/products/cart.service';
 import { FavoritesService } from '../../services/favorites/favorites.service';
-import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-product-details' , 
@@ -27,15 +26,9 @@ export class ProductDetailsComponent implements OnInit {
  
   ID:string = '';
   isFav: boolean = false;
-  showConfirmModal: boolean = false; // حالة عرض نافذة التأكيد
-  productId: string = ''; // لحفظ معرف المنتج عند التأكيد
   @Output() removedFromFavorites = new EventEmitter<string>();
-constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,
-  private productService:ProductService,
-  private router: Router,private cartService: CartService,
-  private favoritesService:FavoritesService,
-  private adminService:AdminService
-){
+
+constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,private productService:ProductService,private router: Router,private cartService: CartService,private favoritesService:FavoritesService){
   this.ID =activatedRoute.snapshot.params['id'];
 }
     
@@ -44,7 +37,8 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,
    quantity: number = 1;
    selectedSize: string | null = null;
    showSizeMessage :boolean = false;
-  
+   showQuantityMessage :boolean = false;
+   isAdded: boolean = false;
 
   ngOnInit(): void {
     this.checkIfFavorite();
@@ -189,48 +183,17 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,
     return localStorage.getItem('role') === 'admin';
   }
 
-    
-  confirmDelete(productId: string) {
-    this.productId = productId; 
-    this.showConfirmModal = true;
-  
-  }
-// عند تأكيد الحذف
-deleteCurrentProduct() {
-this.adminService.deleteProduct(this.ID).subscribe({
-  next: (response) => {
-        console.log('Product deleted successfully', response);
-        this.router.navigate(['/home']);  
-        this.showConfirmModal = false; 
-      },
-      error: (err) => {
-        console.error('Error occurred:', err);
-        this.showConfirmModal = false; 
-      },
-})
-
-}
-togleDel()
-{
-this.showConfirmModal = true;
-}
-
-cancelDelete() {
-this.showConfirmModal = false; 
-}
-
-
-toggleEdit()
-{this.router.navigate(['/admin-edit', this.ID]);
-}
-
-
   addToCart() {
-    if (!this.selectedSize) {
+    if (this.products?.data?.category?.name ==='equipment' || this.products?.data?.category?.name ==='supplement') {
+      console.log("Nosize");
+      this.selectedSize = "Nosize";
+    }
+   if (!this.selectedSize) {
       console.error("Please select a size before adding to cart.");
       this.showSizeMessage = true;
       return;
     }
+    
   else{
     const productData = {
       productId: this.products.data._id, 
@@ -241,6 +204,7 @@ toggleEdit()
     this.cartService.addToCart(this.products.data._id, this.quantity, this.selectedSize).subscribe(
       response => {
         console.log('Product added to cart:', response);
+        this.isAdded = true;
         this.router.navigate(['/cart']);
       },
       error => {
@@ -249,7 +213,5 @@ toggleEdit()
     );
   }
   }
-}
-
-
   
+}
