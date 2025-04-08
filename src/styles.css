@@ -40,6 +40,10 @@
     text-transform: capitalize;
     
 }
+html {
+  scroll-behavior: smooth;
+}
+
 
 .fontInter{
   font-family: 'Inter', sans-serif;

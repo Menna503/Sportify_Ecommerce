@@ -17,9 +17,9 @@
               }
               @else {
         <div class="flex gap-2 items-center ">
-            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem]   md:fontInter  cursor-pointer  text-gray-900  "> <a [routerLink]="['/login']">log in</a></button>
+            <a [routerLink]="['/login']"> <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem]   md:fontInter  cursor-pointer  text-gray-900  "> log in</button></a>
            
-            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem]  md:fontInter cursor-pointer text-gray-900  "> <a [routerLink]="['/signup']">Sign up</a></button>
+            <a [routerLink]="['/signup']"> <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem]  md:fontInter cursor-pointer text-gray-900  "> Sign up</button></a>
             
 
         </div>
@@ -29,7 +29,7 @@
        
  </div>
 
-    <div class="profile absolute top-15 right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95 " 
+    <div   *ngIf="ishidden" class="profile absolute top-15  right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95 " 
     [ngClass]="{'opacity-100 scale-100':ishidden,'opacity-0 scale-50':!ishidden}">
         <img src="assets\images\profile.svg " alt="profile_pic" class="m-auto mt-4">
         <p class="text-center mt-1 text-xl">{{fname}}</p>

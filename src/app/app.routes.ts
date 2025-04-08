@@ -6,7 +6,6 @@ import { SigninComponent } from './pages/signin/signin.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { SuplementsComponent } from './pages/suplements/suplements.component';
 import { WomenComponent } from './pages/women/women.component';
-import { CartComponent } from './components/cart/cart.component';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { Component, NgModule } from '@angular/core';
@@ -34,15 +33,20 @@ export const routes: Routes = [
     {path:'checkout',component:CheckOutComponent,canActivate:[GuardService]},
     {path:'shoes',component:ShoesComponent},
     { path:'error', component:ErrorComponent},
-    { path: '**', redirectTo:'error'},
+    
     {path:'suplements' ,component:SuplementsComponent},
     {path:'product/:id',component:ProductDetailsComponent},
-    { path: 'cart', component: CartPageComponent ,canActivate:[GuardService]}, 
-    {path:'admin',component:AdminComponent , canActivate:[GuardService]}
+    { path:'cart', component: CartPageComponent,canActivate:[GuardService] }, 
+    {path:'admin',component:AdminComponent , canActivate:[GuardService]},
+    { path: '**', redirectTo:'error'},
 
 ];
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, {
+        scrollPositionRestoration: 'enabled',  
+        anchorScrolling: 'enabled'            
+      })],
+      
     exports: [RouterModule],
   })
   export class AppRoutingModule {}

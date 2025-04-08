@@ -14,36 +14,68 @@ import { ReviewcardComponent } from './components/reviewcard/reviewcard.componen
 import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { FavComponent } from './pages/fav/fav.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
 import { CheckOutComponent } from "./pages/check-out/check-out.component";
 import { AdminComponent } from './pages/admin/admin.component';
 import { GlobalErrorHandler } from './services/error_handler/error-service.service';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
-
+import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  providers:[{ provide: ErrorHandler, useClass:GlobalErrorHandler  }],
+  providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+  ],
 
-  imports: [RouterOutlet,
-      FavComponent,
-     PaymentPageComponent, CheckOutComponent
-     ,HomeComponent,
-     MenComponent,
-      WomenComponent,
-       SuplementsComponent,
-      FooterComponent,
-       PartnersComponent, 
-      HeaderComponent,
-  ConfirmPaymentComponent
-  ,FavComponent,PaginationComponent,
-  HttpClientModule ,SignupPageComponent ,SigninComponent,
-  CartComponent,PaymentPageComponent,AdminComponent,ProductDetailsComponent],
+  imports: [
+    RouterOutlet,
+    CommonModule,
+    FavComponent,
+    PaymentPageComponent, 
+    CheckOutComponent,
+    HomeComponent,
+    MenComponent,
+    WomenComponent,
+    SuplementsComponent,
+    FooterComponent,
+    PartnersComponent, 
+    HeaderComponent,
+    ConfirmPaymentComponent,
+    PaginationComponent,
+    HttpClientModule,
+    SignupPageComponent,
+    SigninComponent,
+    CartComponent,
+    CartPageComponent,
+    AdminComponent,
+    ProductDetailsComponent
+  ],
 
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'sports';
+
+ 
+
+  constructor(private router: Router) {
+    
+  }
+  ngOnInit() {
+   
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+   
+
+ 
 }

@@ -3,8 +3,11 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { Component, EventEmitter, Input,Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FavoritesService } from '../../services/favorites/favorites.service';
+
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
+import { CartService } from '../../services/products/cart.service';
+
 @Component({
   selector: 'app-product-card',
   imports: [CommonModule,RouterModule,HeaderComponent,FooterComponent,CommonModule, RouterModule],
@@ -17,11 +20,17 @@ export class ProductCardComponent {
   @Input() data: any;
   @Input() isFav: boolean = false;
   @Output() removedFromFavorites = new EventEmitter<string>();
-  constructor(private router: Router, private route: ActivatedRoute,private favoritesService:FavoritesService) {}
+  selectedSize: string = 'sm'; // Add selectedSize attribute
+  selectedColor: string = '';
+  constructor(private router: Router, private route: ActivatedRoute,private favoritesService:FavoritesService,private cartService: CartService) {}
   ngOnInit() {
     this.checkCurrentRoute();
     this.checkIfFavorite();
   }
+   
+    
+   
+
 
   checkCurrentRoute() {
     const currentUrl = this.router.url; 
@@ -63,4 +72,31 @@ export class ProductCardComponent {
       })
     }
 }
+addToCart() {
+  if (!this.selectedSize) {
+    console.error("Please select a size before adding to cart.");
+    return;
+  }
+
+  this.cartService.addToCart(this.data._id, 1, this.selectedSize).subscribe(
+    response => {
+      console.log('Product added successfully:', response);
+      // ممكن كمان تضيف نافذة تأكيد للمستخدم
+    },
+    error => {
+      console.error('Error adding product:', error);
+    }
+  );
 }
+
+
+}
+
+
+    
+
+  
+ 
+  
+
+

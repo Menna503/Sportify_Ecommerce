@@ -53,7 +53,18 @@ export class ProductService {
           };
         }),
        
-        catchError((error) => this.handleError(error))  
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 500) {
+            // Handle the 500 error specifically
+            console.error('no data found');
+            // You can display a specific message to the user here
+            // For example, by returning an Observable with a special structure
+            return throwError({ status: 500, message: 'A server error occurred. Please try again later.' });
+          } else {
+            // For other errors, delegate to your general error handler
+            return this.handleError(error);
+          }
+        })
       );
   }
 

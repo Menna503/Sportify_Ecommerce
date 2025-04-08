@@ -1,14 +1,21 @@
 <!-- <p>fav works!</p> -->
 <app-header class="" ></app-header>
 <div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
-<div class="mt-20 flex gap-4 mx-6 md:flex-wrap  md:w-[80%] md:m-auto  lg:flex-wrap  lg:w-[80%] lg:m-auto">
-<app-product-card
-class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(33.33%-1rem)]" 
+<div class="mt-20 flex gap-4 mx-6 md:flex-wrap  lg:flex-wrap   lg:m-auto">
+    @if (favorites.length) {
+<app-product-card 
+class=" w-[calc(110%-1rem)] md:w-[calc(50%-1rem)] lg:w-[calc(50%-1rem)] xl:w-[calc(33.33%-1rem)] " 
 [isFav]="true"
 *ngFor="let item of favorites"
 [data]="item" 
 (removedFromFavorites)="removeFromFavorites($event)"
 ></app-product-card>
+}
+@else {
+    <div class="w-100 h-100 flex m-auto items-center justify-center">
+   <p class="text-center font-bold text-4xl text-secandaryText">Favorite is Empty </p>
+    </div>
+}
 
 </div>
 </div>
