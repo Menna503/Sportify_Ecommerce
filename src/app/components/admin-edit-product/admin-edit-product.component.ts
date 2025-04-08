@@ -15,6 +15,9 @@ import { ActivatedRoute } from '@angular/router';
  
 })
 export class AdminEditProductComponent implements OnInit {
+
+  
+
   product: any = {};
   productCategories: string[] = ["67d080e25ebe64206430ae2b", "67d0805f5ebe64206430ae22"];
   productSubcategories: string[] = [' ', 'shirts', 'pants'];
@@ -25,6 +28,14 @@ export class AdminEditProductComponent implements OnInit {
   ];
   productSizes: string[] = ['S', 'M', 'L', 'XL'];
   productColor: string[] = ['Red', 'Blue', 'Black', 'White'];
+
+
+
+
+  selectedCategory: string = this.productCategories[0];
+
+  
+
 
 
 
@@ -47,19 +58,41 @@ export class AdminEditProductComponent implements OnInit {
      });
   }
 
+  onInputChange(field: string, value: any): void {
+    this.updatedProductData[field] = value;
+  }
   
   // دالة لتحديث المنتج
   updateProduct(): void {
-    if (this.productId && this.product) {
-      this.adminService.editProduct(this.productId, this.product).subscribe({
+    if (this.productId && Object.keys(this.updatedProductData).length > 0) {
+      this.adminService.editProduct(this.productId, this.updatedProductData).subscribe({
         next: () => {
           console.log('Product updated successfully');
+          this.showSuccess = true;
+          this.successMessage = 'Product updated successfully';
         },
         error: (err) => {
           console.error('Error updating product:', err);
+          this.showError = true;
+          this.errorMessage = 'Failed to update product';
         }
       });
+    } else {
+      this.showWarning = true;
+      this.warningMessage = 'No changes were made';
     }
   }
+  
+  
+
+
+  showError: boolean = false;
+  showSuccess: boolean = false;
+  showWarning: boolean = false;
+  errorMessage: string = '';
+  successMessage: string = '';
+  warningMessage: string = '';
+
+  updatedProductData: any = {};
   
 }

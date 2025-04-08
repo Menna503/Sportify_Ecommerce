@@ -30,7 +30,7 @@ export class CartService {
 
   addToCart(productId: string, quantity: number, size: string): Observable<any> {
     const body = { products: [{ productId, quantity, size }] };
-    return this.http.post(`${this.apiUrl}/add`, body, this.getHeaders()).pipe(
+    return this.http.post(`${this.apiUrl}`, body, this.getHeaders()).pipe(
       tap((response: any) => {
         if (response && response.data && response.data.cart) {
           const updatedCart = response.data.cart; // اعرف المتغير ده
