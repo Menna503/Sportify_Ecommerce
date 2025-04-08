@@ -8,18 +8,17 @@
         <p class="text-gray-600 font-inria">${{product.product.price}}</p>
   
         <div class="flex gap-2 mt-5 flex-wrap">
-          
-            <select [(ngModel)]="product.size" class="border px-3 h-8 rounded text-gray-700 border-inputColor w-full md:w-auto">
-                <option *ngFor="let size of product.product.size_range" [value]="size">{{ size }}</option>
-             
-              </select>
-            
          
+            <select *ngIf="product.product.category?.name !== 'supplement' && product.product.category?.name !== 'equipment'" [(ngModel)]="product.size" class="border px-3 h-8 rounded text-gray-700 border-inputColor w-full md:w-auto"  (ngModelChange)="updateSize($event);">
+              <option *ngFor="let size of product.product.size_range" [value]="size">{{ size }}</option>
+           
+            </select>
+          
+        
             <div class="w-full md:w-20 h-8 border text-center rounded flex justify-between items-center p-2 border-inputColor text-textColor">
                 <i class="fa-solid fa-minus text-xs cursor-pointer" (click)="decreaseQuantity()"></i>
                 <input type="number"
-                  [(ngModel)]="product.quantity"
-                  (ngModelChange)="updateQuantity($event)"
+                    [(ngModel)]="product.quantity"
                   min="1"
                   class="w-10 text-center outline-none no-arrows">
                 <i class="fa-solid fa-plus text-xs cursor-pointer" (click)="increaseQuantity()"></i>
@@ -29,11 +28,6 @@
 
 
       <div class="flex items-center gap-5 ml-auto text-cart">
-        <div class="flex items-center gap-1 cursor-pointer">
-          <i class="fa-regular fa-heart text-xl cursor-pointer"></i>
-          <span>Save</span>
-        </div>
-
         <div class="flex items-center gap-1 cursor-pointer" (click)="deleteProduct()">
           <i class="fa-solid fa-trash text-lg"></i>
           <span>Delete</span>

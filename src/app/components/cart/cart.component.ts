@@ -4,6 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/products/cart.service';
 import { ProductService } from '../../services/products/product.service';
 
+export interface CartUpdate {
+  productId: string;
+  currentSize: string;
+  newSize?: string;
+  quantity?: number;
+} 
+
 @Component({
   selector: 'app-cart',
   standalone: true,
@@ -11,15 +18,15 @@ import { ProductService } from '../../services/products/product.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
+
 export class CartComponent {
   @Input() product: any;
   @Output() quantityChanged = new EventEmitter<void>();
   @Output() productDeleted = new EventEmitter<string>();
+  @Output() productUpdatad = new EventEmitter<CartUpdate>();
   products:any;
   selectedSize: string | null = null;
- 
   
-
   constructor(private cartService: CartService,  private productService: ProductService) {}
 
   ngOnInit() {
@@ -29,45 +36,49 @@ export class CartComponent {
   
   increaseQuantity() {
     this.product.quantity++;
-    this.quantityChanged.emit();
+    this.emitProductUpdate(); 
   }
-
+  
   decreaseQuantity() {
     if (this.product.quantity > 1) {
-       this.product.quantity--;
-      this.quantityChanged.emit();
+      this.product.quantity--;
+      this.emitProductUpdate(); 
+    }
+  }
+  
+ 
+  updateSize(newSize: string) {
+    if (newSize !== this.product.size) {
+      this.product.size = newSize;
+      this.emitProductUpdate();
     }
   }
 
-  updateQuantity(newValue: number) {
-    const quantity = Math.max(1, +newValue);
-    this.product.quantity = quantity;
-    this.quantityChanged.emit();
-    console.log(quantity);
+  emitProductUpdate() {
+    const updatedProduct: CartUpdate = {
+      productId: this.product.product._id,
+      currentSize: this.product.size,
+      newSize: this.product.size,
+      quantity: this.product.quantity
+    };
 
-    this.cartService.updateQuantity(
-      this.product.product._id,
-      this.product.quantity,
-      this.product.selectedSize,
-       
-    ).subscribe(() => {
-      console.log('✅ Quantity updated');
-    });
+    this.productUpdatad.emit(updatedProduct);  
   }
+
   selectSize(size: string) {
     this.selectedSize = size;
     console.log('Selected size:', this.selectedSize);
+    this.updateSize(size);
+    console.log('updated size', size);
   }
 
-
   deleteProduct() {
-
     const targetProductId = this.product.product._id;  
     const selectedSize = this.product.selectedSize; 
     this.cartService.removeFromCart(targetProductId, selectedSize).subscribe(() => {
     
       this.productDeleted.emit(targetProductId);
-      console.log('✅ Product deleted from cart:', targetProductId);
+      console.log(' Product deleted from cart:', targetProductId);
     });
   }
 

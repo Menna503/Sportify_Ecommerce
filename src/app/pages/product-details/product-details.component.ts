@@ -27,6 +27,7 @@ export class ProductDetailsComponent implements OnInit {
   ID:string = '';
   isFav: boolean = false;
   @Output() removedFromFavorites = new EventEmitter<string>();
+
 constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,private productService:ProductService,private router: Router,private cartService: CartService,private favoritesService:FavoritesService){
   this.ID =activatedRoute.snapshot.params['id'];
 }
@@ -36,7 +37,8 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
    quantity: number = 1;
    selectedSize: string | null = null;
    showSizeMessage :boolean = false;
-  
+   showQuantityMessage :boolean = false;
+   isAdded: boolean = false;
 
   ngOnInit(): void {
     this.checkIfFavorite();
@@ -182,11 +184,16 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
   }
 
   addToCart() {
-    if (!this.selectedSize) {
+    if (this.products?.data?.category?.name ==='equipment' || this.products?.data?.category?.name ==='supplement') {
+      console.log("Nosize");
+      this.selectedSize = "Nosize";
+    }
+   if (!this.selectedSize) {
       console.error("Please select a size before adding to cart.");
       this.showSizeMessage = true;
       return;
     }
+    
   else{
     const productData = {
       productId: this.products.data._id, 
@@ -197,6 +204,7 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
     this.cartService.addToCart(this.products.data._id, this.quantity, this.selectedSize).subscribe(
       response => {
         console.log('Product added to cart:', response);
+        this.isAdded = true;
         this.router.navigate(['/cart']);
       },
       error => {
