@@ -13,7 +13,12 @@
 
         <div class="grid grid-cols-1 mt-4 lg:mt-4 md:grid-cols-2 justify-center gap-15 md:gap-8 lg:gap-0">
             <div class=" col-span-1 rounded-lg w-full flex justify-center text-center align-middle">
-                <img src="{{products?.data?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[70%]">
+              @if(products?.data?.category?.name === 'supplement'){
+                <img src="{{products?.data?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[50%] ">
+              }@else{
+                <img src="{{products?.data?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[70%] h-auto">
+
+              }
             </div>
 
             <div class=" text-textcolor flex flex-col col-span-1 mx-6 lg:mx-0 gap-4" >
@@ -81,15 +86,16 @@
                  
                     <button class="bg-mainColor text-cart rounded-lg p-2 px-4 w-3/4 lg:w-1/2 text-lg cursor-pointer" (click)="addToCart()">add to cart</button>
 
-                   
-                    <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer"(click)="togglefav()">
-                      <i class="fa-regular  fa-heart text-xl transition-all duration-300" 
-                      [ngClass]="{ 'hidden': isFav }">
-                   </i>
-                   <i class="fa-solid fa-heart text-red-700 text-xl absolute transition-all duration-300" 
-                      [ngClass]="{ 'hidden': !isFav }">
-                   </i>
-                    </div>
+                    <div 
+                    class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer"
+                    (click)="togglefav()">
+                    <i class="fa-regular fa-heart text-xl transition-all duration-700"
+                       [ngClass]="{'opacity-0 scale-0': isFav, 'opacity-100 scale-100': !isFav}">
+                    </i>
+                    <i class="fa-solid fa-heart text-red-700 text-xl absolute transition-all duration-700"
+                       [ngClass]="{'opacity-100 scale-100': isFav, 'opacity-0 scale-0': !isFav}">
+                    </i>
+                  </div>
                     
                    @if(isAdmin()){
                     <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer">

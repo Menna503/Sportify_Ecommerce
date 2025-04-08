@@ -27,6 +27,7 @@ export class ProductDetailsComponent implements OnInit {
   ID:string = '';
   isFav: boolean = false;
   @Output() removedFromFavorites = new EventEmitter<string>();
+
 constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,private productService:ProductService,private router: Router,private cartService: CartService,private favoritesService:FavoritesService){
   this.ID =activatedRoute.snapshot.params['id'];
 }

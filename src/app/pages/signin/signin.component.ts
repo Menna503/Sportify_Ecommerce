@@ -25,7 +25,9 @@ export class SigninComponent {
   errorMsg:string='';
 
   constructor(private authService: AuthService ,private router: Router) {}
-  
+  signUpWithGoogle() {
+    window.location.href = 'http://localhost:8000/auth/google';
+  }
   onSubmit() {
 
     this.submitted=true
