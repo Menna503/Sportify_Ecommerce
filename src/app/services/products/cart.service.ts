@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../auth/authservice/auth.service';
-
+import { CartUpdate } from '../../components/cart/cart.component';
 @Injectable({
   providedIn: 'root'
 })
@@ -81,10 +81,11 @@ Checkout() {
     return this.http.post(`${this.apiUrl}/checkout`, {},  { headers });
   }
 
-  updatedCart(arr:any) {
+  updatedCart(arr: CartUpdate[]): Observable<any> {
     const headers = this.authService.getAuthHeaders();
-      return this.http.patch(`${this.apiUrl}`, {updates:arr},  { headers });
-    }
+    return this.http.patch(`${this.apiUrl}`, { updates: arr }, { headers });
+  }
+  
 }
 
 

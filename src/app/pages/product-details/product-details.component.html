@@ -3,9 +3,10 @@
 
     <div class="text-gray">
       {{products?.data?.category?.name}}
+      @if(products?.data?.category?.name === 'clothes' ){
         <i class="fa-solid fa-angle-right m-3"></i>
         {{products?.data?.subCategory}}
-
+      }
         <i class="fa-solid fa-angle-right m-3"></i>
         {{products?.data?.name}}
     </div>
@@ -16,7 +17,7 @@
             </div>
 
             <div class=" text-textcolor flex flex-col col-span-1 mx-6 lg:mx-0 gap-4" >
-                <div class="flex gap-2"><img src="assets/images/adidas_icon.svg" alt="">
+                <div class="flex gap-2 h-7 w-7 items-center"><img src="assets/images/brand-image.png" alt="">
                     <span class="pt-1 text-lg">{{products?.data?.brand}}</span>
                 </div>
                 <p class="text-2xl md:text-xl lg:text-3xl font-semibold text-textcolor">{{products?.data?.name}}</p>
@@ -27,27 +28,31 @@
                       <span class="lg:w-12">:</span>
                       <span class="font-abhaya text-textcolor">$ {{products?.data?.price}}</span>
                     </div>
-
-                    <div class="flex gap-5">
-                      <span class="lg:w-32">Color</span>
-                      <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">{{products?.data?.color}}</span>
-                    </div>
-                    <div class="flex gap-5">
-                      <span class="lg:w-32">Size</span>
-                      <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor flex gap-1 sm:gap-1 md:gap-1 lg:gap-1">
-                        
-                        <button *ngFor="let item of products?.data?.size_range" (click)="selectSize(item)"
-                        [ngClass]="{'bg-black text-white border-gold': selectedSize === item,'bg-white text-[#2F2F2F] border-[#999999]': selectedSize !== item}"class=" cursor-pointer border rounded-full px-3 md:px-3 text-[15px] lg:text-[18px] font-abhaya py-1 transition duration-300 ">{{item}}</button>
-                        
-                      </span>
-                    </div>
-                    <div class="flex gap-5">
-                      <span class="lg:w-32">Material</span>
-                      <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">{{products?.data?.material}}</span>
-                    </div>
+                 @if(products?.data?.category?.name !== 'supplement' ){
+                  <div class="flex gap-5">
+                    <span class="lg:w-32">Color</span>
+                    <span class="lg:w-12">:</span>
+                    <span class="font-abhaya text-textcolor">{{products?.data?.color}}</span>
+                  </div>
+                  @if(products?.data?.category?.name !== 'equipment' ){
+                  <div class="flex gap-5">
+                    <span class="lg:w-32">Size</span>
+                    <span class="lg:w-12">:</span>
+                    <span class="font-abhaya text-textcolor flex gap-1 sm:gap-1 md:gap-1 lg:gap-1">
+                      
+                      <button *ngFor="let item of products?.data?.size_range" (click)="selectSize(item)"
+                      [ngClass]="{'bg-black text-white border-gold': selectedSize === item,'bg-white text-[#2F2F2F] border-[#999999]': selectedSize !== item}"class=" cursor-pointer border rounded-full px-3 md:px-3 text-[15px] lg:text-[18px] font-abhaya py-1 transition duration-300 ">{{item}}</button>
+                      
+                    </span>
+                  </div>
+                }
+                  <div class="flex gap-5">
+                    <span class="lg:w-32">Material</span>
+                    <span class="lg:w-12">:</span>
+                    <span class="font-abhaya text-textcolor">{{products?.data?.material}}</span>
+                  </div>
+                 }
+                    
                     <div class="flex gap-5">
                       <span class="lg:w-32">Stock</span>
                       <span class="lg:w-12">:</span>
@@ -98,11 +103,12 @@
               
               
                 </div>
-                @if(!this.selectedSize && showSizeMessage ){
-                  <span class="text-sm text-left  text-red-600">
+
+                  <span *ngIf="!this.selectedSize && showSizeMessage && (products?.data?.category?.name === 'clothes' || products?.data?.category?.name === 'shoes') " class="text-sm text-left  text-red-600">
                     Please select a size before adding to cart.
                   </span>
-                }
+              
+               
           
             </div>
         </div>

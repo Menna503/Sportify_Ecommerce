@@ -33,7 +33,7 @@ export const routes: Routes = [
     {path:'checkout',component:CheckOutComponent,canActivate:[GuardService]},
     {path:'shoes',component:ShoesComponent},
     {path:'supplements' ,component:SuplementsComponent},
-    { path: 'cart', component: CartPageComponent }, 
+    { path: 'cart', component: CartPageComponent,canActivate:[GuardService] }, 
     { path: 'confirmPayment', component: ConfirmPaymentComponent }, 
     {path:'admin',component:AdminComponent , canActivate:[GuardService]},
      { path: 'error', component: ErrorComponent },
