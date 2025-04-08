@@ -61,5 +61,8 @@ export class HeaderComponent {
 
   }
   
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'admin';
+  }
 }
 
