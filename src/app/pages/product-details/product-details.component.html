@@ -3,20 +3,26 @@
 
     <div class="text-gray">
       {{products?.data?.category?.name}}
+      @if(products?.data?.category?.name === 'clothes' ){
         <i class="fa-solid fa-angle-right m-3"></i>
         {{products?.data?.subCategory}}
-
+      }
         <i class="fa-solid fa-angle-right m-3"></i>
         {{products?.data?.name}}
     </div>
 
         <div class="grid grid-cols-1 mt-4 lg:mt-4 md:grid-cols-2 justify-center gap-15 md:gap-8 lg:gap-0">
             <div class=" col-span-1 rounded-lg w-full flex justify-center text-center align-middle">
-                <img src="{{products?.data?.imageUrl}}" class="w-[65%] rounded-lg md:w-[90%] lg:w-[65%]">
+              @if(products?.data?.category?.name === 'supplement'){
+                <img src="{{products?.data?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[50%] ">
+              }@else{
+                <img src="{{products?.data?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[70%] h-auto">
+
+              }
             </div>
 
             <div class=" text-textcolor flex flex-col col-span-1 mx-6 lg:mx-0 gap-4" >
-                <div class="flex gap-2"><img src="assets/images/adidas_icon.svg" alt="">
+                <div class="flex gap-2 h-7 w-7 items-center"><img src="assets/images/brand-image.png" alt="">
                     <span class="pt-1 text-lg">{{products?.data?.brand}}</span>
                 </div>
                 <p class="text-2xl md:text-xl lg:text-3xl font-semibold text-textcolor">{{products?.data?.name}}</p>
@@ -27,27 +33,31 @@
                       <span class="lg:w-12">:</span>
                       <span class="font-abhaya text-textcolor">$ {{products?.data?.price}}</span>
                     </div>
-
-                    <div class="flex gap-5">
-                      <span class="lg:w-32">Color</span>
-                      <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">{{products?.data?.color}}</span>
-                    </div>
-                    <div class="flex gap-5">
-                      <span class="lg:w-32">Size</span>
-                      <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor flex gap-1 sm:gap-1 md:gap-1 lg:gap-1">
-                        
-                        <span  *ngFor="let item of products?.data?.size_range" class="border flex justify-center items-center border-[#999999] rounded-full px-3 md:px-3  text-[15px] lg:text-[18px] ">{{item}}</span>
-                        
-                        
-                      </span>
-                    </div>
-                    <div class="flex gap-5">
-                      <span class="lg:w-32">Material</span>
-                      <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">{{products?.data?.material}}</span>
-                    </div>
+                 @if(products?.data?.category?.name !== 'supplement' ){
+                  <div class="flex gap-5">
+                    <span class="lg:w-32">Color</span>
+                    <span class="lg:w-12">:</span>
+                    <span class="font-abhaya text-textcolor">{{products?.data?.color}}</span>
+                  </div>
+                  @if(products?.data?.category?.name !== 'equipment' ){
+                  <div class="flex gap-5">
+                    <span class="lg:w-32">Size</span>
+                    <span class="lg:w-12">:</span>
+                    <span class="font-abhaya text-textcolor flex gap-1 sm:gap-1 md:gap-1 lg:gap-1">
+                      
+                      <button *ngFor="let item of products?.data?.size_range" (click)="selectSize(item)"
+                      [ngClass]="{'bg-black text-white border-gold': selectedSize === item,'bg-white text-[#2F2F2F] border-[#999999]': selectedSize !== item}"class=" cursor-pointer border rounded-full px-3 md:px-3 text-[15px] lg:text-[18px] font-abhaya py-1 transition duration-300 ">{{item}}</button>
+                      
+                    </span>
+                  </div>
+                }
+                  <div class="flex gap-5">
+                    <span class="lg:w-32">Material</span>
+                    <span class="lg:w-12">:</span>
+                    <span class="font-abhaya text-textcolor">{{products?.data?.material}}</span>
+                  </div>
+                 }
+                    
                     <div class="flex gap-5">
                       <span class="lg:w-32">Stock</span>
                       <span class="lg:w-12">:</span>
@@ -57,26 +67,63 @@
                     </div>
 
                     <div class="flex gap-5">
-                      <span class="lg:w-32">Rate</span>
+                      <span class="lg:w-32">Quantity</span>
                       <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">{{products?.data?.rating}}</span>
+                      <div class="w-full md:w-30 px-3 h-10 border text-center rounded flex justify-between items-center p-2 border-inputColor text-textColor">
+                        <i class="fa-solid fa-minus text-lg  cursor-pointer" (click)="decreaseQuantity()"></i>
+                        
+                        <input 
+                          type="number"
+                          min="1"
+                          [value]="quantity"
+                          readonly
+                          class="w-10 text-center pb-2 outline-none no-arrows">
+                        <i class="fa-solid fa-plus text-lg cursor-pointer" (click)="increaseQuantity()"></i>
+                      </div>
                     </div>
-                  </div>
                   
                 <div class="flex gap-3  mt-4">
-                    <button class="bg-mainColor rounded-lg p-2 px-4 w-3/4 lg:w-1/2 text-lg cursor-pointer">add to cart</button>
+                 
+                    <button class="bg-mainColor text-cart rounded-lg p-2 px-4 w-3/4 lg:w-1/2 text-lg cursor-pointer" >add to cart</button>
+
+                    <div 
+                    class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer"
+                    (click)="togglefav()">
+                    <i class="fa-regular fa-heart text-xl transition-all duration-700"
+                       [ngClass]="{'opacity-0 scale-0': isFav, 'opacity-100 scale-100': !isFav}">
+                    </i>
+                    <i class="fa-solid fa-heart text-red-700 text-xl absolute transition-all duration-700"
+                       [ngClass]="{'opacity-100 scale-100': isFav, 'opacity-0 scale-0': !isFav}">
+                    </i>
+                  </div>
+                    
+                   @if(isAdmin()){
                     <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer">
-                        <i class="fa-regular fa-heart text-lg" ></i>
-                    </div>
-                   
-                    <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer">
-                      <i class="fa-regular fa-pen-to-square text-xl text-gold"></i>
+                      <i (click)="toggleEdit()"  class="fa-regular fa-pen-to-square text-xl text-gold"></i>
                   </div>
                   <div class="rounded-lg border-2 border-[#EC4967] w-10 h-10 flex justify-center items-center cursor-pointer">
-                    <i class="fa-regular fa-trash-can text-xl text-[#EC4967]"></i>
+                    <i (click)="togleDel()" class="fa-regular fa-trash-can text-xl text-[#EC4967]"></i>
                 </div>
+                   }
+                   
+              <!-- نافذة التأكيد -->
+<div *ngIf="showConfirmModal" class="fixed inset-0 bg-black/30 flex justify-center items-center">
+  <div class="bg-white rounded-lg p-6 w-96 h-52 flex flex-col justify-center items-center">
+    <h3 class="text-center text-2xl mb-4">Are you Sure you want Delete?</h3>
+    <div class="flex justify-between gap-5">
+      <button (click)="cancelDelete()" class="bg-textColor text-white px-10 py-2 rounded-lg cursor-pointer ">No</button>
+      <button (click)="deleteCurrentProduct()" class="bg-red-400 text-white px-10 py-2 rounded-lg cursor-pointer">Yes</button>
+    </div>
+  </div>
+</div>
               
                 </div>
+
+                  <span *ngIf="!this.selectedSize && showSizeMessage && (products?.data?.category?.name === 'clothes' || products?.data?.category?.name === 'shoes') " class="text-sm text-left  text-red-600">
+                    Please select a size before adding to cart.
+                  </span>
+              
+               
           
             </div>
         </div>

@@ -20,17 +20,11 @@ export class AuthService {
   }
 
   signout():void{
-    // localStorage.removeItem('token')
-    // localStorage.removeItem('role')
     localStorage.clear();
     this.router.navigate(['/home']);
 
   }
   
-
-  // isAuthenticated():boolean{
-  //   return !!localStorage.getItem('token')
-  // }
 
   saveTokenRole(token:string , role:string ,id:string ,fname:string ,email:string):void{
      localStorage.setItem('token' , token);
@@ -56,7 +50,6 @@ export class AuthService {
     return new HttpHeaders({'Authorization':`Bearer ${Token}`})
   }
 
- 
      getuser(userId: string) {
       const Token =this.getToken();
       return this.http.get(`${this.baseUrl}/${userId}`,{headers:{'Authorization':`Bearer ${Token}`}})

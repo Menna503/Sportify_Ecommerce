@@ -100,3 +100,4 @@ export class SuplementsComponent implements OnInit {
     return this.productes.slice(start, end);
   }
 }
+

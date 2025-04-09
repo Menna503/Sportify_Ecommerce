@@ -28,23 +28,23 @@ disableRight: boolean = false;
     this.updateDisplayedCategories();
     window.addEventListener('resize', () => {
       this.itemsPerPage = this.calculateItemsPerPage();
-      this.resetFirstElement(); // Reset firstElement when screen size changes
+      this.resetFirstElement(); 
       this.updateDisplayedCategories();
     });
   }
 
-  // Calculate items per page based on screen size
+ 
   calculateItemsPerPage(): number {
     if (window.innerWidth < 768) {
-      return 1; // 1 card for small screens (sm)
+      return 1;
     } else if (window.innerWidth >= 768 && window.innerWidth < 1024) {
-      return 2; // 2 cards for medium screens (md)
+      return 2; 
     } else {
-      return 3; // 3 cards for large screens (lg)
+      return 3; 
     }
   }
 
-  // Reset firstElement when screen size changes
+  
   resetFirstElement(): void {
     if (this.firstElement + this.itemsPerPage > this.allCategories.length) {
       this.firstElement = Math.max(0, this.allCategories.length - this.itemsPerPage);

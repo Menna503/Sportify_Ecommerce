@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../auth/authservice/auth.service';
 import { Router } from '@angular/router';
+import { AdminService } from '../admin.service';
 
 export interface Product {
   _id: string;
@@ -12,6 +13,7 @@ export interface Product {
   price: number;
   brand: string;
   imageUrl: string;
+  size_range: string[]; 
   category?: any;
   subCategory?: any;
   gender?: string;
@@ -27,7 +29,7 @@ export class ProductService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private router: Router 
+    private router: Router , private adminService: AdminService
   ) {}
 
   getProduct(filter: { [key: string]: any } = {}, page: number = 1, limit: number = 8): Observable<{ products: Product[], total: number }> {
@@ -99,9 +101,5 @@ export class ProductService {
     );
   }
 
-  addNewCheckout(Checkout: any) {
-    return this.http.post(this.apiUrl, Checkout).pipe(
-      catchError((error) => this.handleError(error)) 
-    );
-  }
+
 }
