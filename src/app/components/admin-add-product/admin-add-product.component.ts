@@ -48,9 +48,9 @@ export class AdminAddProductComponent {
       !this.productName || !this.productBrand || !this.productPrice ||
       !this.productColor || !this.imageUrl || !this.productDescription || !this.productMaterials
     ) {
-      this.warningMessage = '❌Please fill all the required fields';
+      this.warningMessage = 'Please fill all the required fields';
       this.showWarning = true;
-      setTimeout(() => this.showWarning = false, 5000); // 5 ثواني ليختفي التنبيه
+      setTimeout(() => this.showWarning = false, 5000);
       return;
     }
 
@@ -70,14 +70,14 @@ export class AdminAddProductComponent {
     this.adminService.addProduct(product).subscribe({
       next: (response) => {
         console.log('Product added successfully', response);
-        this.successMessage = '✅ Product added Successfully';
+        this.successMessage = ' Product added Successfully';
         this.showSuccess = true;
         setTimeout(() => this.showSuccess = false, 5000); 
         this.resetForm();
       },
       error: (err) => {
         console.error('Error occurred:', err);
-        this.errorMessage = '❌Failure during adding product';
+        this.errorMessage = 'Failure during adding product';
         this.showError = true;
         setTimeout(() => this.showError = false, 5000); 
       }

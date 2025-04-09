@@ -23,8 +23,7 @@ export class SignupPageComponent {
   signUpPage = new FormGroup({
     firstName: new FormControl('', [Validators.minLength(3), Validators.required]),
     lastName: new FormControl('', [Validators.minLength(3), Validators.required]),
-    email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.minLength(8), Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$/)]),    password: new FormControl('', [Validators.minLength(8), Validators.required]),
    passwordConfirm: new FormControl('', Validators.required),
     rememberMe: new FormControl(false) 
   }, {validators:this.passwordMatch});

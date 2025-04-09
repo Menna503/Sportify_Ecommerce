@@ -12,11 +12,13 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AuthService } from '../../services/auth/authservice/auth.service';
 import { CartService } from '../../services/products/cart.service';
 import { FavoritesService } from '../../services/favorites/favorites.service';
+import { AdminService } from '../../services/admin.service';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-product-details' , 
   standalone: true, 
-  imports: [HeaderComponent, FooterComponent, ReviewcardComponent,ReactiveFormsModule,FormsModule, CartComponent,CommonModule,RouterModule],
+  imports: [HeaderComponent, FooterComponent, ReviewcardComponent,ReactiveFormsModule,FormsModule, CartComponent,CommonModule,RouterModule,LoadingComponent],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
   providers:[ProductService]
@@ -26,9 +28,12 @@ export class ProductDetailsComponent implements OnInit {
  
   ID:string = '';
   isFav: boolean = false;
+  showConfirmModal: boolean = false;
+  productId: string = '';
+  isLoading: boolean = false; 
   @Output() removedFromFavorites = new EventEmitter<string>();
 
-constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,private productService:ProductService,private router: Router,private cartService: CartService,private favoritesService:FavoritesService){
+constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,private productService:ProductService,private router: Router,private cartService: CartService,private favoritesService:FavoritesService,private adminService:AdminService){
   this.ID =activatedRoute.snapshot.params['id'];
 }
     
@@ -41,9 +46,12 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
    isAdded: boolean = false;
 
   ngOnInit(): void {
+    this.isLoading=true;
     this.checkIfFavorite();
     this.productService.getProductById(this.ID).subscribe({
-     next:(data)=>{this.products = data ,console.log(this.products)},
+     next:(data)=>{this.products = data ,console.log(this.products)
+      this.isLoading=false;
+     },
      error:(err)=>{console.log(err)},
      complete:()=>{console.log("completed")}
     });
@@ -182,6 +190,40 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
   isAdmin(): boolean {
     return localStorage.getItem('role') === 'admin';
   }
+  confirmDelete(productId: string) {
+    this.productId = productId; 
+    this.showConfirmModal = true;
+  
+  }
+
+  deleteCurrentProduct() {
+    this.adminService.deleteProduct(this.ID).subscribe({
+      next: (response) => {
+            console.log('Product deleted successfully', response);
+            this.router.navigate(['/home']);  
+            this.showConfirmModal = false; 
+          },
+          error: (err) => {
+            console.error('Error occurred:', err);
+            this.showConfirmModal = false; 
+          },
+    })
+    
+    }
+  togleDel()
+{
+this.showConfirmModal = true;
+}
+
+cancelDelete() {
+this.showConfirmModal = false; 
+}
+
+
+toggleEdit()
+{this.router.navigate(['/admin-edit', this.ID]);
+}
+
 
   addToCart() {
     if (this.products?.data?.category?.name ==='equipment' || this.products?.data?.category?.name ==='supplement') {
@@ -213,5 +255,7 @@ constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,priv
     );
   }
   }
+
+
   
 }

@@ -25,6 +25,9 @@
             }">
                 <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('email')?.errors?.['required']">email is required</small>
                 <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('email')?.errors?.['email']">you should write email structure</small>
+                <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('email')?.errors?.['pattern']">
+                  email must end with .com
+                </small>
               </div>
               <div class="relative">
             <input [type]="isvisble?'text': 'password'" name="" id="" formControlName="password" placeholder="Password" class="relative block rounded-[0.4vw]  p-2 border-1 border-secandaryText w-full focus:outline-none"
@@ -43,16 +46,8 @@
                 <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('password')?.errors?.['required']">password is required</small>
                 <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('password')?.errors?.['minlength']">you should write password structure</small>
               </div>
-            <div class="flex items-center gap-2 mb-6">
-               <input type="checkbox" id="rememberMe" formControlName="rememberMe" [ngClass]="{
-                'border-red-500 ring-2 ring-red-300': signInPage.get('remeberMe')?.invalid && (signInPage.get('remeberMe')?.dirty || signInPage.get('remeberMe')?.touched)
-                    }" >
-               <label for="rememberMe">Remember Me</label>
-            </div>        
-            <div *ngIf="signInPage.get('rememberMe')?.invalid && (signInPage.get('rememberMe')?.dirty || signInPage.get('rememberMe')?.touched)">
-                <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('rememberMe')?.errors?.['required']">rememberMe is required</small>
-                <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('rememberMe')?.errors?.['minlength']">you should write rememberMe structure</small>
-              </div>
+                  
+            
               <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-4 cursor-pointer  duration-300 hover:-translate-y-2 " > log In</button>
               <div *ngIf="errorMsg">
                 <small class="text-red-600 text-[10px]">{{errorMsg}}</small>

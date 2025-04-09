@@ -33,11 +33,9 @@ export const routes: Routes = [
     {path:'payment',component:PaymentPageComponent,canActivate:[GuardService]},
     {path:'checkout',component:CheckOutComponent,canActivate:[GuardService]},
     {path:'shoes',component:ShoesComponent},
-
     {path:'supplements' ,component:SuplementsComponent},
     { path: 'cart', component: CartPageComponent,canActivate:[GuardService] }, 
     { path: 'confirmPayment', component: ConfirmPaymentComponent }, 
-    
      { path: 'admin', component: AdminAddProductComponent, canActivate: [GuardService] },
      { path: 'admin-edit/:id', component: AdminEditProductComponent },
        { path: 'error', component: ErrorComponent },

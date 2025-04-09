@@ -84,6 +84,9 @@
           }">
               <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('password')?.errors?.['required']">password is required</small>
               <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('password')?.errors?.['minlength']">you should write password structure</small>
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('email')?.errors?.['pattern']">
+                email must end with .com
+              </small>
             </div>
             <div class="relative">
             <input [type]="isvisble2?'text': 'password'" name="" id="" formControlName="passwordConfirm" placeholder="confirmPassword" class="block rounded-[0.4vw] p-2 border-1 border-secandaryText w-full focus:outline-none"
@@ -103,16 +106,7 @@
                 <small class="text-red-600 text-[11px]" *ngIf="signUpPage.errors?.['passwordsDoNotMatch'] && submitted">password do not match</small>
               </div>
 
-          <div class="flex items-center gap-2 mb-6">
-             <input type="checkbox" id="rememberMe" formControlName="rememberMe" [ngClass]="{
-              'border-red-500 ring-2 ring-red-300': signUpPage.get('remeberMe')?.invalid && (signUpPage.get('remeberMe')?.dirty || signUpPage.get('remeberMe')?.touched)
-                  }" >
-             <label for="rememberMe">Remember Me</label>
-          </div>        
-          <div *ngIf="signUpPage.get('rememberMe')?.invalid && (signUpPage.get('rememberMe')?.dirty || signUpPage.get('rememberMe')?.touched)">
-              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('rememberMe')?.errors?.['required']">rememberMe is required</small>
-              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('rememberMe')?.errors?.['minlength']">you should write rememberMe structure</small>
-            </div>
+      
             <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-4 cursor-pointer  duration-300 hover:-translate-y-2 " > Sign Up</button>
             <div *ngIf="errorMsg">
               <small class="text-red-600 text-[10px]">{{errorMsg}}</small>
@@ -122,21 +116,8 @@
   
       
       
-      <div class="flex items-center justify-center mb-4"> 
-          <div class="line m-auto" class="w-20 h-0.5 bg-secandaryText mr-1.5"></div>
-          <p class="sm:text-[12px] text-center text-secandaryText">or sign up with</p> 
-          <div class="line m-auto" class="w-20 h-0.5 bg-secandaryText ml-1.5"></div>
-      </div>
-      <div class="flex align-middle items-center gap-1 mb-5">
-          <div class="flex gap-1 border-1 border-secandaryText rounded-[0.4vw] p-2 w-40 lg:w-48 justify-center md:w-25 duration-300 hover:-translate-y-1">
-              <img src="assets\images\devicon_google.svg" alt="" class="w-6 h-6" >
-              <button class="rounded">Google</button>
-          </div>
-          <div class="flex gap-1 border-1 border-secandaryText rounded-[0.4vw] p-2 w-40 lg:w-48 justify-center md:w-25 duration-300 hover:-translate-y-1">
-              <img src="assets\images\apple.svg" alt="" srcset="" class="w-6 h-6">
-              <button>Apple</button>
-          </div>
-      </div>
+  
+    
       <p class="text-center font-abhaya text-ternaryText md:text-[15px]">Already Have an account? <a [routerLink]="['/login']" class="text-loginText hover:underline cursor-pointer">Log In</a></p>
   </div>
   </div>

@@ -17,13 +17,13 @@ export class SigninComponent {
     this.isvisble=!this.isvisble
   }
   signInPage=new FormGroup({
-    email: new FormControl('', [Validators.email, Validators.required]),
+    email: new FormControl('', [Validators.required,Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$/)]),
     password: new FormControl('', [Validators.minLength(8), Validators.required]),
     rememberMe: new FormControl(false) 
   });
   submitted = false;  
   errorMsg:string='';
-  // private authService =inject(AuthService)
+
   constructor(private authService: AuthService ,private router: Router ,private route: ActivatedRoute,) {}
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class SigninComponent {
       if (token) {
         console.log("✅ Token from Google:", token);
         localStorage.setItem('token', token);
-        // ممكن تعرض رسالة ترحيب بسيطة مثلاً
+    
       }
     });
   }
@@ -46,28 +46,17 @@ export class SigninComponent {
 
     this.submitted=true
     if(this.signInPage.valid){
-      // console.log("✅ Sent credentials:", this.signInPage.value);
+   
       console.log("done");
       this.authService.signin(this.signInPage.value).subscribe({ 
         next:(response:any)=>{
           if(response.token){
-            // localStorage.setItem('token' , response.token)
+     
             this.authService.saveTokenRole(response.token , response.data.user.role,response.data.user._id ,response.data.user.firstName ,response.data.user.email);
             console.log("user authenticated successfully");
             console.log(response);
             console.log(response.data.user);
-            // this.router.navigate(['/home'])
-            // this.router.navigate(['/']);
-            // if(response.data.user.role ==='admin'){
-            //   console.log('admin');
-            //   this.router.navigate(['/admin'])
-            //  }else if(response.data.user.role ==='customer'){
-            //   console.log('cust');
-            //   this.router.navigate(['/home'])
-            //  }else{
-            //   console.log('login');
-            //   this.router.navigate(['/login'])
-            //  }
+        
             if (response.data.user.role === 'admin') {
               this.router.navigate(['/admin'], { replaceUrl: true });
             } else if (response.data.user.role === 'customer') {
