@@ -1,8 +1,8 @@
 <div class="relative">
-    <button
-        class="rounded-md bg-secondColor px-7 py-1  text-md md:px-10 md:py-1 md:text-xl text-ternaryText flex justify-center gap-2 "
+    <button 
+        class="rounded-md bg-secondColor px-7 py-1  text-md md:px-10 md:py-1 md:text-xl text-ternaryText flex justify-center gap-2 cursor-pointer"
         (click)="toggelFilter()"><img src="assets/icons/filter.svg">
-        <p class="cursor-pointer">filter</p>
+        <p>filter</p>
     </button>
     <div class="  bg-white shadow-2xl shadow-gray-500 rounded-xl md:w-[180%] w-[200%] absolute right-0 md:left-0  p-2 "
         [ngClass]="{'hidden': isHidden}">

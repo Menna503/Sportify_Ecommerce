@@ -6,7 +6,7 @@
     </p>
   </div>
 
-  <!-- Categories Grid with Arrows -->
+ 
   <div class="grid grid-cols-12 md:grid-cols-12 lg:grid-cols-12 gap-4 items-center ">
     <!-- Left Arrow -->
     <button class="col-span-1 flex justify-center"[disabled]="disableLeft" (click)="moveLeft()">
@@ -14,7 +14,6 @@
         ></i>
     </button>
 
-    <!-- Categories -->
     <div class=" col-span-10 md:col-span-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-2  ">
       <div *ngFor="let category of displayedCategories" class="relative ">
         <div class="sm:w-fit flex justify-center"> <img [src]="category.img" class="w-fit" alt="Category Image" /></div>

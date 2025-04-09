@@ -17,7 +17,6 @@ import { FavComponent } from './pages/fav/fav.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
 import { CheckOutComponent } from "./pages/check-out/check-out.component";
-import { AdminComponent } from './pages/admin/admin.component';
 import { GlobalErrorHandler } from './services/error_handler/error-service.service';
 import { ProductDetailsComponent } from './pages/product-details/product-details.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
@@ -51,7 +50,6 @@ import { CommonModule } from '@angular/common';
     SigninComponent,
     CartComponent,
     CartPageComponent,
-    AdminComponent,
     ProductDetailsComponent
   ],
 

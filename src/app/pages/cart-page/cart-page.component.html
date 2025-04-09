@@ -5,9 +5,11 @@
    <!-- !display products -->
     <div class="bg-white w-full md:col-span-2 shadow-md rounded-2xl p-4 md:p-10 mt-9 md:mt-0">
       <div *ngIf="cartProducts.length > 0; else emptyCart">
-        <app-cart 
-          *ngFor="let product of cartProducts" 
-          [product]="product" ></app-cart>
+        <app-cart
+        *ngFor="let product of cartProducts"
+        [product]="product"
+        (productUpdatad)="handleCartProductUpdate($event)">
+      </app-cart>
       </div>
       
       <ng-template #emptyCart>
@@ -32,9 +34,10 @@
         <span>Total (including taxes)</span>
         <span>${{ totalPrice + 16 }}</span>
       </div>
-      <button class="w-full mt-4 bg-mainColor font-inria text-textColor py-2 rounded-md font-extrabold">
-        Checkout
-      </button>
+      
+        <button class="w-full mt-4 bg-mainColor font-inria text-textColor py-2 rounded-md font-extrabold cursor-pointer" (click)="checkout()" >
+          Checkout
+        </button>
     </div>
 
   </div>

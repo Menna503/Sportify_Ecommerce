@@ -70,7 +70,7 @@
                     <div class="h-2 mt-1">
                       @if(Form.get('phone')?.value && !PhoneValid){
                         <span class="text-sm text-left  text-red-600">
-                          Phone should be 12 numbers
+                          Phone should be 11 numbers
                         </span>
                       }
                       @if(!Form.get('phone')?.value && submitted  ){
@@ -86,32 +86,33 @@
                     submit
                   </button>
 
-                  <button class=" p-3 ps-5 pr-5 border border-[#454545] w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] hover:text-white hover:cursor-pointer  transition">
+                  <a  [routerLink]="['/cart']"> <button type="button" class="p-3 ps-5 pr-5 border border-[#454545] w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] hover:text-white hover:cursor-pointer transition" >
                     Cancel
-                  </button>
+                  </button></a>
                 </div>
                   
             </div>
         </form>
     </div>
     
-    <div class="bg-white w-full lg:mt-5 lg:col-span-1 p-4 lg:p-6 shadow-md rounded-2xl h-fit">               
+    <div class="bg-white w-full md:col-span-1 p-4 md:p-6 shadow-md rounded-2xl h-fit">
       <h2 class="text-xl font-bold mb-4 font-inria text-cart">Order Summary</h2>
-     <div class="flex justify-between font-inria text-cart font-black">
-         <span>5 Products</span>
-     </div>
-     <div class="flex justify-between mt-2 font-inria text-cart font-bold">
-         <span>Total Products</span>
-         <span>$1200.00</span>
-     </div>
-     <div class="flex justify-between mt-2 font-inria text-cart font-bold">
-         <span>Shipping</span>
-         <span>$16</span>
-     </div>
-     <div class="border-t mt-4 pt-4 flex justify-between text-ternaryText font-inria font-extrabold">
-         <span>Total</span>
-         <span>$1266.00</span>
-     </div>
+      <div class="flex justify-between font-inria text-cart font-black">
+        <span>{{ cartProducts.length }} Items </span>
+      </div>
+      <div class="flex justify-between mt-2 font-inria text-cart font-bold">
+        <span>Total Price</span>
+        <span>${{ totalPrice }}</span>
+      </div>
+      <div class="flex justify-between mt-2 font-inria text-cart font-bold">
+        <span>Shipping</span>
+        <span>$16</span>
+      </div>
+      <div class="border-t mt-4 pt-4 flex justify-between text-ternaryText font-inria font-extrabold">
+        <span>Total (including taxes)</span>
+        <span>${{ totalPrice + 16 }}</span>
+      </div>
+      
      
  </div>
 </div>

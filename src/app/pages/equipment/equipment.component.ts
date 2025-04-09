@@ -8,10 +8,11 @@ import { CommonModule } from '@angular/common';
 import { FilterComponent } from '../../components/filter/filter.component';
 import { ProductService } from '../../services/products/product.service';
 import { HttpClient } from '@angular/common/http';
+import { LoadingComponent } from "../../components/loading/loading.component";
 
 @Component({
   selector: 'app-equipment',
- imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
+ imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent, LoadingComponent],
   templateUrl: './equipment.component.html',
   styleUrl: './equipment.component.css'
 })
@@ -25,11 +26,14 @@ export class EquipmentComponent {
      totalItems = 0;
    itemsPerPage = 8;
    currentPage = 1;
+   isLoading: boolean = false;
+  errorMessage: string = '';
      
    
      infoBrand: any = [
        { img: 'assets/icons/Decathlon.svg', brandName: 'decathlon' },
        { img: 'assets/icons/PowerMax.png', brandName: 'PowerMax'},
+       { img: 'assets/icons/PowerMax.png', brandName: 'PowerMaxk'},
       
      ];
    
@@ -53,6 +57,8 @@ export class EquipmentComponent {
    
    
      loadProducts() {
+      this.isLoading = true; 
+      this.errorMessage = ''; 
        const params = {
          category: 'equipment',
          sort: this.sort,
@@ -68,12 +74,20 @@ export class EquipmentComponent {
        next: (response) => {
          this.productes = response.products;
          this.totalItems = response.total;
-         console.log("✅ API Response:", response);
+         this.isLoading = false;
+         console.log("API Response:", response);
        },
-       error: (err) => {
-         console.error("❌ Server Error:", err);
-         alert(`Error: ${err.message || "Something went wrong!"}`);
-       }
+       error: (error) => {
+        this.isLoading = false; 
+        if (error.status === 500) {
+          this.errorMessage = 'no data found'; // Assign the specific 500 error message
+        } else {
+          this.errorMessage = 'An error occurred while loading products.'; // Generic error message
+        }
+      },
+      complete: () => {
+        this.isLoading = false;  
+      }
      });
    
      }

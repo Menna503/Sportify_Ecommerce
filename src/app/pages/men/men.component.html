@@ -17,7 +17,7 @@
       class=" flex justify-center items-center  ">
       <app-loading></app-loading>
     </div>
-    <div *ngIf="errorMessage" class="flex justify-center items-center text-8xl">
+    <div *ngIf="errorMessage" class="flex justify-center items-center text-8xl h-60">
       <p class="text-center font-bold text-5xl text-secandaryText">!{{errorMessage}}</p>
       
     </div>
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div class=" flex justify-center mt-10">
+  <div class=" flex justify-center mt-10" *ngIf="errorMessage===''">
     <app-pagination
       [totalItems]="totalItems"
       [itemsPerPage]="itemsPerPage"
