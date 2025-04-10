@@ -9,10 +9,13 @@
   
         <div class="flex gap-2 mt-5 flex-wrap">
          
-            <select *ngIf="product.product.category?.name !== 'supplement' && product.product.category?.name !== 'equipment'" [(ngModel)]="product.size" class="border px-3 h-8 rounded text-gray-700 border-inputColor w-full md:w-auto"  (ngModelChange)="updateSize($event);">
-              <option *ngFor="let size of product.product.size_range" [value]="size">{{ size }}</option>
-           
-            </select>
+          <select 
+          *ngIf="product.product.category?.name !== 'supplement' && product.product.category?.name !== 'equipment'"
+            [(ngModel)]="selectedSize"
+            (ngModelChange)="selectSize($event)"
+            class="border px-3 h-8 rounded text-gray-700 border-inputColor w-full md:w-auto">
+           <option *ngFor="let size of product.product.size_range" [value]="size">{{ size }}</option>
+        </select>
           
         
             <div class="w-full md:w-20 h-8 border text-center rounded flex justify-between items-center p-2 border-inputColor text-textColor">

@@ -29,15 +29,7 @@ export class AdminEditProductComponent implements OnInit {
   productSizes: string[] = ['S', 'M', 'L', 'XL'];
   productColor: string[] = ['Red', 'Blue', 'Black', 'White'];
 
-
-
-
   selectedCategory: string = this.productCategories[0];
-
-  
-
-
-
 
   constructor(private adminService: AdminService,
    private route: ActivatedRoute,private productService:ProductService, ) {}
@@ -61,8 +53,7 @@ export class AdminEditProductComponent implements OnInit {
   onInputChange(field: string, value: any): void {
     this.updatedProductData[field] = value;
   }
-  
-  // دالة لتحديث المنتج
+
   updateProduct(): void {
     if (this.productId && Object.keys(this.updatedProductData).length > 0) {
       this.adminService.editProduct(this.productId, this.updatedProductData).subscribe({

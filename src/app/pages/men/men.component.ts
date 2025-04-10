@@ -88,7 +88,6 @@ export class MenComponent {
           this.errorMessage = 'no data found'; // Assign the specific 500 error message
         } else {
           this.errorMessage = 'An error occurred while loading products.'; // Generic error message
-
         }
       },
       complete: () => {

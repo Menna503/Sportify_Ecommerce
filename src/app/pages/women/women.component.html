@@ -5,7 +5,6 @@
             class="rounded-md px-7 py-1 text-md text-ternaryText md:px-10 md:py-1 md:text-xl md:basis-auto cursor-pointer"
             (click)="display('shirts')" [ngClass]="subCategory === 'shirts' ? 'bg-mainColor ' : 'bg-secondColor'">t-shirt</button>
         <button
-
             class="rounded-md px-4 py-1 text-md text-ternaryText md:px-10 md:py-1 md:text-xl cursor-pointer"
             (click)="display('pants')" [ngClass]="subCategory === 'pants' ? 'bg-mainColor' : 'bg-secondColor'">trousers</button>
         <app-filter [infoBrand]="infoBrand" (filterChanged)="updateFilters($event)" class="z-[1000]"></app-filter>
@@ -15,7 +14,7 @@
             class=" flex justify-center items-center   ">
             <app-loading></app-loading>
         </div>
-        <div *ngIf="errorMessage" class="flex justify-center items-center text-8xl">
+        <div *ngIf="errorMessage" class="flex justify-center items-center text-8xl h-60">
             <p class="text-center font-bold text-5xl text-secandaryText">!{{errorMessage}}</p>
         </div>
         <div *ngIf="!isLoading && womenClothes.length > 0 && errorMessage === ''"> <div class="w-full overflow-x-auto whitespace-nowrap scroll-smooth scrollbar-hide ">
@@ -23,11 +22,10 @@
                     <app-product-card *ngFor="let item of womenClothes" class=" w-[calc(100%-1rem)] md:w-[calc(50%-1rem)] xl:w-[calc(33.33%-1rem)] " [data]="item"></app-product-card>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <div class=" flex justify-center mt-10">
+    <div class=" flex justify-center mt-10" *ngIf="errorMessage==''">
         <app-pagination
             [totalItems]="totalItems"
             [itemsPerPage]="itemsPerPage"

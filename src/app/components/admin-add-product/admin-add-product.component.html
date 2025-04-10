@@ -25,9 +25,11 @@
             <label class="block text-sm sm:text-sm font-medium text-ternaryText whitespace-nowrap">Product Category</label>
             <div class="relative">
               <select [(ngModel)]="selectedCategory" name="category" [ngModelOptions]="{standalone: true}" 
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm custom-select">
-                <option *ngFor="let cat of productCategories" [value]="cat">{{ cat }}</option>
-              </select>
+                 class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm custom-select">
+                    <option *ngFor="let cat of productCategories" [value]="cat.split('|')[1]">
+                       {{ cat.split('|')[0] }}
+                    </option>
+                </select>
               <i class="fa-solid fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
             </div>
           </div>
