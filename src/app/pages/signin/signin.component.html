@@ -23,11 +23,11 @@
               'visibility-visible opacity-100': signInPage.get('email')?.invalid && (signInPage.get('email')?.dirty || signInPage.get('email')?.touched || submitted),
               'visibility-hidden opacity-0': !(signInPage.get('email')?.invalid && (signInPage.get('email')?.dirty || signInPage.get('email')?.touched || submitted))
             }">
+
                 <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('email')?.errors?.['required']">email is required</small>
-                <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('email')?.errors?.['email']">you should write email structure</small>
-                <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('email')?.errors?.['pattern']">
-                  email must end with .com
-                </small>
+              <small class="text-red-600 text-[11px]" *ngIf="signInPage.get('email')?.errors?.['pattern']">
+                Invalid Email
+              </small>
               </div>
               <div class="relative">
             <input [type]="isvisble?'text': 'password'" name="" id="" formControlName="password" placeholder="Password" class="relative block rounded-[0.4vw]  p-2 border-1 border-secandaryText w-full focus:outline-none"

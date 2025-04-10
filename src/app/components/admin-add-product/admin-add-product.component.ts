@@ -20,18 +20,50 @@ export class AdminAddProductComponent {
   warningMessage: string = '';
 
   constructor(private adminService: AdminService) {}
-
-  productCategories: string[] = ["67d080e25ebe64206430ae2b", "67d0805f5ebe64206430ae22"];
-  productSubcategories: string[] = [' ', 'shirts', 'pants'];
+  productCategories = [
+    "shoes|67d080e25ebe64206430ae2b",
+    "clothes|67d0805f5ebe64206430ae22",
+    
+    "equipment|67d080a35ebe64206430ae25",
+    "supplements|67d080c45ebe64206430ae28",
+    
+  ];
+  
+  selectedCategory: string = "";
+  shoesCategory:string="shoes";
+  productSubcategories: string[] = [' ', 'shirts','pants',' '];
   productMaterials: string[] = [
     'Synthetics', 'cotton', 'Rubber', 'Vinyl Dumbbell', 'metal', 'Leather',
     'Plastic', 'cotton-lycra', 'Polyester', 'Polyester-cotton', 'Polyester-lycra',
     'Mesh', 'Textile', 'Synthetic Leather', 'Soft foam', 'Microfiber Leather'
   ];
-  productColor: string[] = ['White', 'Black'];
+  productColor: string[] = [
+    'White',
+    'Black',
+    'Gray',
+    'Red',
+    'Blue',
+    'Green',
+    'Yellow',
+    'Orange',
+    'Purple',
+    'Pink',
+    'Brown',
+    'Beige',
+    'Silver',
+    'Gold',
+    'Navy',
+    'Maroon',
+    'Olive',
+    'Teal',
+    'Coral',
+    'Multi-color',
+    'Black/Orange'
+  ];
+  
   productSizes: (string | number)[] = [3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 'S', 'm', 'L', 'XL', 'XXL'];
 
-  selectedCategory: string = this.productCategories[0];
+
   selectedSubcategory: string = this.productSubcategories[0];
   selectedMaterial: string = this.productMaterials[0];
   selectedSize: string | number = this.productSizes[0];
@@ -50,7 +82,7 @@ export class AdminAddProductComponent {
     ) {
       this.warningMessage = 'Please fill all the required fields';
       this.showWarning = true;
-      setTimeout(() => this.showWarning = false, 5000);
+      setTimeout(() => this.showWarning = false, 5000); 
       return;
     }
 

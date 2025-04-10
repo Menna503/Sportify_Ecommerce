@@ -11,7 +11,7 @@
   </div>
   <div class=" p-6 flex flex-col justify-center items-center w-full md:w-[80%] mx-auto"> 
       <p class="lg:text-[30px] md:text-[25px] text-center font-bold font-abhaya mb-7">Create An Account</p>
-      
+      <!-- <p class="lg:text-[12px] md:text-[9px] md:w-40 lg:w-65 text-center m-auto mb-7  text-secandaryText font-abhaya">Start exploring and utilizing all the best sports gear and deals. Sign up now</p> -->
       <form  [formGroup]="signUpPage" (ngSubmit)="onSubmit()" class="w-full max-w-md">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 md:w-full mb-3">
           <div class="flex flex-col w-full m-0">
@@ -66,7 +66,10 @@
             'visibility-hidden opacity-0': !(signUpPage.get('email')?.invalid && (signUpPage.get('email')?.dirty || signUpPage.get('email')?.touched || submitted))
           }">
               <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('email')?.errors?.['required']">email is required</small>
-              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('email')?.errors?.['email']">you should write email structure</small>
+              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('email')?.errors?.['pattern']">
+                Invalid Email
+              </small>
+              <!-- <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('email')?.errors?.['email']">you should write email structure</small> -->
             </div>
             <div class="relative">
           <input [type]="isvisble?'text': 'password'" name="" id="" formControlName="password" placeholder="Password" class="relative block rounded-[0.4vw]  p-2 border-1 border-secandaryText w-full focus:outline-none"
@@ -84,9 +87,6 @@
           }">
               <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('password')?.errors?.['required']">password is required</small>
               <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('password')?.errors?.['minlength']">you should write password structure</small>
-              <small class="text-red-600 text-[11px]" *ngIf="signUpPage.get('email')?.errors?.['pattern']">
-                email must end with .com
-              </small>
             </div>
             <div class="relative">
             <input [type]="isvisble2?'text': 'password'" name="" id="" formControlName="passwordConfirm" placeholder="confirmPassword" class="block rounded-[0.4vw] p-2 border-1 border-secandaryText w-full focus:outline-none"
@@ -106,6 +106,7 @@
                 <small class="text-red-600 text-[11px]" *ngIf="signUpPage.errors?.['passwordsDoNotMatch'] && submitted">password do not match</small>
               </div>
 
+              
       
             <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-4 cursor-pointer  duration-300 hover:-translate-y-2 " > Sign Up</button>
             <div *ngIf="errorMsg">
@@ -114,10 +115,7 @@
       </form>
     
   
-      
-      
-  
-    
+     
       <p class="text-center font-abhaya text-ternaryText md:text-[15px]">Already Have an account? <a [routerLink]="['/login']" class="text-loginText hover:underline cursor-pointer">Log In</a></p>
   </div>
   </div>

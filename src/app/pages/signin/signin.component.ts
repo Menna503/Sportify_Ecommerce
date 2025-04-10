@@ -17,7 +17,7 @@ export class SigninComponent {
     this.isvisble=!this.isvisble
   }
   signInPage=new FormGroup({
-    email: new FormControl('', [Validators.required,Validators.email, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$/)]),
+    email: new FormControl('', [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com)$/)]),
     password: new FormControl('', [Validators.minLength(8), Validators.required]),
     rememberMe: new FormControl(false) 
   });

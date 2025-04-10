@@ -57,9 +57,8 @@ export class WomenComponent implements OnInit {
   }
 
   loadProducts() {
-    this.isLoading = true; // تعيين حالة التحميل إلى true قبل استدعاء API
-    this.errorMessage = ''; // إعادة تعيين رسالة الخطأ في كل مرة يتم فيها تحميل المنتجات
-
+    this.isLoading = true; 
+    this.errorMessage = ''; 
     const params = {
       gender: 'women',
       category: 'clothes',
@@ -88,6 +87,9 @@ export class WomenComponent implements OnInit {
             this.errorMessage = 'An error occurred while loading products.'; // Generic error message
           }
         },
+        complete: () => {
+          this.isLoading = false;  
+        }
       });
   }
 

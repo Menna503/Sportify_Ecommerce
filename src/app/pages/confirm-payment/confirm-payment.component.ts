@@ -21,6 +21,7 @@ export class ConfirmPaymentComponent {
     this.cartService.Checkout().subscribe({
       next: () => {
         console.log("Cart removed successfully");
+        this.cartService.clearCart();
         this.router.navigate(['/home']);},
       error: (err) => {
         console.error("Error during checkout:", err);},

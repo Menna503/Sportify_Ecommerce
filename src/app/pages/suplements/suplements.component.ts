@@ -32,6 +32,7 @@ export class SuplementsComponent implements OnInit {
   infoBrand: any = [
     { img: 'assets/icons/Swanson_Vitamins_Logo.jpg', brandName: 'Swanson' },
     { img: 'assets/icons/solgar-logo.png', brandName: 'Solgar'},
+   
   ];
 
   constructor(private http: HttpClient, private productService: ProductService) {}
@@ -67,18 +68,18 @@ export class SuplementsComponent implements OnInit {
           this.errorMessage = '';
           this.productes = response.products;
           this.totalItems = response.total;
-          console.log("✅ API Response:", response);
+          console.log(" API Response:", response);
         },
         error: (error) => {
-          this.isLoading = false;
+          this.isLoading = false; 
           if (error.status === 500) {
-            this.errorMessage = 'no data found'; // Assign the specific 500 error message
+            this.errorMessage = 'no data found'; 
           } else {
-            this.errorMessage = 'An error occurred while loading products.'; // Generic error message
+            this.errorMessage = 'An error occurred while loading products.'; 
           }
         },
         complete: () => {
-          this.isLoading = false;
+          this.isLoading = false;  
         }
       });
   }
@@ -100,4 +101,3 @@ export class SuplementsComponent implements OnInit {
     return this.productes.slice(start, end);
   }
 }
-
