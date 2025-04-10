@@ -90,6 +90,7 @@ export class ProductCardComponent {
         }, 1000);
       },
       error => {
+        this.router.navigate(['/login']);
         console.error('Error adding product:', error);
       }
     );
