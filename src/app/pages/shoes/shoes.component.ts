@@ -8,10 +8,11 @@ import { CommonModule } from '@angular/common';
 import { FilterComponent } from '../../components/filter/filter.component';
 import { ProductService } from '../../services/products/product.service';
 import { HttpClient } from '@angular/common/http';
+import { LoadingComponent } from "../../components/loading/loading.component";
 
 @Component({
   selector: 'app-shoes',
- imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
+ imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent, LoadingComponent],
   templateUrl: './shoes.component.html',
   styleUrl: './shoes.component.css'
 })
@@ -25,12 +26,15 @@ src = "assets/images/shoes_img.svg";
      totalItems = 0;
    itemsPerPage = 8;
    currentPage = 1;
+   isLoading: boolean = false;
+  errorMessage: string = '';
      
    
      infoBrand: any = [
       { img: 'assets/icons/adidas.svg', brandName: 'ADIDAS' },
       { img: 'assets/icons/nike.svg', brandName: 'Nike' },
       { img: 'assets/icons/puma-logo.svg', brandName: 'PUMA' },
+     
   
       
      ];
@@ -48,13 +52,14 @@ src = "assets/images/shoes_img.svg";
      updateFilters(filterData: { sort: string; brand: string }) {
        this.sort = filterData.sort;
        this.brand = filterData.brand;
-      
+       this.currentPage = 1; 
        this.loadProducts();
      }
      
    
    
      loadProducts() {
+      this.isLoading = true; 
        const params = {
          category: 'shoes',
          sort: this.sort,
@@ -68,14 +73,22 @@ src = "assets/images/shoes_img.svg";
        this.productService.getProduct(filteredParams, this.currentPage, this.itemsPerPage)
      .subscribe({
        next: (response) => {
+        this.isLoading = false; 
+        this.errorMessage='';
          this.productes = response.products;
          this.totalItems = response.total;
          console.log(" API Response:", response);
        },
-       error: (err) => {
-         console.error(" Server Error:", err);
-         alert(`Error: ${err.message || "Something went wrong!"}`);
-       }
+       error: (error) => {
+        this.isLoading = false; 
+        if (error.status === 500) {
+          this.errorMessage = 'no data found'; 
+          this.errorMessage = 'An error occurred while loading products.'; 
+        }
+      },
+      complete: () => {
+        this.isLoading = false;  
+      }
      });
    
      }

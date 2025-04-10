@@ -24,9 +24,9 @@
               }
               @else {
         <div class="flex gap-2 items-center ">
-            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem]   md:fontInter  cursor-pointer  text-gray-900  "> <a [routerLink]="['/login']">log in</a></button>
+            <a [routerLink]="['/login']"> <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem]   md:fontInter  cursor-pointer  text-gray-900  "> log in</button></a>
            
-            <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem]  md:fontInter cursor-pointer text-gray-900  "> <a [routerLink]="['/signup']">Sign up</a></button>
+            <a [routerLink]="['/signup']"> <button class="bg-mainColor rounded-xl md:px-6 md:py-2   md:text-[1.2rem]  md:fontInter cursor-pointer text-gray-900  "> Sign up</button></a>
             
 
         </div>
@@ -36,7 +36,7 @@
        
  </div>
 
-    <div class="profile absolute top-15 right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95 " 
+    <div   *ngIf="ishidden" class="profile absolute top-15  right-2.5 bg-white drop-shadow-md w-80 h-70 transition-all duration-300 opacity-0 scale-95 " 
     [ngClass]="{'opacity-100 scale-100':ishidden,'opacity-0 scale-50':!ishidden}">
         <img src="assets\images\profile.svg " alt="profile_pic" class="m-auto mt-4">
         <p class="text-center mt-1 text-xl">{{fname}}</p>
@@ -60,6 +60,9 @@
             <li><a [routerLink]="['/equipment']" >Equipment</a></li>
             <li><a [routerLink]="['/shoes']" >Shoes</a></li>
             <li><a [routerLink]="['/supplements']" >Supplements</a></li>
+            @if(isAdmin()){
+            <li><a [routerLink]="['/admin']" >Admin</a></li>
+            }
         </ul>
     </div>
        
@@ -85,7 +88,7 @@
 
 <div class="bg-white fixed w-[50vw] h-[100vh] left-0- z-1000 top-10 pt-3 md:hidden " [ngClass] ='show'>
     <div class="flex justify-center items-center gap-1 ">
-        <p class="text-2xl  text-center font-abhaya text-mainColor">Sportify</p>
+        <p class="text-2xl  text-center font-abhaya text-gold">Sportify</p>
        <img src="assets/icons/logo_yellow.svg" alt="" class=" mt-2">
     </div>
 <ul class=" flex flex-col gap-4 p-5">
@@ -93,6 +96,10 @@
         <img src="assets/icons/home.svg">
         <p >home</p>
     </li>
+    <li class="flex gap-5 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer" [routerLink]="['/men']">
+        <i class="fa-solid fa-person pt-1" ></i>
+        <p>men</p>
+        </li>
     <li class="flex gap-4 hover:bg-mainColor p-2 rounded-md hover:text-black cursor-pointer" [routerLink]="['/women']">
     <img src="assets/icons/women.svg">
     <p>women</p>
@@ -122,7 +129,8 @@
             <img src="assets/icons/cart.svg" class="w-[23px]">
             <span [hidden]="cartItemCount === 0"
             class="absolute -top-4 -right-3 bg-mainColor text-textColor text-xs px-1 py-0.5 rounded-full border border-textColor  z-[9999]">
-              {{cartItemCount}}
+                {{cartItemCount}}
+             
             </span>
           </a>
           <p>Cart</p>

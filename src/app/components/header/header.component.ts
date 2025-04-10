@@ -31,7 +31,6 @@ export class HeaderComponent {
        this.fname=localStorage.getItem('Fname');
        this.email=localStorage.getItem('Email')
 
-
        this.cartService.cartCount$.subscribe(count => {
         console.log('Updated cart count:', count); 
         this.cartItemCount = count;
@@ -53,13 +52,10 @@ export class HeaderComponent {
     this.router.navigate(['/home'], { replaceUrl: true });
     this.token='';
     this.ishidden=false;
-
-
-
     localStorage.removeItem('cart'); 
-    
-
   }
   
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'admin';
+  }
 }
-

@@ -8,10 +8,11 @@ import { FooterComponent } from "../../components/footer/footer.component";
 import { FilterComponent } from '../../components/filter/filter.component';
 import { ProductService } from '../../services/products/product.service';
 import { HttpClient } from '@angular/common/http';
+import { LoadingComponent } from "../../components/loading/loading.component";
 
 @Component({
   selector: 'app-men',
-  imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent],
+  imports: [MenCollectionComponent, HeaderComponent, ProductCardComponent, CommonModule, PaginationComponent, FooterComponent, FilterComponent, LoadingComponent],
   templateUrl: './men.component.html',
   styleUrls: ['./men.component.css']
 })
@@ -26,7 +27,8 @@ export class MenComponent {
   totalItems = 0;
   itemsPerPage = 8;
   currentPage = 1;
-
+  isLoading: boolean = false; 
+  errorMessage:string='';
   infoBrand: any = [
     { img: 'assets/icons/adidas.svg', brandName: 'Adidas' },
     { img: 'assets/icons/nike.svg', brandName: 'Nike' },
@@ -38,6 +40,8 @@ export class MenComponent {
 
   ngOnInit() {
    this. loadProducts();
+   
+
   
   }
 
@@ -57,6 +61,7 @@ export class MenComponent {
   }
 
   loadProducts() {
+    this.isLoading = true; 
     const params = {
       gender: 'men',
       category: 'clothes',
@@ -70,17 +75,25 @@ export class MenComponent {
     );
 
     this.productService.getProduct(filteredParams, this.currentPage, this.itemsPerPage)
-      .subscribe({
-        next: (response) => {
-          this.menClothes = response.products;
-          this.totalItems = response.total;
-          console.log("✅ API Response:", response);
-        },
-        error: (err) => {
-          console.error("❌ Server Error:", err);
-          throw err; 
+    .subscribe({
+      next: (response) => {
+        this.errorMessage='';
+        this.menClothes = response.products;
+        this.totalItems = response.total;
+        console.log("✅ API Response:", response);
+      },
+      error: (error) => {
+        this.isLoading = false; 
+        if (error.status === 500) {
+          this.errorMessage = 'no data found'; // Assign the specific 500 error message
+        } else {
+          this.errorMessage = 'An error occurred while loading products.'; // Generic error message
         }
-      });
+      },
+      complete: () => {
+        this.isLoading = false;  
+      }
+    });
   }
 
   changePage(page: number) {

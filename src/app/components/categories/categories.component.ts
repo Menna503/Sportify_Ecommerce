@@ -20,7 +20,9 @@ export class CategoriesComponent {
   displayedCategories: { name: string; img: string; src: string }[] = [];
 
   firstElement: number = 0;
-  itemsPerPage: number = this.calculateItemsPerPage(); 
+  itemsPerPage: number = this.calculateItemsPerPage(); // Calculate items per page based on screen size
+  disableLeft: boolean = true;
+disableRight: boolean = false;
 
   constructor() {
     this.updateDisplayedCategories();
@@ -54,6 +56,8 @@ export class CategoriesComponent {
       this.firstElement,
       this.firstElement + this.itemsPerPage
     );
+    this.disableLeft = this.firstElement === 0;
+  this.disableRight = this.firstElement + this.itemsPerPage >= this.allCategories.length;
   }
 
   moveRight(): void {
@@ -61,12 +65,16 @@ export class CategoriesComponent {
       this.firstElement++;
       this.updateDisplayedCategories();
     }
+   
+    
   }
 
   moveLeft(): void {
     if (this.firstElement > 0) {
+      
       this.firstElement--;
       this.updateDisplayedCategories();
     }
+    
   }
 }

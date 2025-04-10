@@ -15,17 +15,24 @@
               <div class="border border-[#ababab] rounded-lg px-8 pt-10 flex flex-col gap-3 justify-items-center place-items-center">
                 <img src="assets/images/logos_mastercard.svg" class="w-1/2 sm:w-1/4  md:w-1/4">
                 <p class="text-md md:text-xl lg:text-lg text-[#454545]">Master Card</p>
-                <input type="radio" name="pay" class="h-5 w-5">
+                <input type="radio"   formControlName="payment_method" value="mastercard" class="h-5 w-5">
+                
               </div>
               
               <div class="border border-[#ababab]  rounded-lg p-8 flex flex-col gap-3 justify-items-center place-items-center">
                 <img src="assets/images/visa.svg" class="w-1/2 sm:w-1/4 md:w-1/4">
                 <p class="text-xl text-[#454545]">Visa Card</p>
-                <input type="radio" name="pay" class="h-5 w-5">
+                <input type="radio"  formControlName="payment_method" value="visa" class="h-5 w-5">
               </div>
               
             </div>
-
+            <div class="h-2 mt-1">
+              @if(!Form.get('payment_method')?.value && submitted  ){
+               <span class="text-sm text-left text-red-600">
+                payment_method is required!
+                </span>
+              }
+            </div>
             <div class=" form-group w-full px-9 md:w-3/4 lg:px-0 ">
               <label class="text-lg text-[#7F7F7F] ms-1">Card Number</label>
               <input type="text" formControlName="card_num" class=" text-lg font-abhaya rounded-lg border focus:border-gold  focus:outline-none border-solid border-[#ababab] p-4 text-textcolor w-full h-12 mt-2 " placeholder="0123 - 4567 - 8910 -1234" >
@@ -63,26 +70,41 @@
             <div class="grid grid-cols-2 w-full px-9 md:w-3/4 lg:px-0  gap-2">
               <div class=" form-group w-full">
                 <label class="text-lg text-[#7F7F7F] ms-1">Expiry Date</label>
-                <input type="date" class="text-lg font-abhaya rounded-lg border border-solid focus:border-gold  focus:outline-none border-[#ababab] p-4 appearance-none text-gray-500 w-full h-12 mt-2  " placeholder="Month">
+                <input type="date" formControlName="date"  class="text-lg font-abhaya rounded-lg border border-solid focus:border-gold  focus:outline-none border-[#ababab] p-4 appearance-none text-gray-500 w-full h-12 mt-2  " placeholder="Month">
+                <div class="h-2 mt-1">
+                  @if(!Form.get('date')?.value && submitted  ){
+                   <span class="text-sm text-left text-red-600">
+                    Expiry Date is required!
+                    </span>
+                  }
+                </div>
               </div>
+              
 
               
 
               <div class=" form-group w-full">
                 <label class="text-lg text-[#7F7F7F] ms-1">Cvv Code</label>
-                <input type="text" class="text-lg font-abhaya rounded-lg border border-solid focus:border-gold  focus:outline-none border-[#ababab] p-4 text-textcolor w-full h-12 mt-2  " >
+                <input type="text" formControlName="cvv"  class="text-lg font-abhaya rounded-lg border border-solid focus:border-gold  focus:outline-none border-[#ababab] p-4 text-textcolor w-full h-12 mt-2  " >
+                <div class="h-2 mt-1">
+                  @if(!Form.get('cvv')?.value && submitted  ){
+                   <span class="text-sm text-left text-red-600">
+                    Expiry Date is required!
+                    </span>
+                  }
+                </div>
               </div>
             </div>
             
     
-                <div class="grid grid-cols-2 w-full px-8 pt-7 md:w-3/4 lg:px-0 gap-4 lg:mt-4">
-                  <button type="submit" class=" p-3 ps-5 pr-5 bg-mainColor w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#abb165] hover:text-black hover:cursor-pointer transition"(click)="goToSuccess()">
-                    Pay 1200.00$
+                <div class="grid grid-cols-2  font-inria w-full px-8 pt-7 md:w-3/4 lg:px-0 gap-4 lg:mt-4">
+                  <button type="submit" class=" p-3 ps-5 pr-5 bg-mainColor w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#abb165] hover:text-black hover:cursor-pointer transition">
+                    Pay {{total}}.00 $
                   </button>
 
-                  <a  [routerLink]="['/checkout']"><button class=" p-3 ps-5 pr-5 border border-[#454545] w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] hover:text-white hover:cursor-pointer  transition">
+                  <button class=" p-3 ps-5 pr-5 border border-[#454545] w-full text-[#454545] text-xl font-semibold rounded-xl hover:bg-[#2A2A2A] hover:text-white hover:cursor-pointer transition" (click)="goToCheckout()">
                     Cancel
-                  </button></a>
+                  </button>
                 </div>
                   
             </div>
@@ -96,7 +118,7 @@
       </div>
       <div class="flex justify-between mt-2 font-inria text-cart font-bold">
         <span>Total Price</span>
-        <span>${{ totalPrice }}</span>
+        <span>${{ total }}</span>
       </div>
       <div class="flex justify-between mt-2 font-inria text-cart font-bold">
         <span>Shipping</span>
@@ -104,7 +126,7 @@
       </div>
       <div class="border-t mt-4 pt-4 flex justify-between text-ternaryText font-inria font-extrabold">
         <span>Total (including taxes)</span>
-        <span>${{ totalPrice + 16 }}</span>
+        <span>${{ total + 16 }}</span>
       </div>
       
      
