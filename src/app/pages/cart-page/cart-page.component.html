@@ -15,10 +15,14 @@
         [product]="product"
         (productUpdatad)="handleCartProductUpdate($event)">
       </app-cart>
+    
       </div>
       
-      <ng-template #emptyCart>
-        <p class="text-gray-500 text-center">cart is empty!</p>
+      <ng-template #emptyCart >
+        @if (cartProducts.length === 0) {
+          <p class="text-gray-500 text-center" >cart is empty!</p>
+        }
+       
       </ng-template>
     }
     </div>
