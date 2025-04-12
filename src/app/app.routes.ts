@@ -18,10 +18,12 @@ import { GuardService } from './services/auth/authGaurd/guard.service';
 import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
 import { AdminAddProductComponent } from './components/admin-add-product/admin-add-product.component';
 import { AdminEditProductComponent } from './components/admin-edit-product/admin-edit-product.component';
+import { ForgetPassComponent } from './pages/forget-pass/forget-pass.component';
+import { ResetPassComponent } from './pages/reset-pass/reset-pass.component';
 
 
 export const routes: Routes = [
-    {path:'',redirectTo:'home',pathMatch:'full'},
+    {path:'',redirectTo:'login',pathMatch:'full'},
     {path:'home' , component:HomeComponent },
     {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
@@ -39,6 +41,8 @@ export const routes: Routes = [
      { path: 'admin', component: AdminAddProductComponent, canActivate: [GuardService] },
      { path: 'admin-edit/:id', component: AdminEditProductComponent },
        { path: 'error', component: ErrorComponent },
+       { path: 'forgetPass', component: ForgetPassComponent },
+       { path: 'reset-password/:token', component: ResetPassComponent },
      { path: '**', redirectTo: 'error' },
 
 ];

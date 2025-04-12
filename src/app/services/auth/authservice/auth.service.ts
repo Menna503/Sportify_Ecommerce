@@ -54,4 +54,18 @@ export class AuthService {
       const Token =this.getToken();
       return this.http.get(`${this.baseUrl}/${userId}`,{headers:{'Authorization':`Bearer ${Token}`}})
     }
+
+
+  forgotPassword(email: string): Observable<any> {
+    console.log({email});
+    return this.http.post(`${this.baseUrl}/forgotPassword`, { email });
+  }
+
+  resetPassword(token: string, password: string, passwordConfirm: string): Observable<any> {
+    return this.http.patch(`${this.baseUrl}/resetPassword/${token}`, {
+      password,
+      passwordConfirm,
+    });
+  }
+
 }
