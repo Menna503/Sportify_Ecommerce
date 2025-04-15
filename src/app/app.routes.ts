@@ -19,7 +19,7 @@ import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment
 import { AdminAddProductComponent } from './components/admin-add-product/admin-add-product.component';
 import { AdminEditProductComponent } from './components/admin-edit-product/admin-edit-product.component';
 import { ForgetPassComponent } from './pages/forget-pass/forget-pass.component';
-import { ResetPassComponent } from './pages/reset-pass/reset-pass.component';
+// import { ResetPassComponent } from './pages/reset-pass/reset-pass.component';
 
 
 export const routes: Routes = [
@@ -42,7 +42,7 @@ export const routes: Routes = [
      { path: 'admin-edit/:id', component: AdminEditProductComponent },
        { path: 'error', component: ErrorComponent },
        { path: 'forgetPass', component: ForgetPassComponent },
-       { path: 'reset-password/:token', component: ResetPassComponent },
+      //  { path: 'reset-password/:token', component: ResetPassComponent },
      { path: '**', redirectTo: 'error' },
 
 ];

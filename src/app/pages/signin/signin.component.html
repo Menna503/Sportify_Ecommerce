@@ -49,8 +49,10 @@
                   
               <a [routerLink]="['/forgetPass']" routerLinkActive="router-link-active"  class="text-loginText hover:underline">Forget Password?</a>
               <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-4 cursor-pointer  duration-300 hover:-translate-y-2 " > log In</button>
+            
+              <button type="submit" class="bg-mainColor w-full rounded-[0.4vw] p-2 mb-2 cursor-pointer  duration-300 hover:-translate-y-2 " > log In</button>
               <div *ngIf="errorMsg">
-                <small class="text-red-600 text-[10px]">{{errorMsg}}</small>
+                <small class="text-red-600 text-[10px] mb-2">{{errorMsg}}</small>
               </div>
 
         </form>

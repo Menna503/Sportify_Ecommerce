@@ -43,9 +43,7 @@ export class CartPageComponent implements OnInit, OnDestroy {
     }
   );
     this.authservice.getuser(this.user_id).subscribe({
-      
      next:(data:any)=>{this.cartProducts = data.data.user.cart ,this.calculateTotal(),console.log(this.cartProducts), this.isLoading=false;},
-     
       error: (err) => console.log(err),
       complete: () => console.log('completed')
     });
@@ -71,16 +69,21 @@ export class CartPageComponent implements OnInit, OnDestroy {
     
   }
 
-  checkout() {
-    if (!this.user_id) {
-      console.log(' No user logged in!');
-      this.router.navigate(['/login']); 
-      return;
-    }
-    this.updatedCart();
-   this.calculateTotal();
-    this.router.navigate(['/checkout']); 
+checkout() {
+  if (!this.user_id) {
+    console.log(' No user logged in!');
+    this.router.navigate(['/login']); 
+    return;
   }
+  else if (this.cartProducts.length === 0) {
+    console.log('please add products to cart!');
+    return;
+  }
+  this.updatedCart();
+  this.calculateTotal();
+  this.router.navigate(['/checkout']); 
+}
+
 
   updatedProductsMap: Map<string, CartUpdate> = new Map();
 
@@ -104,6 +107,5 @@ export class CartPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  
 }
 
