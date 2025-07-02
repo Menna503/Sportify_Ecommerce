@@ -1,6 +1,10 @@
 <app-header></app-header>
-<div class="mx-6 pt-15 md:pt-5 lg:pt-5  m-auto md:ms-12 lg:ms-24 font-display">
-
+<div class="mx-6 pt-15 md:pt-5 lg:pt-5  m-auto md:ms-12  font-display">
+  @if (isLoading) {
+    <div class="w-full flex justify-center items-center">
+      <app-loading></app-loading>
+    </div>
+  } @else {
     <div class="text-gray">
       {{products?.data?.category?.name}}
       @if(products?.data?.category?.name === 'clothes' ){
@@ -97,15 +101,26 @@
                     </i>
                   </div>
                     
-                   @if(isAdmin()){
+                  @if(isAdmin()){
                     <div class="rounded-lg border-2 border-gold w-10 h-10 flex justify-center items-center cursor-pointer">
-                      <i class="fa-regular fa-pen-to-square text-xl text-gold"></i>
+                      <i (click)="toggleEdit()"  class="fa-regular fa-pen-to-square text-xl text-gold"></i>
                   </div>
                   <div class="rounded-lg border-2 border-[#EC4967] w-10 h-10 flex justify-center items-center cursor-pointer">
-                    <i class="fa-regular fa-trash-can text-xl text-[#EC4967]"></i>
+                    <i (click)="togleDel()" class="fa-regular fa-trash-can text-xl text-[#EC4967]"></i>
                 </div>
                    }
                    
+            
+          <div *ngIf="showConfirmModal" class="fixed inset-0 bg-black/30 flex justify-center items-center">
+            <div class="bg-white rounded-lg p-6 w-96 h-52 flex flex-col justify-center items-center">
+              <h3 class="text-center text-2xl mb-4">Are you Sure you want Delete?</h3>
+              <div class="flex justify-between gap-5">
+                <button (click)="cancelDelete()" class="bg-textColor text-white px-10 py-2 rounded-lg cursor-pointer ">No</button>
+                <button (click)="deleteCurrentProduct()" class="bg-red-400 text-white px-10 py-2 rounded-lg cursor-pointer">Yes</button>
+              </div>
+            </div>
+          </div>
+                            
               
               
                 </div>
@@ -241,6 +256,6 @@
           </button>
       </form>
     </div>
-    
+  } 
 
 <app-footer></app-footer> 

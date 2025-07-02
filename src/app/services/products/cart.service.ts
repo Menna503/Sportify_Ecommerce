@@ -48,10 +48,9 @@ export class CartService {
     return this.http.post(`${this.apiUrl}`, body, this.getHeaders()).pipe(
       tap((response: any) => {
         if (response && response.data && response.data.cart) {
-          const updatedCart = response.data.cart; // اعرف المتغير ده
+          const updatedCart = response.data.cart; 
           localStorage.setItem('cart', JSON.stringify(response.data.cart));
           this.cartItems.next(response.data.cart);
-            // تحديث عداد الكارت
          this.cartCount.next(updatedCart.length);
 
         }
@@ -95,6 +94,11 @@ removeFromCart(productId: string, size: string): Observable<any> {
   );
 }
 
+
+clearCart() {
+  localStorage.removeItem('cart');
+  this.cartCount.next(0); 
+}
 Checkout() {
   const headers = this.authService.getAuthHeaders();
     return this.http.post(`${this.apiUrl}/checkout`, {},  { headers });

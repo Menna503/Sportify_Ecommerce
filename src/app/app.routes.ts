@@ -36,12 +36,10 @@ export const routes: Routes = [
     {path:'supplements' ,component:SuplementsComponent},
     { path: 'cart', component: CartPageComponent,canActivate:[GuardService] }, 
     { path: 'confirmPayment', component: ConfirmPaymentComponent }, 
-   
-    
      { path: 'admin', component: AdminAddProductComponent, canActivate: [GuardService] },
      { path: 'admin-edit/:id', component: AdminEditProductComponent },
-     { path: 'error', component: ErrorComponent },
-      { path: '**', redirectTo: 'error' },
+       { path: 'error', component: ErrorComponent },
+     { path: '**', redirectTo: 'error' },
 
 ];
 @NgModule({

@@ -33,7 +33,7 @@ export class EquipmentComponent {
      infoBrand: any = [
        { img: 'assets/icons/Decathlon.svg', brandName: 'decathlon' },
        { img: 'assets/icons/PowerMax.png', brandName: 'PowerMax'},
-       { img: 'assets/icons/PowerMax.png', brandName: 'PowerMaxk'},
+      
       
      ];
    
@@ -80,9 +80,9 @@ export class EquipmentComponent {
        error: (error) => {
         this.isLoading = false; 
         if (error.status === 500) {
-          this.errorMessage = 'no data found'; // Assign the specific 500 error message
+          this.errorMessage = 'no data found'; 
         } else {
-          this.errorMessage = 'An error occurred while loading products.'; // Generic error message
+          this.errorMessage = 'An error occurred while loading products.'; 
         }
       },
       complete: () => {

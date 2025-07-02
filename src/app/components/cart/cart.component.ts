@@ -26,11 +26,17 @@ export class CartComponent {
   @Output() productUpdatad = new EventEmitter<CartUpdate>();
   products:any;
   selectedSize: string | null = null;
+  originalSize: string | null = null;
+  originalQuantity: number = 1;
+
   
   constructor(private cartService: CartService,  private productService: ProductService) {}
 
   ngOnInit() {
     console.log('Product quantity:', this.product.quantity);
+    this.selectedSize = this.product.size;
+    this.originalSize = this.product.size;
+    this.originalQuantity = this.product.quantity;
   
   }
   
@@ -45,32 +51,42 @@ export class CartComponent {
       this.emitProductUpdate(); 
     }
   }
-  
- 
-  updateSize(newSize: string) {
-    if (newSize !== this.product.size) {
-      this.product.size = newSize;
-      this.emitProductUpdate();
-    }
-  }
-
-  emitProductUpdate() {
-    const updatedProduct: CartUpdate = {
-      productId: this.product.product._id,
-      currentSize: this.product.size,
-      newSize: this.product.size,
-      quantity: this.product.quantity
-    };
-
-    this.productUpdatad.emit(updatedProduct);  
-  }
-
   selectSize(size: string) {
     this.selectedSize = size;
-    console.log('Selected size:', this.selectedSize);
+    console.log('Selected size:', size);
     this.updateSize(size);
     console.log('updated size', size);
   }
+  
+  updateSize(newSize: string) {
+    if (newSize !== this.product.size) {
+      this.product.size = this.selectedSize;
+      this.emitProductUpdate();
+    }
+  }
+  
+  
+  emitProductUpdate() {
+    const updateData: CartUpdate = {
+      productId: this.product.product._id,
+      currentSize: this.originalSize!
+    };
+    if (this.selectedSize !== this.originalSize) {
+      updateData.newSize = this.selectedSize!;
+      this.originalSize = this.selectedSize;
+    }
+
+    if (this.product.quantity !== this.originalQuantity) {
+      updateData.quantity = this.product.quantity;
+      this.originalQuantity = this.product.quantity;
+    }
+
+    if (updateData.newSize || updateData.quantity !== undefined) {
+      this.productUpdatad.emit(updateData);
+    }
+  }
+
+
 
   deleteProduct() {
     const targetProductId = this.product.product._id;  

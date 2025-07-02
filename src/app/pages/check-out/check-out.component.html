@@ -12,7 +12,7 @@
              
                 <div class="form-group w-full px-9 md:w-3/4 lg:px-0 ">
                   <label class="text-lg text-[#7F7F7F] ms-1">Full Name</label>
-                  <input type="text" formControlName="name" class=" text-lg font-abhaya rounded-lg border focus:border-gold  focus:outline-none border-solid border-[#ababab] p-4 text-textcolor w-full h-12 mt-2 " placeholder="Johnathan D. Mercer" >
+                  <input type="text" formControlName="name" value="Form.get('name')?.value" class=" text-lg font-abhaya rounded-lg border focus:border-gold  focus:outline-none border-solid border-[#ababab] p-4 text-textcolor w-full h-12 mt-2 " placeholder="Johnathan D. Mercer" >
                   <div class="h-2 mt-1">
                     @if(Form.get('name')?.value && !NameValid ){
                       <span class="text-sm text-left  text-red-600">
@@ -95,14 +95,14 @@
         </form>
     </div>
     
-    <div class="bg-white w-full md:col-span-1 p-4 md:p-6 shadow-md rounded-2xl h-fit">
+    <div class="bg-white w-full md:col-span-1 p-4 md:p-6 mt-5 shadow-md rounded-2xl h-fit">
       <h2 class="text-xl font-bold mb-4 font-inria text-cart">Order Summary</h2>
       <div class="flex justify-between font-inria text-cart font-black">
         <span>{{ cartProducts.length }} Items </span>
       </div>
       <div class="flex justify-between mt-2 font-inria text-cart font-bold">
         <span>Total Price</span>
-        <span>${{ totalPrice }}</span>
+        <span>${{ total }}</span>
       </div>
       <div class="flex justify-between mt-2 font-inria text-cart font-bold">
         <span>Shipping</span>
@@ -110,7 +110,7 @@
       </div>
       <div class="border-t mt-4 pt-4 flex justify-between text-ternaryText font-inria font-extrabold">
         <span>Total (including taxes)</span>
-        <span>${{ totalPrice + 16 }}</span>
+        <span>${{ total + 16 }}</span>
       </div>
       
      

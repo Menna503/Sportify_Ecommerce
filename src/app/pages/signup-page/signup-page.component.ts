@@ -23,7 +23,7 @@ export class SignupPageComponent {
   signUpPage = new FormGroup({
     firstName: new FormControl('', [Validators.minLength(3), Validators.required]),
     lastName: new FormControl('', [Validators.minLength(3), Validators.required]),
-    email: new FormControl('', [Validators.email, Validators.required]),
+    email: new FormControl('', [ Validators.required ,Validators.pattern(/^[a-zA-Z0-9._%+-]+@gmail\.com$/)]),
     password: new FormControl('', [Validators.minLength(8), Validators.required]),
    passwordConfirm: new FormControl('', Validators.required),
     rememberMe: new FormControl(false) 
@@ -36,15 +36,17 @@ export class SignupPageComponent {
     if (!password || !confirmPassword) return null;
   
     if (confirmPassword.value !== password.value) {
-      confirmPassword.setErrors({ passwordsDoNotMatch: true }); 
+      confirmPassword.setErrors({ passwordsDoNotMatch: true }); // إضافة الخطأ
       return { passwordsDoNotMatch: true };
     } else {
-      confirmPassword.setErrors(null); 
+      confirmPassword.setErrors(null); // إزالة الخطأ عند التوافق
       return null;
     }
   }
   
   constructor(private router:Router ,private authService:AuthService){}
+  
+  
   submitted = false; 
   errorMsg :string =''
   onSubmit() {

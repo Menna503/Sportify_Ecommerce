@@ -31,7 +31,6 @@ export class PaymentPageComponent {
       
       this.cartSub = this.cartService.cartItems$.subscribe((updatedCart) => {
         this.cartProducts = updatedCart;
-        this.calculateTotal(); 
         this.cdr.detectChanges(); 
         if (this.cartProducts.length === 0) {
           console.log('✅ Cart is empty!');
@@ -40,25 +39,18 @@ export class PaymentPageComponent {
     );
       this.authservice.getuser(this.user_id).subscribe({
         
-       next:(data:any)=>{this.cartProducts = data.data.user.cart ,this.calculateTotal(),console.log(this.cartProducts)},
+       next:(data:any)=>{this.cartProducts = data.data.user.cart ,console.log(this.cartProducts)},
        
         error: (err) => console.log(err),
         complete: () => console.log('completed')
       });
     }
   
-    calculateTotal() {
-      this.totalPrice = this.cartProducts.reduce((acc, item) => {
-        const quantity = item.quantity || 1;
-        const price = item.product?.price || 0;
-  
-        return acc + (Number(price) * quantity);
-       
-      }, 0);
-    
-      console.log("💰 total price:", this.totalPrice);
-      
-    }
+    get total(): number {
+      const storedTotal = localStorage.getItem('totalPrice');
+      return storedTotal ? Number(storedTotal) : 0;
+    }
+
     ngOnDestroy() {
       if (this.cartSub) {
         this.cartSub.unsubscribe();
@@ -67,14 +59,15 @@ export class PaymentPageComponent {
 
   Form = new FormGroup({
     name: new FormControl(null, [Validators.required,Validators.minLength(3)]),
-    email: new FormControl(null,[Validators.required,Validators.email]),
+    date: new FormControl(null,[Validators.required]),
     card_num: new FormControl(null,[Validators.required,Validators.pattern(/^\d{4}-\d{4}-\d{4}-\d{4}$/)]),
-    address: new FormControl(null,[Validators.required,Validators.minLength(3),Validators.maxLength(100)])
+    cvv: new FormControl(null,[Validators.required]),
+    payment_method : new FormControl(null,[Validators.required])  
     
   })
 
-  get EmailValid(){
-    return this.Form.controls['email'].valid;
+  get DateValid(){
+    return this.Form.controls['date'].valid;
   }
   get NameValid(){
     return this.Form.controls['name'].valid;
@@ -82,29 +75,29 @@ export class PaymentPageComponent {
   get card_numValid(){
     return this.Form.controls['card_num'].valid;
   }
-  get AddressValid(){
-    return this.Form.controls['address'].valid;
+  get cvvValid(){
+    return this.Form.controls['cvv'].valid;
   }
+  get payment_method(){
+    return this.Form.controls['payment_method'].valid;
+  } 
   submitted = false;
-  submit(){
+  submit() {
     this.submitted = true;
+    console.log('Form validity:', this.Form.valid);
+  
     if (this.Form.valid) {
-
       this.Form.markAllAsTouched(); 
-      let newCheckout = {
-        name: this.Form.get('name')?.value,
-        email: this.Form.get('email')?.value,
-        phone: this.Form.get('phone')?.value,
-        address: this.Form.get('address')?.value
-
-      }
-   
+      this.router.navigate(['/confirmPayment']);
+      console.log('Form is valid, navigating to payment...');
+    } else {
+      console.log('Form is invalid. Please fill in all required fields correctly.');
     }
-    return;
-   
   }
-  goToSuccess(){
-    this.router.navigate(['/confirmPayment']);
+
+ 
+  goToCheckout(){
+    this.router.navigate(['/checkout']);
   }
 
 }

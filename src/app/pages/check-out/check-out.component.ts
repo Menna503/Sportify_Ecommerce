@@ -20,7 +20,8 @@ export class CheckOutComponent {
     
       user_id: string = localStorage.getItem('UserId') || "";
       cartSub!: Subscription;
-    
+     
+
       constructor(
         private cartService: CartService,
         private authservice: AuthService,
@@ -29,37 +30,30 @@ export class CheckOutComponent {
       ) {}
     
       ngOnInit() {
-        
+       
         this.cartSub = this.cartService.cartItems$.subscribe((updatedCart) => {
           this.cartProducts = updatedCart;
-          this.calculateTotal(); 
+          
           this.cdr.detectChanges(); 
           if (this.cartProducts.length === 0) {
-            console.log('✅ Cart is empty!');
+            console.log('Cart is empty!');
           }
         }
       );
         this.authservice.getuser(this.user_id).subscribe({
           
-         next:(data:any)=>{this.cartProducts = data.data.user.cart ,this.calculateTotal(),console.log(this.cartProducts)},
+         next:(data:any)=>{this.cartProducts = data.data.user.cart ,console.log(this.cartProducts)},
          
           error: (err) => console.log(err),
           complete: () => console.log('completed')
         });
       }
     
-      calculateTotal() {
-        this.totalPrice = this.cartProducts.reduce((acc, item) => {
-          const quantity = item.quantity || 1;
-          const price = item.product?.price || 0;
+      get total(): number {
+        const storedTotal = localStorage.getItem('totalPrice');
+        return storedTotal ? Number(storedTotal) : 0;
+      }
     
-          return acc + (Number(price) * quantity);
-         
-        }, 0);
-      
-        console.log("💰 total price:", this.totalPrice);
-        
-      }
       ngOnDestroy() {
         if (this.cartSub) {
           this.cartSub.unsubscribe();
