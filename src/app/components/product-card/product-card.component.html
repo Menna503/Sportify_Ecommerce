@@ -3,10 +3,13 @@
     
   
    <div class="flex justify-center my-5"> 
-    <div class="w-full h-[400px]">
-      <img [src]="data.imageUrl" class="rounded-t-xl w-full  aspect-[4/3] h-[400px] object-cover">
-    </div>
+  <div class="w-full h-[400px]">
+    <a [routerLink]="'/product/' + data._id">
+      <img [src]="data.imageUrl" class="rounded-t-xl w-full aspect-[4/3] h-[400px] object-cover cursor-pointer">
+    </a>
   </div>
+</div>
+
  
 
   
@@ -20,8 +23,6 @@
 </div>
 
 
-
-      
   
    
 <div class="flex items-center w-full px-4 gap-x-2 mt-6 pt-2 ">
