@@ -54,12 +54,12 @@
 
     <div class="links fontInter   md:text-xl text-[#212121] text-xl">
         <ul class="bg-mainColor h-10 flex justify-center md:gap-6 gap-2 items-center py-7 mt-5">
-            <li><a [routerLink]="['/home']" routerLinkActive="router-link-active"  >home</a></li>
-            <li><a [routerLink]="['/men']">men</a></li>
-            <li><a [routerLink]="['/women']" >women</a></li>
-            <li><a [routerLink]="['/equipment']" >Equipment</a></li>
-            <li><a [routerLink]="['/shoes']" >Shoes</a></li>
-            <li><a [routerLink]="['/supplements']" >Supplements</a></li>
+            <li class="transition-all duration-300 hover:text-white hover:scale-105 hover:underline underline-offset-4"><a [routerLink]="['/home']" routerLinkActive="router-link-active"  >home</a></li>
+            <li class="transition-all duration-300 hover:text-white hover:scale-105 hover:underline underline-offset-4"><a [routerLink]="['/men']"  routerLinkActive="router-link-active">men</a></li>
+            <li class="transition-all duration-300 hover:text-white hover:scale-105 hover:underline underline-offset-4"><a [routerLink]="['/women']"routerLinkActive="router-link-active" >women</a></li>
+            <li class="transition-all duration-300 hover:text-white hover:scale-105 hover:underline underline-offset-4"><a [routerLink]="['/equipment']" routerLinkActive="router-link-active">Equipment</a></li>
+            <li class="transition-all duration-300 hover:text-white hover:scale-105 hover:underline underline-offset-4"><a [routerLink]="['/shoes']" routerLinkActive="router-link-active">Shoes</a></li>
+            <li class="transition-all duration-300 hover:text-white hover:scale-105 hover:underline underline-offset-4"><a [routerLink]="['/supplements']"routerLinkActive="router-link-active" >Supplements</a></li>
             @if(isAdmin()){
             <li><a [routerLink]="['/admin']" >Admin</a></li>
             }

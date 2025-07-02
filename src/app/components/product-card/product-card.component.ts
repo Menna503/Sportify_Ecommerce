@@ -22,8 +22,9 @@ export class ProductCardComponent {
 
   selectedColor: string = '';
   selectedSize: string = '';
-
   isAdded: boolean = false;
+
+  showLoginPrompt: boolean = false; // 🟢 ده الجديد
 
   constructor(
     private router: Router,
@@ -34,7 +35,6 @@ export class ProductCardComponent {
 
   ngOnInit() {
     this.selectedSize = this.data.size_range[0];
-
     this.checkCurrentRoute();
     this.checkIfFavorite();
   }
@@ -46,7 +46,7 @@ export class ProductCardComponent {
       currentUrl.includes('supplements') ||
       this.data.category?.name == 'supplement' ||
       this.data.category?.name == 'equipment';
-  }
+  }
 
   checkIfFavorite() {
     this.favoritesService.getfavourite().subscribe({
@@ -83,20 +83,27 @@ export class ProductCardComponent {
   }
 
   addToCart() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.showLoginPrompt = true; // 👈 يظهر المودال
+      return;
+    }
+
     this.cartService.addToCart(this.data._id, 1, this.selectedSize).subscribe(
       (response) => {
         console.log('Product added successfully:', response);
-
         this.isAdded = true;
-
         setTimeout(() => {
           this.isAdded = false;
         }, 1000);
       },
       (error) => {
-        this.router.navigate(['/login']);
         console.error('Error adding product:', error);
       }
     );
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }
