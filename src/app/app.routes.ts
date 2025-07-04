@@ -18,6 +18,7 @@ import { GuardService } from './services/auth/authGaurd/guard.service';
 import { ConfirmPaymentComponent } from './pages/confirm-payment/confirm-payment.component';
 import { AdminAddProductComponent } from './components/admin-add-product/admin-add-product.component';
 import { AdminEditProductComponent } from './components/admin-edit-product/admin-edit-product.component';
+import { AllProductsComponent } from './pages/all-products/all-products.component';
 
 
 export const routes: Routes = [
@@ -26,6 +27,7 @@ export const routes: Routes = [
     {path:'login' ,component:SigninComponent},
     {path:'signup' ,component:SignupPageComponent},
     {path:'fav' ,component:FavComponent ,canActivate:[GuardService]},
+    {path:'products',component:AllProductsComponent},
     {path:'men' ,component:MenComponent},
     {path:'women' ,component:WomenComponent},
     {path:'equipment',component:EquipmentComponent},
@@ -33,6 +35,7 @@ export const routes: Routes = [
     {path:'payment',component:PaymentPageComponent,canActivate:[GuardService]},
     {path:'checkout',component:CheckOutComponent,canActivate:[GuardService]},
     {path:'shoes',component:ShoesComponent},
+    {path:'allProduct',component:AllProductsComponent},
     {path:'supplements' ,component:SuplementsComponent},
     { path: 'cart', component: CartPageComponent,canActivate:[GuardService] }, 
     { path: 'confirmPayment', component: ConfirmPaymentComponent }, 

@@ -6,50 +6,50 @@
     </div>
   } @else {
     <div class="text-gray">
-      {{products?.data?.category?.name}}
-      @if(products?.data?.category?.name === 'clothes' ){
+      {{products?.data?.product?.category?.name}}
+      @if(products?.data?.product?.category?.name === 'clothes' ){
         <i class="fa-solid fa-angle-right m-3"></i>
-        {{products?.data?.subCategory}}
+        {{products?.data?.product?.subCategory}}
       }
         <i class="fa-solid fa-angle-right m-3"></i>
-        {{products?.data?.name}}
+        {{products?.data?.product?.name}}
     </div>
 
         <div class="grid grid-cols-1 mt-4 lg:mt-4 md:grid-cols-2 justify-center gap-15 md:gap-8 lg:gap-0">
             <div class=" col-span-1 rounded-lg w-full flex justify-center text-center align-middle">
-              @if(products?.data?.category?.name === 'supplement'){
-                <img src="{{products?.data?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[50%] ">
+              @if(products?.data?.product?.category?.name === 'supplement'){
+                <img src="{{products?.data?.product?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[50%] ">
               }@else{
-                <img src="{{products?.data?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[70%] h-auto">
+                <img src="{{products?.data?.product?.imageUrl}}" class="w-[70%] rounded-lg md:w-[95%] lg:w-[70%] h-auto">
 
               }
             </div>
 
             <div class=" text-textcolor flex flex-col col-span-1 mx-6 lg:mx-0 gap-4" >
                 <div class="flex gap-2 h-7 w-7 items-center"><img src="assets/images/brand-image.png" alt="">
-                    <span class="pt-1 text-lg">{{products?.data?.brand}}</span>
+                    <span class="pt-1 text-lg">{{products?.data?.product?.brand}}</span>
                 </div>
-                <p class="text-2xl md:text-xl lg:text-3xl font-semibold text-textcolor">{{products?.data?.name}}</p>
+                <p class="text-2xl md:text-xl lg:text-3xl font-semibold text-textcolor">{{products?.data?.product?.name}}</p>
 
                 <div class="grid gap-3  text-2xl  lg:text-[28px] text-gold">
                     <div class="flex gap-5">
                       <span class="lg:w-32">Price</span>
                       <span class="lg:w-12">:</span>
-                      <span class="font-abhaya text-textcolor">$ {{products?.data?.price}}</span>
+                      <span class="font-abhaya text-textcolor">$ {{products?.data?.product?.price}}</span>
                     </div>
-                 @if(products?.data?.category?.name !== 'supplement' ){
+                 @if(products?.data?.product?.category?.name !== 'supplement' ){
                   <div class="flex gap-5">
                     <span class="lg:w-32">Color</span>
                     <span class="lg:w-12">:</span>
-                    <span class="font-abhaya text-textcolor">{{products?.data?.color}}</span>
+                    <span class="font-abhaya text-textcolor">{{products?.data?.product?.color}}</span>
                   </div>
-                  @if(products?.data?.category?.name !== 'equipment' ){
+                  @if(products?.data?.product?.category?.name !== 'equipment' ){
                   <div class="flex gap-5">
                     <span class="lg:w-32">Size</span>
                     <span class="lg:w-12">:</span>
                     <span class="font-abhaya text-textcolor flex gap-1 sm:gap-1 md:gap-1 lg:gap-1">
                       
-                      <button *ngFor="let item of products?.data?.size_range" (click)="selectSize(item)"
+                      <button *ngFor="let item of products?.data?.product?.size_range" (click)="selectSize(item)"
                       [ngClass]="{'bg-black text-white border-gold': selectedSize === item,'bg-white text-[#2F2F2F] border-[#999999]': selectedSize !== item}"class=" cursor-pointer border rounded-full px-3 md:px-3 text-[15px] lg:text-[18px] font-abhaya py-1 transition duration-300 ">{{item}}</button>
                       
                     </span>
@@ -58,7 +58,7 @@
                   <div class="flex gap-5">
                     <span class="lg:w-32">Material</span>
                     <span class="lg:w-12">:</span>
-                    <span class="font-abhaya text-textcolor">{{products?.data?.material}}</span>
+                    <span class="font-abhaya text-textcolor">{{products?.data?.product?.material}}</span>
                   </div>
                  }
                     
@@ -66,7 +66,7 @@
                       <span class="lg:w-32">Stock</span>
                       <span class="lg:w-12">:</span>
                       <span class="font-abhaya text-textcolor">
-                        {{products?.data?.stock}}
+                        {{products?.data?.product?.stock}}
                       </span>
                     </div>
 
@@ -125,7 +125,7 @@
               
                 </div>
 
-                  <span *ngIf="!this.selectedSize && showSizeMessage && (products?.data?.category?.name === 'clothes' || products?.data?.category?.name === 'shoes') " class="text-sm text-left  text-red-600">
+                  <span *ngIf="!this.selectedSize && showSizeMessage && (products?.data?.product?.category?.name === 'clothes' || products?.data?.product?.category?.name === 'shoes') " class="text-sm text-left  text-red-600">
                     Please select a size before adding to cart.
                   </span>
               
@@ -139,7 +139,7 @@
     <h1 class="text-center md:text-start md:ms-15 lg:ms-24 text-2xl lg:text-3xl text-gold font-display font-semibold">Description</h1>
     <div class="bg-secondColor w-full h-auto lg:p-10">
      <p class="text-[#707070] font-abhaya lg:pl-14  lg:px-0 lg:text-xl lg:leading-8 pr-8 ">
-      {{products?.data?.description}}
+      {{products?.data?.product?.description}}
      </p>
     </div> 
 </div>
