@@ -22,6 +22,7 @@ import { AdminService } from '../../services/admin.service';
 import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
+
   selector: 'app-product-details',
   standalone: true,
   imports: [
@@ -35,6 +36,11 @@ import { LoadingComponent } from '../../components/loading/loading.component';
     RouterModule,
     LoadingComponent,
   ],
+// =======
+//   selector: 'app-product-details' , 
+//   standalone: true, 
+//   imports: [HeaderComponent, FooterComponent, ReviewcardComponent,ReactiveFormsModule,FormsModule, CartComponent,CommonModule,RouterModule,LoadingComponent],
+// >>>>>>> main
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
   providers: [ProductService],
@@ -44,6 +50,7 @@ export class ProductDetailsComponent implements OnInit {
   isFav: boolean = false;
   showConfirmModal: boolean = false;
   productId: string = '';
+
   isLoading: boolean = false;
   @Output() removedFromFavorites = new EventEmitter<string>();
 
@@ -82,6 +89,32 @@ export class ProductDetailsComponent implements OnInit {
       complete: () => {
         console.log('completed');
       },
+// =======
+//   isLoading: boolean = false; 
+//   @Output() removedFromFavorites = new EventEmitter<string>();
+
+// constructor(private authService: AuthService,activatedRoute:ActivatedRoute ,private productService:ProductService,private router: Router,private cartService: CartService,private favoritesService:FavoritesService,private adminService:AdminService){
+//   this.ID =activatedRoute.snapshot.params['id'];
+// }
+    
+//    products:any;
+//    reviews: any;
+//    quantity: number = 1;
+//    selectedSize: string | null = null;
+//    showSizeMessage :boolean = false;
+//    showQuantityMessage :boolean = false;
+//    isAdded: boolean = false;
+
+//   ngOnInit(): void {
+//     this.isLoading=true;
+//     this.checkIfFavorite();
+//     this.productService.getProductById(this.ID).subscribe({
+//      next:(data)=>{this.products = data ,console.log(this.products)
+//       this.isLoading=false;
+//      },
+//      error:(err)=>{console.log(err)},
+//      complete:()=>{console.log("completed")}
+// >>>>>>> main
     });
 
     this.productService.getReviewsById(this.ID).subscribe({
@@ -221,13 +254,20 @@ export class ProductDetailsComponent implements OnInit {
     return localStorage.getItem('role') === 'admin';
   }
   confirmDelete(productId: string) {
+
     this.productId = productId;
     this.showConfirmModal = true;
+// =======
+//     this.productId = productId; 
+//     this.showConfirmModal = true;
+  
+// >>>>>>> main
   }
 
   deleteCurrentProduct() {
     this.adminService.deleteProduct(this.ID).subscribe({
       next: (response) => {
+
         console.log('Product deleted successfully', response);
         this.router.navigate(['/home']);
         this.showConfirmModal = false;
@@ -249,6 +289,33 @@ export class ProductDetailsComponent implements OnInit {
   toggleEdit() {
     this.router.navigate(['/admin-edit', this.ID]);
   }
+// =======
+//             console.log('Product deleted successfully', response);
+//             this.router.navigate(['/home']);  
+//             this.showConfirmModal = false; 
+//           },
+//           error: (err) => {
+//             console.error('Error occurred:', err);
+//             this.showConfirmModal = false; 
+//           },
+//     })
+    
+//     }
+//   togleDel()
+// {
+// this.showConfirmModal = true;
+// }
+
+// cancelDelete() {
+// this.showConfirmModal = false; 
+// }
+
+
+// toggleEdit()
+// {this.router.navigate(['/admin-edit', this.ID]);
+// }
+
+// >>>>>>> main
 
   addToCart() {
     if (
@@ -283,4 +350,5 @@ export class ProductDetailsComponent implements OnInit {
         );
     }
   }
+
 }
